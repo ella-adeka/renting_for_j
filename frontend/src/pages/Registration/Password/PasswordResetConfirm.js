@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import MainNavigation from "../../../components/MainNavigation";
 
 export default class PasswordResetConfirm extends Component{
     constructor(props){
@@ -25,29 +26,32 @@ export default class PasswordResetConfirm extends Component{
         const { isAuth } = this.state;
 
         return(
-            <div>
+            <main>
+                <MainNavigation/>
+                <div className="signup_page">
                 { isAuth === false && (
                     <Fragment>
-                        <h2>Confirm Your New Password</h2>
+                        <h2>Confirm New Password</h2>
                         <br></br>
-                        <form>
-                            <input type="text" name="uid" placeholder="uid"></input>
+                        <form className="signup_form">
+                            <input className="signup_form__input"  type="text" name="uid" placeholder="uid"></input>
                             <br></br>
-                            <input type="text" name="token" placeholder="Token"></input>
+                            <input className="signup_form__input"  type="text" name="token" placeholder="Token"></input>
                             <br></br>
-                            <input type="password" name="new_password1" placeholder="New Password"></input>
+                            <input className="signup_form__input"  type="password" name="new_password1" placeholder="New Password"></input>
                             <br></br>
-                            <input type="password" name="new_password2" placeholder="Confirm New Password"></input>
+                            <input className="signup_form__input"  type="password" name="new_password2" placeholder="Confirm New Password"></input>
                             <br></br>
                             <br></br>
-                            <button type="submit">Reset My Password</button>
+                            <button type="submit" className="signup_form__button" >Reset My Password</button>
                         </form>
         
                         <br></br>
-                        <p>Please <a href="mailto:abc123@gmail.com?subject=Password Reset">contact us</a> if you have any trouble resetting your password.</p>
+                        <p className="sth_else">Please <a href="mailto:abc123@gmail.com?subject=Password Reset">contact us</a> if you have any trouble resetting your password.</p>
                     </Fragment>
                 )}
             </div>
+            </main>
         )
     }
 }

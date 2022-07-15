@@ -2,7 +2,12 @@ import React, { Component, Fragment } from "react";
 import {  Link } from "react-router-dom";
 import axios from 'axios';
 import { withUrlParams } from "../../utils/urlParams";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 import format from "date-fns/format";
+import MainNavigation from "../../components/MainNavigation";
+
+
 
 class Payment extends Component{
     constructor(props){
@@ -100,16 +105,23 @@ class Payment extends Component{
     
 
     
+
+    
     render(){
         const { booking, email, first_name, last_name, loading,  user, property } = this.state;
-        const options =  { year: "numeric", month: "long", day: "numeric" } // others: weekday: "short", year: "numeric", month: "long", day: "numeric"
+        const options =  { weekday: "short",  year: "numeric", month: "long", day: "numeric" } // others: weekday: "short", year: "numeric", month: "long", day: "numeric"
         
+        const initialOptions = {
+            "client-id": "test",
+            currency: "GBP",
+        };
         
         
         return(
             <div>
                 { loading === false && (
                     <Fragment>
+                        <MainNavigation />
                         {booking.id}
                         {/* {booking.property} */}
                         <h1>Reservation</h1>
@@ -153,10 +165,40 @@ class Payment extends Component{
                         <br></br>
 
                         <h2>Payment</h2>
-                        <form>
+                        {/* <PayPalScriptProvider options={{ "client-id": "test" }}> */}
+                       <div style={{ position: "relative", zIndex: 0 }}>
+                            <PayPalScriptProvider options={initialOptions}>
+                            <PayPalButtons style={{ layout: "vertical", color: 'silver', shape: 'rect', label: 'pay' }}
+                                createOrder={( data, actions ) => {
+                                    return actions.order.create({
+                                        purchase_units: [
+                                            {
+                                                amount: {
+                                                    value: "10.00"
+                                                }
+                                            }
+                                        ],
+                                        'application_context' : {
+                                            'shipping_preference': 'NO_SHIPPING',
+                                            'postcode_preference': 'NO_POSTCODE'
+                                        }
+                                        
+                                    })
+                                }}
+                            />
+                            {/* <PayPalButtons style={{ layout: "horizontal" }} /> */}
+                            </PayPalScriptProvider>
+                       </div>
+                        {/* <form>
                             <label>Payment Method</label><br></br>
                             <p>Credit/Debit Card    Paypal    </p>
-                            {/* <input type="text"></input><br></br> */}
+                            <label for="payment_method">Payment Method:</label><br></br>
+                            <br></br>
+                            <select name="payment_method" id="payment_method">
+                                <option value="choose">-- Choose payment method --</option>
+                                <option value="credit/Debit Card">Credit/Debit Card</option>
+                                <option value="paypal">Paypal</option>
+                            </select><br></br>
 
                             <label>Card number</label><br></br>
                             <input type="text"></input><br></br>
@@ -165,19 +207,21 @@ class Payment extends Component{
                             <input type="text"></input><br></br>
 
                             <label>Expiry Date</label><br></br>
-                            <input type="text" placeholder=""></input><br></br>
+                            <input type="month" placeholder=""></input><br></br>
 
                             <label>CVV/CVC</label><br></br>
                             <input type="text" placeholder=""></input><br></br>
 
                             <br></br>
+                            <button type="submit">Pay with Paypal</button>
+                            <br></br>
                             <br></br>
                             <button type="submit">Pay and <br></br> Confirm</button>
                             
-                        </form>
+                        </form> */}
 
                         <br></br>
-                        <Link to={{ pathname: `/payment/confirmation` }}><button style={{marginBottom: "2em"}}>Payment Confirmation</button></Link><br></br>
+                        {/* <Link to={{ pathname: `/payment/confirmation` }}><button style={{marginBottom: "2em"}}>Payment Confirmation</button></Link><br></br> */}
                         <button style={{marginBottom: "2em"}} onClick={this.handleCancellation}>Cancel Reservation</button>
                         {/* <Link to={{ pathname: `/cancel-reservation` }} onClick={this.handleCancellation}><button style={{marginBottom: "2em"}}>Cancel Reservation</button></Link> */}
                     </Fragment>

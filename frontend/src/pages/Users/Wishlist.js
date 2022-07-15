@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MainNavigation from "../../components/MainNavigation";
 
-export default class UserProfile extends Component{
+export default class Wishlist extends Component{
     constructor(props){
         super(props);
     }
@@ -17,7 +17,7 @@ export default class UserProfile extends Component{
             <main>
                 <MainNavigation />
                 <div>
-                    <h1>Hello User!</h1>
+                    <h1>Wishlist</h1>
                 </div>
             </main>
         )

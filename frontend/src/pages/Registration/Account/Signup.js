@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import MainNavigation from "../../../components/MainNavigation";
 
 export default class Signup extends Component{
     constructor(props){
@@ -23,7 +24,7 @@ export default class Signup extends Component{
 
     componentDidMount() {
         if (localStorage.getItem('token') !== null) {
-            window.location.replace('http://127.0.0.1:8000/profile');
+            window.location.replace('http://127.0.0.1:8000/user/account');
         } else {
             this.setState({
                 loading: false
@@ -87,55 +88,66 @@ export default class Signup extends Component{
         const { email, first_name, last_name, avatar, password1, password2, loading, errors } = this.state;
 
         return(
-            <div>
-                {loading === false && <h1>Signup</h1>}
-                {errors === true && <h2>Cannot signup with provided credentials</h2>}
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="email">Email</label><br></br>
-                    <input type="email" value={email} onChange={this.handleChange} name="email" required></input>
-                    <br></br>
-                    <br></br>
+            <main>
+                <MainNavigation/>
+                <div className="signup_page">
+                    {loading === false && <h2>Create a new account</h2>}
+                    {errors === true && <h2>Cannot signup with provided credentials</h2>}
+                    <form onSubmit={this.handleSubmit} className="signup_form">
+                        <label htmlFor="email"  className="signup_form__label">Email</label><br></br>
+                        <input className="signup_form__input" type="email" value={email} onChange={this.handleChange} name="email" required></input>
+               
+                        <div className="signup_form__div">
+                            <div className="signup_form__div__div">
+                                <label htmlFor="first_name" className="signup_form__div__div__label">First Name</label><br></br>
+                                <input className="signup_form__div__div__input" type="text" value={first_name} onChange={this.handleChange} name="first_name" required></input>
+                            </div>
+                            
+                            <div className="signup_form__div__div">
+                                <label htmlFor="last_name" className="signup_form__div__div__label">Last Name</label><br></br>
+                                <input className="signup_form__div__div__input" type="text" value={last_name} onChange={this.handleChange} name="last_name" required></input>   
+                            </div>
+                        </div>
+                        {/* <br></br> */}
 
-                    <label htmlFor="first_name">First Name</label><br></br>
-                    <input type="text" value={first_name} onChange={this.handleChange} name="first_name" required></input>
-                    <br></br>
-                    <br></br>
+                        <div className="signup_form__div">
+                            <div className="signup_form__div__div">
+                                <label className="signup_form__div__div__label" htmlFor="password1">Password</label><br></br>
+                                <input className="signup_form__div__div__input" type="password" value={password1} onChange={this.handleChange} name="password1"></input>
+                            </div>
 
-                    <label htmlFor="last_name">Last Name</label><br></br>
-                    <input type="text" value={last_name} onChange={this.handleChange} name="last_name" required></input>
-                    <br></br>
-                    <br></br>
+                           <div className="signup_form__div__div">
+                                <label htmlFor="password2" className="signup_form__div__div__label">Confirm Password</label><br></br>
+                                <input className="signup_form__div__div__input" type="password" value={password2} onChange={this.handleChange} name="password2"></input>
+                           </div>
+                        </div>
+                        {/* <label htmlFor="avatar">Profile Picture</label><br></br>
+                        <input type="file"   id="avatar"  onChange={this.handleImageChange} name="avatar"></input> */}
+                    
+                        
+                        <br></br>
 
-                    <label htmlFor="password1">Password</label><br></br>
-                    <input type="password" value={password1} onChange={this.handleChange} name="password1"></input>
-                    <br></br>
-                    <br></br>
+                        {/* <input type="submit" value="Submit" ></input> */}
+                        <button className="signup_form__button" type="submit">Submit</button>
+                    </form>
 
-                    <label htmlFor="password2">Confirm Password</label><br></br>
-                    <input type="password" value={password2} onChange={this.handleChange} name="password2"></input>
-                    <br></br>
-                    <br></br>
+                    <div className="socials">
+                        <h4>- Or signup with -</h4>  
+                        <br></br>
+                        {/* <a href="http://127.0.0.1:8000/tight/facebook/login/?process=login">Facebook</a> */}
+                        <a href="http://127.0.0.1:8000/dj-rest-auth/facebook/?process=login">Facebook</a>
+                        {/* <br></br> */}
+                        <a href="http://127.0.0.1:8000/dj-rest-auth/google/?process=login">Google</a>
+                        {/* <br></br> */}
+                        <a href="http://127.0.0.1:8000/dj-rest-auth/twitter/?process=login">Twitter</a>
+                    </div>
 
-                    {/* <label htmlFor="avatar">Profile Picture</label><br></br>
-                    <input type="file"   id="avatar"  onChange={this.handleImageChange} name="avatar"></input> */}
-                   
                     <br></br>
-                    <br></br>
+                    <h4 className="sth_else">Already Have An Account? <Link to={{ pathname: '/login' }} style={{ marginRight: "2em"}}>Log In</Link></h4>
 
-                    {/* <input type="submit" value="Submit" ></input> */}
-                    <button type="submit">Submit</button>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                </form>
-
-                <br></br>
-                <h3>Already Have An Account?</h3>
-                <Link to={{ pathname: '/login' }} style={{ marginRight: "2em"}}>Log in to your account</Link>
-
-                {this.isLoggedIn}
-            </div>
+                    {this.isLoggedIn}
+                </div>
+            </main>
         )
     }
 }

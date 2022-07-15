@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import MainNavigation from "../../components/MainNavigation";
+
 
 export default class Cities extends Component{
     constructor(props){
@@ -23,17 +25,20 @@ export default class Cities extends Component{
     
     render(){
         return(
-            <div className="cities_body">
-                <h1>Cities</h1>
-                {this.state.citiesList.map((cities, index) =>(
-                    <div key={index}>
-                        <Link to={{ pathname: `/cities/${cities.slug}` }}>
-                            { cities.city }
-                        </Link>
-                    </div>
-                    
-                ))}
-            </div>
+            <main>
+                <MainNavigation />
+                <div className="cities_body">
+                    <h1>Cities</h1>
+                    {this.state.citiesList.map((cities, index) =>(
+                        <div key={index}>
+                            <Link to={{ pathname: `/cities/${cities.slug}` }}>
+                                { cities.city }
+                            </Link>
+                        </div>
+                        
+                    ))}
+                </div>
+            </main>
         )
     }
 }

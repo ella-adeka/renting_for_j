@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import {  Link, Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import MainNavigation from "../../components/MainNavigation";
 import { withUrlParams } from "../../utils/urlParams";
 // import {Box, TextField } from '@mui/material';
 // import { DateRangePicker, DateRange } from "@mui/x-date-pickers";
@@ -9,6 +10,11 @@ import { withUrlParams } from "../../utils/urlParams";
 import format from "date-fns/format";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+    faHeart,
+} from '@fortawesome/free-solid-svg-icons';
+
 // import "react-date-range/dist/styles.css";
 // import "react-date-range/dist/theme/default.css";
 
@@ -176,7 +182,6 @@ class Property extends Component {
         return thePrice*this.noOfDays(this.state);
     }
 
-   
 
     showReservationForm = () => {
         this.setState(prevState => ({
@@ -186,8 +191,7 @@ class Property extends Component {
         
     render(){
         {/* USE SPREAD OPERATOR TO FILTER BY AMENITIES AVAILABLE */}
-        const { user,bookingList, booked, check_in,check_out, formShowing, guests, property, propertyImagesList, isAuth } = this.state;
-        // console.log(booked)
+        const {  user,bookingList, booked, check_in,check_out, formShowing, guests, property, propertyImagesList, isAuth } = this.state;
         
         var theBooking = bookingList.filter((booking) => booking.user == user)
         // var theBooking = bookingList.filter((booking) => booking.user == user).map((booking) => (booking.reserved));
@@ -196,278 +200,316 @@ class Property extends Component {
         const bookedAndBusy = localStorage.getItem('booked')
         // console.log(bookedAndBusy)
         return(
-            <div className="property_body">
-                <div key={property.id}>
-                    <h1>{property.title}</h1>
-                    {/* <img src={property.image} alt={property.title} width="100%" height="100%"></img> */}
-                    <img src={property.image} alt={property.title} width="100%" height="500px"></img>
-                    <Link to={{ pathname: '/contact-us'}}><button type="button" style={{ position: "absolute", zIndex: "1", top: "-0.5em", right: "0"}}>Enquire Now</button></Link>
-                    <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span>
+            <main>
+                <MainNavigation/>
 
-                    <p>{property.type}</p>
-                    <p>{property.city}</p>
-                    <h4>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} <span>per night</span></h4><br></br>
-                    <h4>Min: {property.min_days} nights</h4><br></br>
-                    <h4>Highlights</h4>
-                    <p>{property.max_guests} guests{property.highlights?.map((highlights, index) => (
-                        <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
-                    ))}</p>
-                    <br></br>
-                    
-                    <hr></hr>
-                    <br></br>
-                    {
-                        isAuth ?  (
-                            <Fragment>
-                                {
-                                    theBooking.length != 0 ? (
-                                    // theBooking[0] ? (
-                                        <div>
-                                            <p>Note: Your reservation will not be set in stone till you pay</p>
-                                            <Link to={{ pathname: `/payment` }}><button style={{marginBottom: "2em"}}>Go to Reservation</button></Link>
-                                            <button type="button"  style={{ margin: "1em"}}>Add To <br></br> Wishlist</button>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <button type="button" onClick={this.showReservationForm} style={{ margin: "1em"}}>Check Availability </button>
-                                            <button type="button"  style={{ margin: "1em"}}>Add To <br></br> Wishlist</button>
-                                        </div>
-                                    )
-                                }
-                            </Fragment>
+                {/* <FontAwesomeIcon icon="fa-thin fa-heart" /> */}
+                <Link className="back_to_props" to={{ pathname: `/properties`}}>Back to Properties</Link>
+                <div className="property_body">
+                    <div key={property.id}>
+                        <h1>{property.title}<sup style={{ fontSize: "0.3em", marginTop: "0.5em", position: "absolute" }}><FontAwesomeIcon icon={faHeart}  style={{color: "gray"}} /></sup></h1>
+                        <p className="description">{property.description}</p>
+                        {/* <img src={property.image} alt={property.title} width="100%" height="100%"></img> */}
+                        {/* <div className="property_image_div"> */}
+                            {/* <img className="property_image_div__property_image" src={property.image} alt={property.title}></img> */}
+                            <div className="theprops_images">
+                                <img className="property_image_div__property_image" src={property.image} alt={property.title}></img>
+                                {property.property_images?.map((property_image, index) => (
+                                    <div key={index} className="property_images_div">
+                                        <img  className="property_images_div__property_image"  src={property_image.images} alt={property.title} />
+                                    </div>
+                                ))}
+                            </div>
+                        {/* </div> */}
+                        {/* <Link to={{ pathname: '/contact-us'}}><button type="button" style={{ position: "absolute", zIndex: "1", top: "-0.5em", right: "0"}}>Enquire Now</button></Link> */}
+                        <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span>
+                        <h3>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} <span style={{ fontSize: "0.7em"}}>per night</span></h3><br></br>
+
+                        <p><strong>{property.type}</strong> in {property.city}</p>
+                        <p>Min: {property.min_days} nights</p><br></br>
+                        <h4>Highlights</h4>
+                        <p>{property.max_guests} guests{property.highlights?.map((highlights, index) => (
+                            <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
+                        ))}</p>
+                        <br></br>
+                        
+                      
+                        <br></br>
+                        {
+                            isAuth ?  (
+                                <Fragment>
+                                    {
+                                        theBooking.length != 0 ? (
+                                        // theBooking[0] ? (
+                                            <div>
+                                                <p>Note: Your reservation will not be set in stone till you pay</p>
+                                                <Link to={{ pathname: `/payment` }}><button style={{marginBottom: "2em"}}>Go to Reservation</button></Link>
+                                                <button type="button"  style={{ margin: "1em"}}>Add To <br></br> Wishlist</button>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <button type="button" onClick={this.showReservationForm} style={{ margin: "1em"}}>Check Availability </button>
+                                                <button type="button"  style={{ margin: "1em"}}>Add To <br></br> Wishlist</button>
+                                            </div>
+                                        )
+                                    }
+                                </Fragment>
+                            ) : (
+                                <Fragment>
+                                    <Link to={{ pathname: `/login` }}><button style={{marginBottom: "2em"}}>Book Now</button></Link>
+                                    {/* <br></br> */}
+                                </Fragment>
+                            )
+                        }
+                        <br></br>
+                        
+                      
+                        <br></br>
+                        { formShowing ? (
+                                ''
                         ) : (
                             <Fragment>
-                                <Link to={{ pathname: `/login` }}><button style={{marginBottom: "2em"}}>Book Now</button></Link>
-                                {/* <br></br> */}
+                                <form className="booking_class" onSubmit={this.handleSubmit}>
+                                    <h4>Check-in</h4>
+                                    <DatePicker
+                                        selected={check_in}
+                                        onChange={(date) => { this.setState({check_in: date}) }}
+                                        dateFormat="yyyy-MM-dd"
+                                        selectsStart
+                                        check_in={check_in}
+                                        endDate={check_out}
+                                        minDate={new Date()}
+                                        placeholderText="YYYY-MM-DD"
+                                        type="date"
+                                        value={check_in}
+                                        name="check_in"
+                                    />
+                                    <h4>Check-out</h4>
+                                    <DatePicker
+                                        selected={check_out}
+                                        onChange={(date) => this.setState({check_out: date})}
+                                        dateFormat="yyyy-MM-dd"
+                                        selectsEnd
+                                        check_in={check_in}
+                                        check_out={check_out}
+                                        minDate={check_in}
+                                        placeholderText="YYYY-MM-DD"
+                                        type="date"
+                                        value={check_out}
+                                        name="check_out"
+                                    />
+
+                                    {/* <input type="date" onChange={this.handleChange} value={check_in} name="check_in"></input>
+                                    <input type="date" onChange={this.handleChange} value={check_out} name="check_out"></input> */}
+
+                                    
+                                    <br></br>
+                                    <br></br>
+
+                                    <h4>Guests</h4>
+                                    {/* {this.addGuest} */}
+                                    {/* <button type="button" onClick={this.subtractGuest}>Subtract</button> */}
+                                    <input type="button" onClick={this.subtractGuest} value="Remove" />
+                                    <input type="text" onChange={this.handleChange} value={guests} name="guests" readOnly ></input>
+                                    {/* <button type="button" onClick={this.addGuest}>Add</button> */}
+                                    <input type="button" max={property.max_guests}  onClick={this.addGuest} value="Add" />
+                                    <br></br>
+                                    <br></br>
+
+
+                                    <button type="submit" >Submit</button>
+
+                                    <br></br>
+                                    <br></br>
+                                </form>
+                              
                             </Fragment>
-                        )
-                    }
-                    <br></br>
-                    
-                    <hr></hr>
-                    <br></br>
-                    { formShowing ? (
-                            ''
-                    ) : (
+                        )} 
+
+                        {
+                            this.noOfDays(this.state) === 0 ? (
+                                ''
+                            ) : (
+                                <Fragment>
+                                    <h4>Days </h4>
+                                    <p>{this.noOfDays(this.state)}</p>
+                                </Fragment>
+                            )
+                        }
+
+                        <h4>Subtotal </h4>
+                        {/* <p>{this.totalPrice()}</p> */}
+                        {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
+                        <p>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</p>
+                        
+                        {/* <h2>Description</h2>
+                        <p>{property.description}</p> */}
+                        
+                        <br></br>
+                      
+                        <h2>Amenities</h2>
                         <Fragment>
-                            <form className="booking_class" onSubmit={this.handleSubmit}>
-                                <h4>Check-in</h4>
-                                <DatePicker
-                                    selected={check_in}
-                                    onChange={(date) => { this.setState({check_in: date}) }}
-                                    dateFormat="yyyy-MM-dd"
-                                    selectsStart
-                                    check_in={check_in}
-                                    endDate={check_out}
-                                    minDate={new Date()}
-                                    placeholderText="YYYY-MM-DD"
-                                    type="date"
-                                    value={check_in}
-                                    name="check_in"
-                                />
-                                <h4>Check-out</h4>
-                                <DatePicker
-                                    selected={check_out}
-                                    onChange={(date) => this.setState({check_out: date})}
-                                    dateFormat="yyyy-MM-dd"
-                                    selectsEnd
-                                    check_in={check_in}
-                                    check_out={check_out}
-                                    minDate={check_in}
-                                    placeholderText="YYYY-MM-DD"
-                                    type="date"
-                                    value={check_out}
-                                    name="check_out"
-                                />
+                            {/* ATTRACTIONS */}
+                            { property.attractions?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Atrractions</h4>  {property.attractions?.map((attractions, index) => (
+                                    <li key={index}>{attractions}</li>
+                                ))}</div>
+                            )}
 
-                                {/* <input type="date" onChange={this.handleChange} value={check_in} name="check_in"></input>
-                                <input type="date" onChange={this.handleChange} value={check_out} name="check_out"></input> */}
+                            {/* BATHROOM */}
+                            { property.bathroom?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Bathroom</h4>  {property.bathroom?.map((bathroom, index) => (
+                                    <li key={index}>{bathroom}</li>
+                                ))}</div>
+                            )}
 
+                            {/* BEDROOM */}
+                            { property.bedroom?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Bedroom</h4>  {property.bedroom?.map((bedroom, index) => (
+                                    <li key={index}>{bedroom}</li>
+                                ))}</div>
+                            )}
+
+                            {/* CLEANING */}
+                            { property.cleaning?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Cleaning</h4>  {property.cleaning?.map((cleaning, index) => (
+                                    <li key={index}>{cleaning}</li>
+                                ))}</div>
+                            )}
+
+                            {/* ENTERTAINMENT */}
+                            { property.entertainment?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Entertainment</h4>  {property.entertainment?.map((entertainment, index) => (
+                                    <li key={index}>{entertainment}</li>
+                                ))}</div>
+                            )}
+
+                            {/* FAMILY */}
+                            { property.family?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Family</h4>  {property.family?.map((family, index) => (
+                                    <li key={index}>{family}</li>
+                                ))}</div>
+                            )}
+
+                            {/* FACILITIES */}
+                            { property.facilities?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Facilities</h4>  {property.facilities?.map((facilities, index) => (
+                                    <li key={index}>{facilities}</li>
+                                ))}</div>
+                            )}
+
+                            {/* HEATING AND COOLING */}
+                            { property.heating_and_cooling?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Heating and Cooling</h4>  {property.heating_and_cooling?.map((heating_and_cooling, index) => (
+                                    <li key={index}>{heating_and_cooling}</li>
+                                ))}</div>
+                            )}
                                 
-                                <br></br>
-                                <br></br>
+                            {/* INTERNET AND OFFICE */}
+                            { property.internet_and_office?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Internet And Office</h4>  {property.internet_and_office?.map((internet_and_office, index) => (
+                                    <li key={index}>{internet_and_office}</li>
+                                ))}</div>
+                            )}
+                        
+                            {/* KITCHEN AND DINING */}
+                            { property.kitchen_and_dining?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Kitchen and Dining</h4>  {property.kitchen_and_dining?.map((kitchen_and_dining, index) => (
+                                    <li key={index}>{kitchen_and_dining}</li>
+                                ))}</div>
+                            )}
 
-                                <h4>Guests</h4>
-                                {/* {this.addGuest} */}
-                                {/* <button type="button" onClick={this.subtractGuest}>Subtract</button> */}
-                                <input type="button" onClick={this.subtractGuest} value="Remove" />
-                                <input type="text" onChange={this.handleChange} value={guests} name="guests" readOnly ></input>
-                                {/* <button type="button" onClick={this.addGuest}>Add</button> */}
-                                <input type="button" max={property.max_guests}  onClick={this.addGuest} value="Add" />
-                                <br></br>
-                                <br></br>
+                            {/* Outdoors */}
+                            { property.outdoors?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Outdoors</h4>  {property.outdoors?.map((outdoors, index) => (
+                                    <li key={index}>{outdoors}</li>
+                                ))}</div>
+                            )}
 
+                            {/* PARKING */}
+                            { property.parking?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Parking</h4>  {property.parking?.map((parking, index) => (
+                                    <li key={index}>{parking}</li>
+                                ))}</div>
+                            )}
 
-                                <button type="submit" >Submit</button>
+                            {/* SAFETY */}
+                            { property.safety?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Safety</h4>  {property.safety?.map((safety, index) => (
+                                    <li key={index}>{safety}</li>
+                                ))}</div>
+                            )}
 
-                                <br></br>
-                                <br></br>
-                            </form>
-                            <hr></hr>
+                            {/* SERVICES */}
+                            { property.services?.length == 0 ? (
+                                ''
+                            ) : (
+                                <div><h4>Services</h4>  {property.services?.map((services, index) => (
+                                    <li key={index}>{services}</li>
+                                ))}</div>
+                            )}
                         </Fragment>
-                    )} 
+                        
+                      
+                        <br></br>
+                        <h2>Location</h2>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
+                            width="100%"
+                            height="450"
+                            frameBorder="0"
+                            style={{ border: 0 }}
+                            allowFullScreen=""
+                            aria-hidden="false"
+                            tabIndex="0"
+                            />
 
-                    {
-                        this.noOfDays(this.state) === 0 ? (
-                            ''
-                        ) : (
-                            <Fragment>
-                                <h4>Days </h4>
-                                <p>{this.noOfDays(this.state)}</p>
-                            </Fragment>
-                        )
-                    }
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                      
 
-                    <h4>Subtotal </h4>
-                    {/* <p>{this.totalPrice()}</p> */}
-                    {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
-                    <p>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</p>
-                    
-                    <h2>Description</h2>
-                    <p>{property.description}</p>
-                    
-                    <br></br>
-                    <hr></hr>
-                    <h2>Amenities</h2>
-                    <Fragment>
-                        {/* ATTRACTIONS */}
-                        { property.attractions?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Atrractions</h4>  {property.attractions?.map((attractions, index) => (
-                                <li key={index}>{attractions}</li>
-                            ))}</div>
-                        )}
+                        {/* <br></br>
+                        <h2>Property Images</h2>
+                            <div className="theprops_images">{property.property_images?.map((property_image, index) => (
+                                <div key={index} className="property_images_div">
+                                    <img  className="property_images_div__property_image"  src={property_image.images} alt={property.title} />
+                                </div>
+                            ))}</div> */}
 
-                        {/* BATHROOM */}
-                        { property.bathroom?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Bathroom</h4>  {property.bathroom?.map((bathroom, index) => (
-                                <li key={index}>{bathroom}</li>
-                            ))}</div>
-                        )}
 
-                        {/* BEDROOM */}
-                        { property.bedroom?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Bedroom</h4>  {property.bedroom?.map((bedroom, index) => (
-                                <li key={index}>{bedroom}</li>
-                            ))}</div>
-                        )}
-
-                        {/* CLEANING */}
-                        { property.cleaning?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Cleaning</h4>  {property.cleaning?.map((cleaning, index) => (
-                                <li key={index}>{cleaning}</li>
-                            ))}</div>
-                        )}
-
-                        {/* ENTERTAINMENT */}
-                        { property.entertainment?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Entertainment</h4>  {property.entertainment?.map((entertainment, index) => (
-                                <li key={index}>{entertainment}</li>
-                            ))}</div>
-                        )}
-
-                        {/* FAMILY */}
-                        { property.family?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Family</h4>  {property.family?.map((family, index) => (
-                                <li key={index}>{family}</li>
-                            ))}</div>
-                        )}
-
-                        {/* FACILITIES */}
-                        { property.facilities?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Facilities</h4>  {property.facilities?.map((facilities, index) => (
-                                <li key={index}>{facilities}</li>
-                            ))}</div>
-                        )}
-
-                        {/* HEATING AND COOLING */}
-                        { property.heating_and_cooling?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Heating and Cooling</h4>  {property.heating_and_cooling?.map((heating_and_cooling, index) => (
-                                <li key={index}>{heating_and_cooling}</li>
-                            ))}</div>
-                        )}
-                            
-                        {/* INTERNET AND OFFICE */}
-                        { property.internet_and_office?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Internet And Office</h4>  {property.internet_and_office?.map((internet_and_office, index) => (
-                                <li key={index}>{internet_and_office}</li>
-                            ))}</div>
-                        )}
-                    
-                        {/* KITCHEN AND DINING */}
-                        { property.kitchen_and_dining?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Kitchen and Dining</h4>  {property.kitchen_and_dining?.map((kitchen_and_dining, index) => (
-                                <li key={index}>{kitchen_and_dining}</li>
-                            ))}</div>
-                        )}
-
-                        {/* Outdoors */}
-                        { property.outdoors?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Outdoors</h4>  {property.outdoors?.map((outdoors, index) => (
-                                <li key={index}>{outdoors}</li>
-                            ))}</div>
-                        )}
-
-                        {/* PARKING */}
-                        { property.parking?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Parking</h4>  {property.parking?.map((parking, index) => (
-                                <li key={index}>{parking}</li>
-                            ))}</div>
-                        )}
-
-                        {/* SAFETY */}
-                        { property.safety?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Safety</h4>  {property.safety?.map((safety, index) => (
-                                <li key={index}>{safety}</li>
-                            ))}</div>
-                        )}
-
-                        {/* SERVICES */}
-                        { property.services?.length == 0 ? (
-                            ''
-                        ) : (
-                            <div><h4>Services</h4>  {property.services?.map((services, index) => (
-                                <li key={index}>{services}</li>
-                            ))}</div>
-                        )}
-                    </Fragment>
-                    
-                    <hr></hr>
-                    
-                    <br></br>
-                    <h2>Property Images</h2>
-                    <div>{property.property_images?.map((property_image, index) => (
-                        <div key={index} className="property_images">
-                            <img  src={property_image.images} alt={property.title} width="250" />
-                        </div>
-                    ))}</div>
+                      
+                        <br></br>
+                        <h2>Reviews</h2>
+                    </div>
                 </div>
-            </div>
+            </main>
         )
     }
 }

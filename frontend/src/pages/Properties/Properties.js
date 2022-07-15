@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import MainNavigation from "../../components/MainNavigation";
+import Reservation  from '../../components/Reservation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+    faHeart,
+} from '@fortawesome/free-solid-svg-icons';
+
 
 export default class Properties extends Component{
     constructor(props){
@@ -36,28 +43,46 @@ export default class Properties extends Component{
         const { propertiesList } = this.state;
         // const { propertyImagesList } = this.state;
         return(
-            <div className="properties_body">
-                {/* <h1>Properties</h1> */}
-                <br></br>
-                <div>
-                    {propertiesList.map((property, index) => (
-                        
-                        <div key={index}>
-                            <Link to={{ pathname: `/properties/${property.slug}/${property.id}` }}>
-                                <h2>{property.title}</h2>
-                                <img src={property.image} alt={property.title} width="200"></img>
-                                <p>{property.type}</p>
-                                <p>{property.location}</p>
-                                <p><strong> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong></p>
-                                <br></br>
-                            </Link>
+            <main style={{ overflow: "hidden", height: "100vh"}}>
+            {/* <main > */}
+                <MainNavigation />
+                <Reservation />
+
+                    <div className="the_head">
+                        <h1>Places to stay</h1>
+                        <input type="text" placeholder="Search..."></input>
+                    </div>
+                    <h2 style={{ textAlign: "center", paddingBottom: "0.1em"}}>Places to stay</h2>
+                <div className="properties_body">
+                    {/* <br></br> */}
+                    <div>
+                        {propertiesList.map((property, index) => (
                             
-                            <hr></hr>
-                        </div>
-                    ))}
-                    <br></br>
+                            <div key={index} className="properties_body__property" style={{ position: "relative"}}>
+                                <Link to={{ pathname: `/properties/${property.slug}/${property.id}` }}>
+                                    <img src={property.image} alt={property.title}></img>
+                                    <FontAwesomeIcon className="heart" icon={faHeart}  style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 8}} />
+                                    <h3>{property.title}</h3>
+                                    <span style={{ fontSize: "0.9em"}}>{property.type} in <Link to={{ pathname: `/cities/${property.city.toLowerCase()}`}} className="city_link">{property.city}</Link></span>
+                                    <p>{property.max_guests} guests{property.highlights?.map((highlights, index) => (
+                                        <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
+                                        ))}</p>
+                                    {/* <p>{property.type}</p> */}
+                                    {/* <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span> */}
+                                    <br></br>
+                                    <br></br>
+                                    <h4><strong style={{fontWeight: "bolder"}}> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong> per night</h4>
+                                    <br></br>
+                                </Link>
+                                
+                                {/* <hr></hr> */}
+                            </div>
+                        ))}
+                        <br></br>
+                    </div>
+                    <div></div>
                 </div>
-            </div>
+            </main>
         )
     }
 }

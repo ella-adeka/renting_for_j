@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import HomeNavigation from "../components/HomeNavigation";
 
 export default class Home extends Component{
     constructor(props){
@@ -8,11 +9,15 @@ export default class Home extends Component{
     
     render(){
         return(
-            <div>
-                <h1>Home</h1>
-                <p>AIRBNB</p>
-                <Link to={{ pathname: '/amenities'}}>Amenities</Link>
-            </div>
+            <main className="home">
+                {/* <h1>Home</h1> */}
+              
+                <HomeNavigation/>
+
+                            
+                   
+                {/* <Link  to={{ pathname: '/amenities'}}>Amenities</Link> */}
+            </main>
         )
     }
 }

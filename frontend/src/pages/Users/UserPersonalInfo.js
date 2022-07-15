@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MainNavigation from "../../components/MainNavigation";
 
-export default class UserProfile extends Component{
+export default class UserPersonalInfo extends Component{
     constructor(props){
         super(props);
     }

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import MainNavigation from "../../../components/MainNavigation";
 
 export default class PasswordReset extends Component{
     constructor(props){
@@ -37,24 +38,27 @@ export default class PasswordReset extends Component{
         const { email, isAuth } = this.state;
 
         return(
-            <div>
-                { isAuth === false && (
-                    <Fragment>
-                        <h2>Reset Password</h2>
-                        <p>Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it.</p>
-                        <br></br>
-                        <form onSubmit={this.handleSubmit}>
-                            <input type="email" value={email} onChange={this.handleChange} name="email" placeholder="Email"></input>
+            <main>
+                <MainNavigation/>
+                <div className="signup_page">
+                    { isAuth === false && (
+                        <Fragment>
+                            <h2>Reset Password</h2>
+                            <p>Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it.</p>
                             <br></br>
+                            <form onSubmit={this.handleSubmit} className="signup_form">
+                                <input className="signup_form__input" type="email" value={email} onChange={this.handleChange} name="email" placeholder="Email"></input>
+                                <br></br>
+                                <br></br>
+                                <button className="signup_form__button" type="submit">Reset My Password</button>
+                            </form>
+            
                             <br></br>
-                            <button type="submit">Reset My Password</button>
-                        </form>
-        
-                        <br></br>
-                        <p>Please <a href="mailto:abc123@gmail.com?subject=Password Reset">contact us</a> if you have any trouble resetting your password.</p>
-                    </Fragment>
-                )}
-            </div>
+                            <p className="sth_else">Please <a href="mailto:abc123@gmail.com?subject=Password Reset">contact us</a> if you have any trouble resetting your password.</p>
+                        </Fragment>
+                    )}
+                </div>
+            </main>
         )
     }
 }

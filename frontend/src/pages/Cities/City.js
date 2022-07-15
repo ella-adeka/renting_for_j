@@ -1,7 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { withUrlParams } from "../../utils/urlParams";
-import { Link } from "react-router-dom";
+import MainNavigation from "../../components/MainNavigation";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+    faHeart,
+} from '@fortawesome/free-solid-svg-icons';
 
 
 class City extends Component{
@@ -11,11 +16,17 @@ class City extends Component{
             cities: [],
             properties: []
         }
+
+        this.handleBackGrd = this.handleBackGrd.bind(this);
     }
 
     componentDidMount(){
         this.showCity();
+        // this.handleBackGrd();
+        
     }
+
+   
 
     async showCity (){
          const [ firstResponse, secondResponse ] = await Promise.all([
@@ -27,6 +38,10 @@ class City extends Component{
             properties: secondResponse.data}
         )
     }
+
+    handleBackGrd = () => {
+        console.log("yes")
+    }
     
     render(){
 
@@ -34,24 +49,29 @@ class City extends Component{
         const {cities, properties } = this.state;
 
         return(
-            <div className="city_body">
+            <main>
+                <MainNavigation />
+                <div className="properties_body">
                 {cities.filter((city) => city.slug == slug).map((city) => (
                     <div key={city.id}>
                         <h1>{city.city}</h1>
                         {properties.filter((property) => city.city == property.city).map(property => (
                             <div key={property.id}>
                                 <Link to={{ pathname: `/properties/${property.slug}/${property.id}`}}>
-                                    <h2>{property.title}</h2>
-                                    <img src={property.image} alt={property.title} width="200"></img>
-                                    <p><strong> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong></p>
+                                    <img src={property.image} alt={property.title}></img>
+                                    <FontAwesomeIcon className="heart" icon={faHeart}  style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1}} />
+                                    <h3>{property.title}</h3>
+                                    <p>{property.type}</p>
+                                    <br></br>
+                                    <h4><strong> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong> per night</h4>
                                     <br></br>
                                 </Link>
-                                <hr></hr>
                             </div>
                         ))}
                     </div>
                 ))}
             </div>
+            </main>
         )
     }
 }

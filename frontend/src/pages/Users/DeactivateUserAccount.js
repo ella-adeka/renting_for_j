@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
+import MainNavigation from "../../components/MainNavigation";
 
 export default class DeactivateUserAccount extends Component{
     constructor(props){
@@ -43,15 +45,19 @@ export default class DeactivateUserAccount extends Component{
 
         return(
             <div>
+                <MainNavigation/>
                { loading === false && (
                     <Fragment>
                         {''}
+                        
+
                         {/* <h6>Sad to see you go,{first_name} :(</h6> */}
                         <h6>Sad to see you go :(</h6>
                         <h3>{first_name}, tell us your reasons</h3>
                         <p>Don't really like it here :(</p>
                         <br></br>
-                        <button>Deactivate</button>
+                        <Link className="back_to_props" to={{ pathname: `/user/account`}}>Nevermind</Link>
+                        <button type="submit">Deactivate</button>
                     </Fragment>
                )}
             </div>

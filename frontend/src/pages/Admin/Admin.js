@@ -9,18 +9,7 @@ export default class Admin extends Component{
     render(){
         return(
             <div>
-                <h2>Admin</h2>
-                <h4>Users</h4>
-                <p>email: abc123@gmail.com</p>
-
-                <br></br>
-                <br></br>
-                
-                <h4>Bookings</h4>
-                <p>Property:<strong> The Daily Planet</strong></p>
-                <p>email: abc123@gmail.com</p>
-
-
+               <h1>Under Construction</h1>
             </div>
         )
     }

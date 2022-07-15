@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import MainNavigation from "../../../components/MainNavigation";
 
 export default class Login extends Component{
     constructor(props){
@@ -54,7 +55,7 @@ export default class Login extends Component{
                 if (data.key) {
                     localStorage.clear();
                     localStorage.setItem('token', data.key);
-                    window.location.replace('http://127.0.0.1:8000/user/profile');
+                    window.location.replace('http://127.0.0.1:8000/user/account');
                 } else {
                     this.setState({
                         email:'',
@@ -69,43 +70,46 @@ export default class Login extends Component{
     render(){
         const { email, password, loading, errors } = this.state;
         return(
-            <div>
-                { loading === false && <h1>Login</h1> }
-                { errors === true && <h2>Invalid email or password</h2> }
+            <main>
+                <MainNavigation/>
+                <div className="signup_page">
+                    { loading === false && <h2>Welcome back</h2> }
+                    { errors === true && <h4>Invalid email or password</h4> }
 
-                {/* <h1>Login</h1>  */}
-                { loading === false && (
-                    <Fragment>
-                        <form onSubmit={this.handleSubmit}>
-                            <input type="email" value={email} onChange={this.handleChange} name="email" placeholder="Email"></input>
+                    {/* <h1>Login</h1>  */}
+                    { loading === false && (
+                        <Fragment>
+                            <h4>Hey, enter your details to get signed in to your account.</h4>
+                            <form onSubmit={this.handleSubmit} className="signup_form">
+                                <label htmlFor="email"  className="signup_form__label">Email</label><br></br>
+                                <input className="signup_form__input" type="email" value={email} onChange={this.handleChange} name="email" placeholder="enter your email"></input>
+                                {/* <br></br> */}
+                                <label htmlFor="password"  className="signup_form__label">Password</label><br></br>
+                                <input className="signup_form__input" type="password" value={password} onChange={this.handleChange} name="password" placeholder="enter your password"></input>
+                                {/* <br></br>
+                                <br></br> */}
+                                    {/* <a href="http://127.0.0.1:8000/tight/password/reset/">Forgot Password?</a>
+                                    <br></br>
+                                    <a href="http://127.0.0.1:8000/api/v1/users/dj-rest-auth/password/change/">Forgot Password?</a> */}
+                                    <h4 style={{ textAlign: "center", margin: "2em" }}><Link to={{ pathname: '/user/password-reset' }}>Forgot Password?</Link></h4>
+                                <button type="submit" className="signup_form__button">Login</button>
+                            </form>
                             <br></br>
-                            <input type="password" value={password} onChange={this.handleChange} name="password" placeholder="Password"></input>
-                            <br></br>
-                            <br></br>
-                                {/* <a href="http://127.0.0.1:8000/tight/password/reset/">Forgot Password?</a>
-                                <br></br>
-                                <a href="http://127.0.0.1:8000/api/v1/users/dj-rest-auth/password/change/">Forgot Password?</a> */}
-                                <Link to={{ pathname: '/user/password-reset' }} style={{ marginRight: "2em"}}>Forgot Password?</Link>
-                            <button type="submit">Login</button>
-                        </form>
-                        
-                        <br></br>
-                        <h3>Not Registered?</h3>
-                        <Link to={{ pathname: '/signup' }} style={{ marginRight: "2em"}}>Create an Account</Link>
+                          
 
-                        <br></br>
-                        <br></br>
+                           
+                            <br></br>
+                            <br></br>
+                            <h4 className="sth_else">Don't have an account? <Link to={{ pathname: '/signup' }} style={{ marginRight: "2em"}}>Sign Up</Link></h4>
+                            
 
-                        <h3>Or signin with</h3>  
-                        {/* <a href="http://127.0.0.1:8000/tight/facebook/login/?process=login">Facebook</a> */}
-                        <a href="http://127.0.0.1:8000/dj-rest-auth/facebook/?process=login">Facebook</a>
-                        <br></br>
-                        <a href="http://127.0.0.1:8000/dj-rest-auth/google/?process=login">Google</a>
-                        <br></br>
-                        <a href="http://127.0.0.1:8000/dj-rest-auth/twitter/?process=login">Twitter</a>
-                    </Fragment>                  
-                )}
-            </div>
+                            
+
+                            
+                        </Fragment>                  
+                    )}
+                </div>
+            </main>
         )
     }
 }

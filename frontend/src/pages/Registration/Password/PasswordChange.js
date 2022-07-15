@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
+import MainNavigation from "../../../components/MainNavigation";
 
 export default class PasswordChange extends Component{
     constructor(props){
@@ -95,28 +97,32 @@ export default class PasswordChange extends Component{
         const { old_password, new_password1, new_password2, errors, isAuth } = this.state;
 
         return(
-            <div>
-                { isAuth === true && (
-                    <Fragment>
-                        <h2>Change Your Password</h2>
-                        { errors === true && <h2>Invalid password</h2> }
-                        <br></br>
-                        <form onSubmit={this.handleSubmit}>
-                            <input type="password" value={old_password} onChange={this.handleChange} name="old_password" placeholder="Old Password"></input>
+            <main>
+                <MainNavigation/>
+                <div className="signup_page">
+                    { isAuth === true && (
+                        <Fragment>
+                            <h2>Change Your Password</h2>
+                            { errors === true && <h2>Invalid password</h2> }
                             <br></br>
-                            <input type="password" value={new_password1} onChange={this.handleChange} name="new_password1" placeholder="New Password"></input>
+                            <form onSubmit={this.handleSubmit} className="signup_form">
+                                <input className="signup_form__input" type="password" value={old_password} onChange={this.handleChange} name="old_password" placeholder="Old Password"></input>
+                                <br></br>
+                                <input className="signup_form__input" type="password" value={new_password1} onChange={this.handleChange} name="new_password1" placeholder="New Password"></input>
+                                <br></br>
+                                <input className="signup_form__input" type="password" value={new_password2} onChange={this.handleChange} name="new_password2" placeholder="Confirm New Password"></input>
+                                <br></br>
+                                <br></br>
+                                <button  type="submit"><Link to={{ pathname: '/user/account'}}>Cancel</Link></button>
+                                <button className="signup_form__button" type="submit">Change Password</button>
+                            </form>
+            
                             <br></br>
-                            <input type="password" value={new_password2} onChange={this.handleChange} name="new_password2" placeholder="Confirm New Password"></input>
-                            <br></br>
-                            <br></br>
-                            <button type="submit">Change Password</button>
-                        </form>
-        
-                        <br></br>
-                        <p>Please <a href="mailto:abc123@gmail.com?subject=Password Change">contact us</a> if you have any trouble changing your password.</p>
-                    </Fragment>
-                )}
-            </div>
+                            <p className="sth_else">Please <a href="mailto:abc123@gmail.com?subject=Password Change">contact us</a> if you have any trouble changing your password.</p>
+                        </Fragment>
+                    )}
+                </div>
+            </main>
         )
     }
 }
