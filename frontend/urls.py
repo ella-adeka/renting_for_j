@@ -21,8 +21,11 @@ urlpatterns = [
     path('user/password-reset-confirm', index),
 
     # User
+    path('wishlist', index),
     path('user/deactivate', index),
+    path('user/account', index),
     path('user/profile', index),
+    path('user/personal-info', index),
 
     # Pages
     path('', index, name='home'),
@@ -35,6 +38,7 @@ urlpatterns = [
     path('properties/<slug:slug>/<str:id>', index),
 
     path('payment/', index),
+    path('payment/cancelled', index),
     path('payment/confirmation', index),
     path('cancel-reservation/', index),
     # path('payment/<str:user_id>/<str:property_id>', index),
