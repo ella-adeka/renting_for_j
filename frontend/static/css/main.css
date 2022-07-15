@@ -5,11 +5,6 @@
   padding: auto;
 }
 
-.city_body {
-  -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
-}
-
 .city_body div div {
   margin: 2em;
 }
@@ -25,7 +20,7 @@
 }
 
 .city_body div div:hover {
-  background-color: aquamarine;
+  background-color: rgba(141, 133, 134, 0.422);
 }
 
 .city_body div div:hover img {
@@ -35,8 +30,8 @@
 
 .cities_body div a {
   text-decoration: none;
-  color: black;
-  font-family: "Syne", sans-serif;
+  color: white;
+  font-family: 'Italiana', serif;
 }
 
 .cities_body div a:hover {
@@ -44,27 +39,232 @@
   text-decoration: line-through;
 }
 
+.prop_menu {
+  position: fixed;
+  top: 2em;
+  right: 0;
+  width: 50px;
+  height: 100px;
+  content: '';
+  z-index: 2;
+  cursor: pointer;
+}
+
+.prop_menu::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 2.7em;
+  height: 80px;
+  width: 1px;
+  color: white;
+  -webkit-transition: all .5s ease-in;
+  transition: all .5s ease-in;
+  -webkit-backdrop-filter: invert(100%);
+          backdrop-filter: invert(100%);
+}
+
+.prop_menu::after {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 2.2em;
+  height: 80px;
+  width: 1px;
+  color: white;
+  -webkit-transition: all .5s ease-in;
+  transition: all .5s ease-in;
+  -webkit-backdrop-filter: invert(100%);
+          backdrop-filter: invert(100%);
+}
+
+.prop_menu:hover {
+  -webkit-transition: all .5s ease-in;
+  transition: all .5s ease-in;
+  content: 'menu';
+}
+
+.prop_menu:hover:before {
+  right: 3em;
+}
+
+.prop_menu:hover:after {
+  right: 1em;
+}
+
+.back_to_props {
+  font-size: 10px;
+  position: relative;
+  top: 3em;
+  left: 3em;
+  margin: 5em;
+  text-decoration: none;
+  color: white;
+}
+
 .property_body {
-  -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
+  margin: 5em;
 }
 
-.property_body div {
-  margin: 2em;
+.property_body div h1 {
+  margin-top: 0.4em;
+  width: 100%;
 }
 
-.property_body div img {
-  -webkit-filter: grayscale(50%);
-          filter: grayscale(50%);
+.property_body div .description {
+  margin: 1em 0;
+  width: 80%;
+}
+
+.property_body div .property_image_div {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.property_body div .property_image_div__property_image {
+  width: 100%;
+  height: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.property_body div .theprops_images {
+  position: relative;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.property_body div .theprops_images::-webkit-scrollbar {
+  width: 1px;
+}
+
+.property_body div .theprops_images .property_images_div {
+  display: block;
+  width: auto;
+  margin-left: 1em;
+  margin-right: auto;
+  display: inline;
+}
+
+.property_body div .theprops_images .property_images_div__property_image {
+  display: inline;
+  width: auto;
+  height: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.the_head {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.the_head h1 {
+  margin-left: 0;
+}
+
+.the_head input {
+  width: 20%;
+  margin-bottom: 35px;
+  margin-right: 8%;
+}
+
+.properties_body {
+  width: 85%;
+  overflow-y: scroll;
+  height: 65vh;
+}
+
+.properties_body::-webkit-scrollbar {
+  width: 1px;
+}
+
+.properties_body div {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.properties_body div div {
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  padding: 1%;
+}
+
+.properties_body div div .heart {
+  color: gray;
+}
+
+.properties_body div div .heart:hover {
+  color: red;
+}
+
+.properties_body div div .city_link {
+  font-size: 0.9em;
+}
+
+.properties_body div div .city_link:hover {
+  text-decoration: underline;
 }
 
 .properties_body div div a {
   text-decoration: none;
-  color: black;
+  color: white;
+}
+
+.properties_body div div a img {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 5px;
 }
 
 .properties_body div div:hover {
-  background-color: pink;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.127);
+}
+
+.home .homeUl {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.home .homeUl__mainLink {
+  text-decoration: none;
+  display: block;
+  height: 1.5em;
+  color: white;
+  font-size: larger;
+  font-family: 'Italiana', serif;
+}
+
+.home .homeUl li {
+  list-style: none;
+  display: inline;
+  padding: 0 10%;
+  width: 25%;
+}
+
+.home .homeUl li a {
+  text-decoration: none;
+  color: white;
+  font-size: small;
+  font-family: 'Italiana', serif;
 }
 
 html, body {
@@ -72,24 +272,33 @@ html, body {
   padding: 0;
 }
 
+body {
+  background-color: black;
+  color: white;
+}
+
 h1 {
-  font-family: "Syne", sans-serif;
-  font-size: 6em;
+  font-family: 'Italiana', serif;
+  font-size: 9em;
   overflow-wrap: break-word;
 }
 
 h2, h6 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Italiana', serif;
+  -webkit-filter: opacity(0.9);
+          filter: opacity(0.9);
+  font-size: 2em;
   font-size: 4em;
   overflow-wrap: break-word;
 }
 
 h3, h4 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Italiana', serif;
 }
 
 p, li, input, label, button, a {
-  font-family: 'Fahkwang', sans-serif;
+  font-family: 'Gilda Display', serif;
+  font-size: smaller;
 }
 
 img {
@@ -123,8 +332,12 @@ img {
 }
 
 input, button {
-  border: 1px solid pink;
-  padding: 1.5em;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: white;
+  padding: 1em;
+  background-color: transparent;
+  color: white;
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
@@ -150,8 +363,10 @@ input[type="file"] {
 button {
   cursor: pointer;
   background-color: pink;
-  width: 150px;
-  height: 90px;
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
 }
 
 div.react-datepicker-wrapper {
@@ -163,45 +378,67 @@ div.react-datepicker-wrapper .react-datepicker__input-container {
   width: 20%;
 }
 
-nav {
+.mainNavigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  overflow: hidden;
+  background-color: black;
+  z-index: 9;
+  text-align: left;
 }
 
-nav ul {
-  padding: 2em 0;
+.mainNavigation a {
+  color: white;
+  text-decoration: none;
+  font-family: 'Fahkwang', sans-serif;
+  font-weight: bolder;
+}
+
+.mainNavigation a:hover {
+  color: pink;
+}
+
+.mainNavigation h2 {
+  text-transform: uppercase;
+  font-size: 5em;
+  line-height: 1em;
+}
+
+.mainNavigation h2 a {
+  font-family: "Syne", sans-serif;
+}
+
+.mainNavigation .groupA {
+  position: absolute;
+  top: 2em;
+}
+
+.mainNavigation .groupB {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.mainNavigation .groupC {
+  position: absolute;
+  bottom: 2em;
 }
 
 nav ul li {
-  display: inline;
   list-style: none;
-  margin-right: 2em;
+  display: inline;
+  padding-right: 2em;
 }
 
 nav ul li a {
   text-decoration: none;
   color: black;
-}
-
-nav ul li:nth-child(1) {
-  margin-left: 2em;
-}
-
-nav ul li:nth-child(8) {
-  position: absolute;
-  right: 4em;
-  width: 100px;
-  height: 50px;
-  text-align: center;
-}
-
-nav ul li:nth-child(8) span {
-  display: inline-block;
-  vertical-align: top;
-}
-
-nav ul li:nth-child(9) {
-  position: absolute;
-  right: 0;
+  font-family: "Syne", sans-serif;
+  font-weight: 400;
 }
 
 .amenities {
@@ -210,5 +447,123 @@ nav ul li:nth-child(9) {
 
 .amenities li {
   list-style-type: circle;
+}
+
+.signup_page {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translate(0%, -50%);
+          transform: translate(0%, -50%);
+  height: 80%;
+  width: 50%;
+  padding: 2em;
+  margin-left: 2em;
+  background-color: rgba(169, 169, 169, 0.217);
+  border-radius: 10px;
+}
+
+.signup_page .signup_form {
+  margin-top: 2em;
+}
+
+.signup_page .signup_form__button {
+  width: 100%;
+  color: black;
+}
+
+.signup_page .signup_form__input {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.signup_page .signup_form__div {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.signup_page .signup_form__div__div {
+  width: 48%;
+  display: inline-block;
+}
+
+.signup_page .signup_form__div__div:nth-child(1) {
+  margin-right: 2%;
+}
+
+.signup_page .signup_form__div__div:nth-child(2) {
+  margin-left: 2%;
+}
+
+.signup_page .signup_form__div__div__input {
+  width: 100%;
+}
+
+.signup_page a {
+  color: white;
+  text-decoration: underline;
+}
+
+.signup_page .socials {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.signup_page .socials a {
+  margin: 2em;
+  padding: 1em;
+  text-decoration: none;
+  height: 100px;
+}
+
+.signup_page .sth_else {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.signup_page .sth_else a {
+  color: pink;
+}
+
+.user {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: left;
+  width: 100%;
+}
+
+.user .user_account {
+  width: 60%;
+  height: 400px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 33.33% 33.33% 33.33%;
+      grid-template-columns: 33.33% 33.33% 33.33%;
+  grid-column-gap: 20px;
+}
+
+.user .user_account__compartments {
+  width: 100%;
+  height: 80%;
+  border-left: 1px solid rgba(255, 255, 255, 0.489);
+  border-right: 1px solid rgba(255, 255, 255, 0.489);
+  padding: 2em;
+  color: white;
+  text-decoration: none;
+}
+
+.user .user_account__compartments h2 {
+  font-size: 1.3em;
+}
+
+.user .user_account__compartments p {
+  margin-top: 1em;
+}
+
+.user .user_account__compartments:hover {
+  border: 1px solid white;
 }
 /*# sourceMappingURL=main.css.map */

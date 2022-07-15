@@ -1,12 +1,12 @@
 .cities_body{
     
     div{
-
         a{
             text-decoration: none;
             // text-decoration: inherit;
-            color: black;
-            font-family: $headerFont;
+            color: white;
+            font-family: 'Italiana', serif;
+            // font-family: $headerFont;
 
             &:hover{
                 color: pink;
