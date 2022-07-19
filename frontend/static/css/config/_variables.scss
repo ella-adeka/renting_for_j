@@ -1,1 +1,9 @@
 $headerFont : 'Syne', sans-serif;
+
+@font-face {
+    font-family: Flenja-Regular;
+    src: url('../../Flenja-Regular.otf') format('otf');
+    
+}
+
+$ThatFont: Flenja-Regular;

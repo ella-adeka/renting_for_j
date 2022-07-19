@@ -5,6 +5,11 @@
   padding: auto;
 }
 
+@font-face {
+  font-family: Flenja-Regular;
+  src: url("../../Flenja-Regular.otf") format("otf");
+}
+
 .city_body div div {
   margin: 2em;
 }
@@ -28,13 +33,49 @@
           filter: initial;
 }
 
-.cities_body div a {
+.cities_main {
+  width: 80%;
+}
+
+.cities_main .cities_body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  width: 90%;
+  word-break: break-word !important;
+  word-wrap: break-word !important;
+  white-space: normal;
+}
+
+.cities_main .cities_body h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: .04;
+  font-size: 15em;
+  text-transform: lowercase;
+}
+
+.cities_main .cities_body div {
+  width: 80%;
+}
+
+.cities_main .cities_body div a {
+  width: 20%;
+  font-size: 2em;
+  text-transform: lowercase;
   text-decoration: none;
   color: white;
   font-family: 'Italiana', serif;
 }
 
-.cities_body div a:hover {
+.cities_main .cities_body div a:hover {
   color: pink;
   text-decoration: line-through;
 }
@@ -116,6 +157,43 @@
   width: 80%;
 }
 
+.property_body div .booking_form {
+  position: absolute;
+  right: 5em;
+  width: 20%;
+  z-index: 3;
+  border: 1px solid white;
+  border-radius: 10%;
+  padding: 2em;
+}
+
+.property_body div .booking_form__button {
+  width: 100%;
+  color: black;
+}
+
+.property_body div .booking_form .without {
+  background-color: gray;
+  margin-top: 1em;
+  color: white;
+}
+
+.property_body div .booking_form__div__div {
+  width: 50%;
+  display: inline-block;
+}
+
+.property_body div .booking_form__div__div__label {
+  text-align: left;
+}
+
+.property_body div .booking_form__div__div__input {
+  border: none;
+  text-align: left;
+  padding: 1em 0;
+  width: 95%;
+}
+
 .property_body div .property_image_div {
   display: block;
   width: 100%;
@@ -179,6 +257,14 @@
   margin-right: 8%;
 }
 
+.heart {
+  color: gray;
+}
+
+.heart:hover {
+  color: #ec5d8d;
+}
+
 .properties_body {
   width: 85%;
   overflow-y: scroll;
@@ -199,14 +285,6 @@
   width: 25%;
   height: 100%;
   padding: 1%;
-}
-
-.properties_body div div .heart {
-  color: gray;
-}
-
-.properties_body div div .heart:hover {
-  color: red;
 }
 
 .properties_body div div .city_link {
@@ -274,7 +352,7 @@ html, body {
 
 body {
   background-color: black;
-  color: white;
+  color: #FAFAFA;
 }
 
 h1 {
@@ -296,7 +374,7 @@ h3, h4 {
   font-family: 'Italiana', serif;
 }
 
-p, li, input, label, button, a {
+p, li, input, label, button, a, span {
   font-family: 'Gilda Display', serif;
   font-size: smaller;
 }
@@ -338,14 +416,10 @@ input, button {
   padding: 1em;
   background-color: transparent;
   color: white;
-  -webkit-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
 }
 
-input:hover, button:hover {
-  font-size: 0.9em;
-  -webkit-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
+*:focus {
+  outline: none;
 }
 
 ::-webkit-file-upload-button {
@@ -367,15 +441,6 @@ button {
   height: 50px;
   border-radius: 5px;
   border: none;
-}
-
-div.react-datepicker-wrapper {
-  width: 50%;
-  margin: -32px;
-}
-
-div.react-datepicker-wrapper .react-datepicker__input-container {
-  width: 20%;
 }
 
 .mainNavigation {
@@ -472,6 +537,11 @@ nav ul li a {
   color: black;
 }
 
+.signup_page .signup_form .without {
+  background-color: gray;
+  margin-top: 1em;
+}
+
 .signup_page .signup_form__input {
   width: 100%;
   margin-bottom: 1em;
@@ -527,7 +597,7 @@ nav ul li a {
 
 .user {
   position: absolute;
-  top: 60%;
+  top: 55%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
@@ -548,8 +618,8 @@ nav ul li a {
 .user .user_account__compartments {
   width: 100%;
   height: 80%;
-  border-left: 1px solid rgba(255, 255, 255, 0.489);
-  border-right: 1px solid rgba(255, 255, 255, 0.489);
+  background-color: rgba(255, 255, 255, 0.117);
+  border-radius: 5px;
   padding: 2em;
   color: white;
   text-decoration: none;
@@ -564,6 +634,6 @@ nav ul li a {
 }
 
 .user .user_account__compartments:hover {
-  border: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.241);
 }
 /*# sourceMappingURL=main.css.map */

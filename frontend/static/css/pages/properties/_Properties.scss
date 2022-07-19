@@ -15,6 +15,14 @@
     }
 
 }
+
+.heart{
+    color: gray;
+    &:hover{
+        color: rgb(236, 93, 141);
+    }
+}
+
 .properties_body{
     // background-color: chocolate;
     width: 85%;
@@ -41,12 +49,7 @@
             height: 100%;
             padding: 1%;
 
-            .heart{
-                color: gray;
-                &:hover{
-                    color: red;
-                }
-            }
+            
 
             .city_link{
                 font-size: 0.9em;

@@ -88,7 +88,50 @@
         }
 
 
+        .booking_form{
+            position: absolute;
+            right: 5em;
+            width: 20%;
+            z-index: 3;
+            border: 1px solid white;
+            border-radius: 10%;
+            padding: 2em;
+            // background-color: aqua;
+            
+            &__button{
+                width: 100%;
+                color: black;
+            }
 
+            .without{
+                background-color: gray;
+                margin-top: 1em;
+                color: white;
+            }
+       
+                
+            &__div{
+                &__div{
+                    width: 50%;
+                    display: inline-block;
+        
+                    &__label{
+                        text-align: left;
+                    }
+            
+                    &__input{
+                        border: none;
+                        text-align: left;
+                        padding: 1em 0; 
+                        width: 95%;
+                        
+                    }
+                } 
+            }
+            
+        
+            
+        }
        
        
         .property_image_div{

@@ -18,13 +18,15 @@ html, body{
 }
 
 body{
-    background-color: black;
-    color: white;
+    // background-color:  #121212;
+    background-color:  black;
+    color: #FAFAFA;
 }
 
 h1{
     // font-family: $headerFont;
     font-family: 'Italiana', serif;
+    // font-family: $ThatFont;
     font-size: 9em;
     overflow-wrap: break-word;
     // font-size: 100em;
@@ -50,7 +52,7 @@ h3, h4{
     font-family: 'Italiana', serif;
 }
 
-p, li, input, label, button, a{
+p, li, input, label, button, a, span{
     // font-family: 'Cormorant Garamond', serif;
     // font-family: 'Fahkwang', sans-serif;
     // font-family: 'Italiana', serif;
@@ -101,13 +103,17 @@ input, button{
     background-color: transparent;
     color: white;
     // border-radius: 5px;
-    transition: all .2s ease-in-out;
+    // transition: all .2s ease-in-out;
 
-    &:hover{
-        font-size: 0.9em;
-        transition: all .2s ease-in-out;
-        // color:white;
-    }
+    // &:hover{
+    //     font-size: 0.9em;
+    //     transition: all .2s ease-in-out;
+    //     // color:white;
+    // }
+}
+
+*:focus {
+    outline: none;
 }
 
 ::-webkit-file-upload-button {
@@ -133,27 +139,20 @@ button{
     // right: 0;
 }
 
-div.react-datepicker-wrapper{
-    // display: inline;
-    width: 50%;
-    margin: -32px;
-    // position: relative;
+// div.react-datepicker-wrapper{
+//     // display: inline;
+//     width: 50%;
+//     margin: -32px;
+//     // position: relative;
 
-    .react-datepicker__input-container{
-        width: 20%;
+//     .react-datepicker__input-container{
+//         width: 20%;
         
         
-    }
-}
-
-// .booking_class{
-//     width: 100%;
-//     display: inline-block;
-
-//     span{
-//         width: 25%;
 //     }
 // }
+
+
 
 
     
@@ -276,6 +275,11 @@ nav{
             width: 100%;
             color: black;
         }
+
+        .without{
+            background-color: gray;
+            margin-top: 1em;
+        }
     
         &__input{
             width: 100%;
@@ -341,7 +345,7 @@ nav{
 
 .user{
     position: absolute;
-    top: 60%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;
@@ -361,9 +365,9 @@ nav{
         &__compartments{
             width: 100%;
             height: 80%;
-            border-left: 1px solid rgba(255, 255, 255, 0.489);
-            border-right: 1px solid rgba(255, 255, 255, 0.489);
-            // border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.117);
+            // border: 1px solid rgba(255, 255, 255, 0.489);
+            border-radius: 5px;
             padding: 2em;
             color: white;
             text-decoration: none;
@@ -377,7 +381,7 @@ nav{
             }
 
             &:hover{
-                border: 1px solid rgb(255, 255, 255);
+                background-color: rgba(255, 255, 255, 0.241);
             }
             
         }

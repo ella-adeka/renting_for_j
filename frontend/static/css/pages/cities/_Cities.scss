@@ -1,18 +1,60 @@
-.cities_body{
-    
-    div{
-        a{
-            text-decoration: none;
-            // text-decoration: inherit;
-            color: white;
-            font-family: 'Italiana', serif;
-            // font-family: $headerFont;
+.cities_main{
+    width: 80%;
 
-            &:hover{
-                color: pink;
-                text-decoration: line-through;
-                // text-decoration: dashedß;
-                // text-decoration: underline dashed blue 1px;
+    .cities_body{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        // height: 80vh;
+        width: 90%;
+        // background-color: darkgoldenrod;
+    
+        h1{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            // transform: translateX(-50%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: .04;
+            font-size: 15em;
+            text-transform: lowercase;
+        }
+        
+        word-break: break-word !important;
+        word-wrap: break-word !important;
+        white-space: normal;
+        // overflow: hidden;
+        div{
+            // position: absolute;
+            // display: inline;
+            // display: grid;
+            // grid-template-columns: 33.33% 33.33% 33.33%;
+            // display: table;
+            width: 80%;
+            // background-color: aqua;
+            
+    
+           
+            a{
+                width: 20%;
+                font-size: 2em;
+                // font-size: 3.5em;
+                text-transform: lowercase;
+                text-decoration: none;
+                // text-decoration: inherit;
+                color: white;
+                font-family: 'Italiana', serif;
+                // font-family: $headerFont;
+    
+                &:hover{
+                    color: pink;
+                    text-decoration: line-through;
+                    // text-decoration: dashedß;
+                    // text-decoration: underline dashed blue 1px;
+                }
             }
         }
     }
