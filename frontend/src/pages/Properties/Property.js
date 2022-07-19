@@ -13,6 +13,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faHeart,
+    faPlus,
+    faMinus
 } from '@fortawesome/free-solid-svg-icons';
 
 // import "react-date-range/dist/styles.css";
@@ -207,7 +209,7 @@ class Property extends Component {
                 <Link className="back_to_props" to={{ pathname: `/properties`}}>Back to Properties</Link>
                 <div className="property_body">
                     <div key={property.id}>
-                        <h1>{property.title}<sup style={{ fontSize: "0.3em", marginTop: "0.5em", position: "absolute" }}><FontAwesomeIcon icon={faHeart}  style={{color: "gray"}} /></sup></h1>
+                        <h1>{property.title}<sup style={{ fontSize: "0.3em", marginTop: "0.5em", position: "absolute" }}><Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart"  icon={faHeart} /></Link></sup></h1>
                         <p className="description">{property.description}</p>
                         {/* <img src={property.image} alt={property.title} width="100%" height="100%"></img> */}
                         {/* <div className="property_image_div"> */}
@@ -222,8 +224,115 @@ class Property extends Component {
                             </div>
                         {/* </div> */}
                         {/* <Link to={{ pathname: '/contact-us'}}><button type="button" style={{ position: "absolute", zIndex: "1", top: "-0.5em", right: "0"}}>Enquire Now</button></Link> */}
+
+                        <br></br>
+                            <Fragment>
+                                <form className="booking_form" onSubmit={this.handleSubmit}>
+                                    <div className="booking_form__div">
+                                        <div className="booking_form__div__div">
+                                            <label htmlFor="checkin">Checkin</label><br></br>
+                                            <DatePicker
+                                                selected={check_in}
+                                                onChange={(date) => { this.setState({check_in: date}) }}
+                                                dateFormat="yyyy-MM-dd"
+                                                selectsStart
+                                                check_in={check_in}
+                                                endDate={check_out}
+                                                minDate={new Date()}
+                                                placeholderText="YYYY-MM-DD"
+                                                type="date"
+                                                value={check_in}
+                                                name="check_in"
+                                                autoComplete="off"
+                                                className="booking_form__div__div__input" 
+                                            />
+                                        </div>
+                                        
+                                        <div className="booking_form__div__div">
+                                            <label htmlFor="checkout" >Checkout</label><br></br>
+                                            <DatePicker
+                                                selected={check_out}
+                                                onChange={(date) => this.setState({check_out: date})}
+                                                dateFormat="yyyy-MM-dd"
+                                                selectsEnd
+                                                check_in={check_in}
+                                                check_out={check_out}
+                                                minDate={check_in}
+                                                placeholderText="YYYY-MM-DD"
+                                                type="date"
+                                                value={check_out}
+                                                name="check_out"
+                                                autoComplete="off"
+                                                className="booking_form__div__div__input" 
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    <br></br>
+
+                                    <p>Guests</p>
+                                    
+                                    {/* <input type="button" onClick={this.subtractGuest}  value="Remove" /> */}
+                                    <FontAwesomeIcon icon={faMinus} onClick={this.subtractGuest} />
+                                    <span style={{marginLeft: "1em", marginRight: "1em"}} onChange={this.handleChange} >{guests}</span>
+                                    <FontAwesomeIcon icon={faPlus} max={property.max_guests} onClick={this.addGuest} />
+                                    {/* <input type="button" max={property.max_guests}  onClick={this.addGuest} value="Add" /> */}
+                                    <br></br>
+                                    <br></br>
+
+                                    {
+                                        this.noOfDays(this.state) === 0 ? (
+                                            ''
+                                        ) : (
+                                            <Fragment>
+                                                {/* <h4>Days </h4> */}
+                                                <h3>{property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {this.noOfDays(this.state)} days</h3>
+                                            </Fragment>
+                                        )
+                                    }
+
+                                    <br></br>
+
+                                    <h4>Subtotal </h4>
+                                    {/* <p>{this.totalPrice()}</p> */}
+                                    {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
+                                    <p>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</p>
+
+
+                                    <br></br>
+                                    <br></br>
+                                    <button type="submit" className="booking_form__button" >Reserve</button>
+                                    {
+                                        isAuth ?  (
+                                            <Fragment>
+                                                {
+                                                    theBooking.length != 0 && (
+                                                        <div>
+                                                            <Link to={{ pathname: `/payment` }}><button className="booking_form__button without">Go to Reservations</button></Link>
+                                                        </div>
+                                                    ) 
+                                                }
+                                            </Fragment>
+                                        ) : (
+                                            <Fragment>
+                                                <Link to={{ pathname: `/login` }}><button style={{marginBottom: "2em"}}>Book Now</button></Link>
+                                                {/* <br></br> */}
+                                            </Fragment>
+                                        )
+                                    }
+                                    {/* <br></br> */}
+                                    <br></br>
+                                    <span>*Your reservation will not be set in stone till you pay</span>
+
+
+                                 
+                        
+                                </form>                   
+                            </Fragment>
+                        {/* <br></br> */}
+
+                        <h2>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} <span style={{ fontSize: "0.7em"}}>per night</span></h2><br></br>
                         <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span>
-                        <h3>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} <span style={{ fontSize: "0.7em"}}>per night</span></h3><br></br>
 
                         <p><strong>{property.type}</strong> in {property.city}</p>
                         <p>Min: {property.min_days} nights</p><br></br>
@@ -239,19 +348,14 @@ class Property extends Component {
                             isAuth ?  (
                                 <Fragment>
                                     {
-                                        theBooking.length != 0 ? (
+                                        theBooking.length != 0 && (
                                         // theBooking[0] ? (
                                             <div>
                                                 <p>Note: Your reservation will not be set in stone till you pay</p>
                                                 <Link to={{ pathname: `/payment` }}><button style={{marginBottom: "2em"}}>Go to Reservation</button></Link>
                                                 <button type="button"  style={{ margin: "1em"}}>Add To <br></br> Wishlist</button>
                                             </div>
-                                        ) : (
-                                            <div>
-                                                <button type="button" onClick={this.showReservationForm} style={{ margin: "1em"}}>Check Availability </button>
-                                                <button type="button"  style={{ margin: "1em"}}>Add To <br></br> Wishlist</button>
-                                            </div>
-                                        )
+                                        ) 
                                     }
                                 </Fragment>
                             ) : (
@@ -264,88 +368,7 @@ class Property extends Component {
                         <br></br>
                         
                       
-                        <br></br>
-                        { formShowing ? (
-                                ''
-                        ) : (
-                            <Fragment>
-                                <form className="booking_class" onSubmit={this.handleSubmit}>
-                                    <h4>Check-in</h4>
-                                    <DatePicker
-                                        selected={check_in}
-                                        onChange={(date) => { this.setState({check_in: date}) }}
-                                        dateFormat="yyyy-MM-dd"
-                                        selectsStart
-                                        check_in={check_in}
-                                        endDate={check_out}
-                                        minDate={new Date()}
-                                        placeholderText="YYYY-MM-DD"
-                                        type="date"
-                                        value={check_in}
-                                        name="check_in"
-                                    />
-                                    <h4>Check-out</h4>
-                                    <DatePicker
-                                        selected={check_out}
-                                        onChange={(date) => this.setState({check_out: date})}
-                                        dateFormat="yyyy-MM-dd"
-                                        selectsEnd
-                                        check_in={check_in}
-                                        check_out={check_out}
-                                        minDate={check_in}
-                                        placeholderText="YYYY-MM-DD"
-                                        type="date"
-                                        value={check_out}
-                                        name="check_out"
-                                    />
-
-                                    {/* <input type="date" onChange={this.handleChange} value={check_in} name="check_in"></input>
-                                    <input type="date" onChange={this.handleChange} value={check_out} name="check_out"></input> */}
-
-                                    
-                                    <br></br>
-                                    <br></br>
-
-                                    <h4>Guests</h4>
-                                    {/* {this.addGuest} */}
-                                    {/* <button type="button" onClick={this.subtractGuest}>Subtract</button> */}
-                                    <input type="button" onClick={this.subtractGuest} value="Remove" />
-                                    <input type="text" onChange={this.handleChange} value={guests} name="guests" readOnly ></input>
-                                    {/* <button type="button" onClick={this.addGuest}>Add</button> */}
-                                    <input type="button" max={property.max_guests}  onClick={this.addGuest} value="Add" />
-                                    <br></br>
-                                    <br></br>
-
-
-                                    <button type="submit" >Submit</button>
-
-                                    <br></br>
-                                    <br></br>
-                                </form>
-                              
-                            </Fragment>
-                        )} 
-
-                        {
-                            this.noOfDays(this.state) === 0 ? (
-                                ''
-                            ) : (
-                                <Fragment>
-                                    <h4>Days </h4>
-                                    <p>{this.noOfDays(this.state)}</p>
-                                </Fragment>
-                            )
-                        }
-
-                        <h4>Subtotal </h4>
-                        {/* <p>{this.totalPrice()}</p> */}
-                        {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
-                        <p>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</p>
                         
-                        {/* <h2>Description</h2>
-                        <p>{property.description}</p> */}
-                        
-                        <br></br>
                       
                         <h2>Amenities</h2>
                         <Fragment>
