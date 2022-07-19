@@ -113,8 +113,8 @@ export default class PasswordChange extends Component{
                                 <input className="signup_form__input" type="password" value={new_password2} onChange={this.handleChange} name="new_password2" placeholder="Confirm New Password"></input>
                                 <br></br>
                                 <br></br>
-                                <button  type="submit"><Link to={{ pathname: '/user/account'}}>Cancel</Link></button>
                                 <button className="signup_form__button" type="submit">Change Password</button>
+                                <button  type="submit" className="signup_form__button without"><Link to={{ pathname: '/user/account'}}>Cancel</Link></button>
                             </form>
             
                             <br></br>
