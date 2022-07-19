@@ -25,7 +25,7 @@ export default class Cities extends Component{
     
     render(){
         return(
-            <main>
+            <main className="cities_main">
                 <MainNavigation />
                 <div className="cities_body">
                     <h1>Cities</h1>

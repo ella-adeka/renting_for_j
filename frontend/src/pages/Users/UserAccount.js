@@ -65,6 +65,23 @@ export default class UserAccount extends Component{
         })
     }
 
+    handleLogout = (event) => {
+        event.preventDefault();
+        fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/logout/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${localStorage.getItem('token')}`
+            }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                localStorage.clear();
+                window.location.replace('http://127.0.0.1:8000/login');
+            });
+    }
+
     async showReservations(){
         axios
             .get("/api/bookings/")
@@ -97,7 +114,7 @@ export default class UserAccount extends Component{
                     { loading === false && (
                         <Fragment>
                                 <h1>Hello, {first_name}</h1>
-                                <h4>{this.formatUser(this.state)}, {email}</h4>
+                                <h4>{this.formatUser(this.state)}, {email}, <Link to="/logout" style={{ fontSize: "1em", color: "pink"}} onClick={this.handleLogout}>logout</Link></h4>
                             <div className="user">
                                 <div className="user_account">
                                     {/* <Link to={{ pathname: `/user/deactivate` }} style={{ position: "absolute", bottom: "6em", textAlign: "center"}}>Deactivate My Account</Link> */}
@@ -133,8 +150,8 @@ export default class UserAccount extends Component{
                                     </Link>
                                 </div> 
 
-                                <Link to={{ pathname:"/user/deactivate" }}>Deactivate</Link>  
                             </div>
+                                <p style={{ position: 'absolute', bottom: "6em", textAlign: "center", width: "100%"}}>I would like to <Link to={{ pathname:"/user/deactivate" }} style={{ color: "pink", fontSize: "1em"}}>deactivate my account</Link></p>  
 
                             {/* <section style={{ position: 'absolute', right: "0", textAlign: "right"}}>
                                 { formShowing ? (
