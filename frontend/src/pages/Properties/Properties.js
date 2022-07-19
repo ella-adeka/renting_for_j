@@ -61,8 +61,7 @@ export default class Properties extends Component{
                             <div key={index} className="properties_body__property" style={{ position: "relative"}}>
                                 <Link to={{ pathname: `/properties/${property.slug}/${property.id}` }}>
                                     <img src={property.image} alt={property.title}></img>
-                                    <FontAwesomeIcon className="heart" icon={faHeart}  style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 8}} />
-                                    <h3>{property.title}</h3>
+                                    <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart" icon={faHeart} size="lg"  style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 8}} /></Link>                                    <h3>{property.title}</h3>
                                     <span style={{ fontSize: "0.9em"}}>{property.type} in <Link to={{ pathname: `/cities/${property.city.toLowerCase()}`}} className="city_link">{property.city}</Link></span>
                                     <p>{property.max_guests} guests{property.highlights?.map((highlights, index) => (
                                         <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
@@ -71,7 +70,7 @@ export default class Properties extends Component{
                                     {/* <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span> */}
                                     <br></br>
                                     <br></br>
-                                    <h4><strong style={{fontWeight: "bolder"}}> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong> per night</h4>
+                                    <h4><strong style={{fontWeight: "bolder", fontFamily: "'Fahkwang', sans-serif"}}> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong> per night</h4>
                                     <br></br>
                                 </Link>
                                 
