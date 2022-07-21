@@ -116,6 +116,7 @@ class Payment extends Component{
             currency: "GBP",
         };
         
+        console.log(property.title)
         
         return(
             <div>
@@ -125,104 +126,104 @@ class Payment extends Component{
                         {booking.id}
                         {/* {booking.property} */}
                         <h1>Reservation</h1>
-                        
-                        <h2>Personal Info </h2>
-                        <h4>Name</h4>
-                        <p>{first_name} {last_name}</p>
-                        <p>{email}</p>
 
-                        <br></br>
-                        <hr></hr>
-                        <br></br>
+                        <div className="payment">
+                            <div className="payment__div">
+                                <div>
+                                    <h2>Personal Info </h2>
+                                    <h4>Name</h4>
+                                    <p>{first_name} {last_name}</p>
+                                    <p>{email}</p>
+                                </div>
 
-                        <h2>Reservation Details</h2>
-                        <p>You are about to pay for:</p>
-                        {booking.filter((booking) => booking.user == user).map((booking,  index) => (
-                            
-                            <div key={index}>
-                                <h2>{booking.get_property_title}</h2>
-                                {/* <img src={booking.get_property_image} alt={booking.get_property_title} width="100%" height="500px"></img> */}
-
-                                <h4>Check-in/out</h4>
-                                <p><b>{new Date(booking.check_in).toLocaleDateString( 'en-GB', options)}</b> to <b>{new Date(booking.check_out).toLocaleDateString( 'en-GB', options)}</b></p>
-                                {/* <p><b>{new Date(booking.check_in).toLocaleDateString( 'en-GB', { weekday: "short", year: "numeric", month: "long", day: "numeric" })}</b> to <b>{new Date(booking.check_out).toLocaleDateString( 'en-GB', { weekday: "short", year: "numeric", month: "long", day: "numeric" })}</b></p> */}
-                                {/* <p><b>{booking.check_in }</b> to <b>{booking.check_out}</b></p> */}
-                                
-
-                                <br></br>
-                                <h4>Guests: {booking.guests}</h4> 
-                                <br></br>
-
-                                <h4>{booking.get_property_price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {booking.date_diff} days</h4>
-                                <h4>Total = {booking.get_total.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</h4>
-
-                                {/* <button type="button"  style={{ margin: "1em"}}>Cancel Reservation</button> */}
-                            </div>
-                        ))} 
-
-                        <br></br>
-                        <hr></hr>
-                        <br></br>
-
-                        <h2>Payment</h2>
-                        {/* <PayPalScriptProvider options={{ "client-id": "test" }}> */}
-                       <div style={{ position: "relative", zIndex: 0 }}>
-                            <PayPalScriptProvider options={initialOptions}>
-                            <PayPalButtons style={{ layout: "vertical", color: 'silver', shape: 'rect', label: 'pay' }}
-                                createOrder={( data, actions ) => {
-                                    return actions.order.create({
-                                        purchase_units: [
-                                            {
-                                                amount: {
-                                                    value: "10.00"
-                                                }
-                                            }
-                                        ],
-                                        'application_context' : {
-                                            'shipping_preference': 'NO_SHIPPING',
-                                            'postcode_preference': 'NO_POSTCODE'
-                                        }
+                                <div>
+                                <h2>Reservation Details</h2>
+                                    {/* <p>You are about to pay for:</p> */}
+                                    {booking.filter((booking) => booking.user == user).map((booking,  index) => (
                                         
-                                    })
-                                }}
-                            />
-                            {/* <PayPalButtons style={{ layout: "horizontal" }} /> */}
-                            </PayPalScriptProvider>
-                       </div>
-                        {/* <form>
-                            <label>Payment Method</label><br></br>
-                            <p>Credit/Debit Card    Paypal    </p>
-                            <label for="payment_method">Payment Method:</label><br></br>
-                            <br></br>
-                            <select name="payment_method" id="payment_method">
-                                <option value="choose">-- Choose payment method --</option>
-                                <option value="credit/Debit Card">Credit/Debit Card</option>
-                                <option value="paypal">Paypal</option>
-                            </select><br></br>
+                                        <div key={index}>
+                                            <h1>{booking.property_id}</h1>
+                                            <h3>{booking.get_property_title} in {property.filter((property) =>  property.id == booking.property).map((property,  index) => (
+                                                <span key={index}>
+                                                    {property.city}
+                                                </span>
+                                            ))}
+                                            </h3>
+                                            <img src={booking.get_property_image} alt={booking.get_property_title} width="100%" height="auto" style={{ objectFit: "contain", borderRadius: "10px"}}></img>
 
-                            <label>Card number</label><br></br>
-                            <input type="text"></input><br></br>
+                                            <h4>Check-in/out</h4>
+                                            <p><b>{new Date(booking.check_in).toLocaleDateString( 'en-GB', options)}</b> to <b>{new Date(booking.check_out).toLocaleDateString( 'en-GB', options)}</b></p>
+                                            {/* <p><b>{new Date(booking.check_in).toLocaleDateString( 'en-GB', { weekday: "short", year: "numeric", month: "long", day: "numeric" })}</b> to <b>{new Date(booking.check_out).toLocaleDateString( 'en-GB', { weekday: "short", year: "numeric", month: "long", day: "numeric" })}</b></p> */}
+                                            {/* <p><b>{booking.check_in }</b> to <b>{booking.check_out}</b></p> */}
+                                            
 
-                            <label>Card holder</label><br></br>
-                            <input type="text"></input><br></br>
+                                            <br></br>
+                                            <h4>Guests: {booking.guests}</h4> 
+                                            <br></br>
 
-                            <label>Expiry Date</label><br></br>
-                            <input type="month" placeholder=""></input><br></br>
+                                            {/* <h4>{booking.get_property_price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {booking.date_diff} days</h4>
+                                            <h4>Total = {booking.get_total.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</h4> */}
 
-                            <label>CVV/CVC</label><br></br>
-                            <input type="text" placeholder=""></input><br></br>
+                                            {/* <button type="button"  style={{ margin: "1em"}}>Cancel Reservation</button> */}
+                                        </div>
+                                    ))} 
+                                </div>
 
-                            <br></br>
-                            <button type="submit">Pay with Paypal</button>
-                            <br></br>
-                            <br></br>
-                            <button type="submit">Pay and <br></br> Confirm</button>
-                            
-                        </form> */}
+                                
+                            </div>
 
-                        <br></br>
-                        {/* <Link to={{ pathname: `/payment/confirmation` }}><button style={{marginBottom: "2em"}}>Payment Confirmation</button></Link><br></br> */}
-                        <button style={{marginBottom: "2em"}} onClick={this.handleCancellation}>Cancel Reservation</button>
+                            <div className="payment__div">
+                                <div>
+                                    <h2>Price details </h2>
+                                    {booking.filter((booking) => booking.user == user).map((booking,  index) => (
+                                        
+                                        <div key={index}>
+                                        
+
+                                            <h4>{booking.get_property_price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {booking.date_diff} nights</h4>
+                                            <h4>Total : {booking.get_total.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</h4>
+
+                                            {/* <button type="button"  style={{ margin: "1em"}}>Cancel Reservation</button> */}
+                                        </div>
+                                    ))} 
+                                </div>
+
+                                <div>
+                                    <h2>Payment</h2>
+                                    <br></br>
+                                        {/* <PayPalScriptProvider options={{ "client-id": "test" }}> */}
+                                    <div style={{ position: "relative", zIndex: 0 }}>
+                                        <PayPalScriptProvider options={initialOptions}>
+                                        <PayPalButtons style={{ layout: "vertical", color: 'silver', shape: 'rect' }}
+                                            createOrder={( data, actions ) => {
+                                                return actions.order.create({
+                                                    purchase_units: [
+                                                        {
+                                                            amount: {
+                                                                value: "10.00"
+                                                            }
+                                                        }
+                                                    ],
+                                                    'application_context' : {
+                                                        'shipping_preference': 'NO_SHIPPING',
+                                                        'postcode_preference': 'NO_POSTCODE'
+                                                    }
+                                                    
+                                                })
+                                            }}
+                                        />
+                                        {/* <PayPalButtons style={{ layout: "horizontal" }} /> */}
+                                        </PayPalScriptProvider>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    {/* <Link to={{ pathname: `/payment/confirmation` }}><button style={{marginBottom: "2em"}} className="booking_form__button">Pay & Confirm Reservation</button></Link><br></br> */}
+                                    <button className="payment__div__button without" style={{marginBottom: "2em"}} onClick={this.handleCancellation}>Cancel Reservation</button>
+                                </div>
+                            </div>
+                        </div>
+                        
                         {/* <Link to={{ pathname: `/cancel-reservation` }} onClick={this.handleCancellation}><button style={{marginBottom: "2em"}}>Cancel Reservation</button></Link> */}
                     </Fragment>
                 )}
