@@ -18,17 +18,25 @@
 
 .heart{
     color: gray;
+    
     &:hover{
         color: rgb(236, 93, 141);
     }
 }
 
+.share{
+    &:hover{
+        color: white;
+    }
+}
+
+
 .properties_body{
     // background-color: chocolate;
     width: 85%;
     
-    overflow-y: scroll;
-    height: 65vh;
+    // overflow-y: scroll;
+    // height: 65vh;
     
 
     &::-webkit-scrollbar {

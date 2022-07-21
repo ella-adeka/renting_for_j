@@ -40,7 +40,7 @@ h2, h6{
     font-family: 'Italiana', serif;
     filter: opacity(0.9);
     // font-family: 'Fahkwang', sans-serif;
-    font-size: 2em;
+    // font-size: 2em;
     font-size: 4em;
     overflow-wrap: break-word;
 }
@@ -52,7 +52,7 @@ h3, h4{
     font-family: 'Italiana', serif;
 }
 
-p, li, input, label, button, a, span{
+p, li, input, label, button, a, span, textarea{
     // font-family: 'Cormorant Garamond', serif;
     // font-family: 'Fahkwang', sans-serif;
     // font-family: 'Italiana', serif;
@@ -95,10 +95,10 @@ img{
 //     // }
 // }
 
-input, button{
+input, button, textarea{
     border-width: 0 0 1px 0;
     border-style: solid;
-    border-color: white;
+    border-color: gray;
     padding: 1em;
     background-color: transparent;
     color: white;
@@ -114,7 +114,27 @@ input, button{
 
 *:focus {
     outline: none;
+    border-color: white;
 }
+
+// input:autofill {
+//     background-color: transparent;
+// }
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
+}
+
+
+// input:valid {
+//     background: transparent;
+//   }
+
+
 
 ::-webkit-file-upload-button {
     border: 1px solid pink;
@@ -165,7 +185,7 @@ button{
         height: 100%;
         overflow: hidden;
         background-color: black;
-        z-index: 9;
+        z-index: 8;
         text-align: left;
         
         
@@ -277,8 +297,14 @@ nav{
         }
 
         .without{
-            background-color: gray;
+            background-color: transparent;
+            border: 1px solid white;
             margin-top: 1em;
+            color: white;
+
+            &:hover{
+                background-color: rgba(255, 255, 255, 0.241);
+            }
         }
     
         &__input{
@@ -384,6 +410,61 @@ nav{
                 background-color: rgba(255, 255, 255, 0.241);
             }
             
+        }
+    }
+}
+
+.payment{
+    width: 80%;
+    // height: 80%;
+    // background-color: rgba(128, 128, 128, 0.264);
+
+    display: flex;
+    // width: 100%;
+    height: auto;
+    margin-top: 2em;
+
+    &__div{
+        margin: 2%;
+        height: 100%;
+        padding: 2em;
+        // &:nth-child(1){
+            // background-color: rgba(255, 255, 255, 0.117);
+            // // border: 1px solid rgba(255, 255, 255, 0.489);
+            // border-radius: 5px;
+            
+            &:nth-child(1){
+                width: 65%;
+                margin-top: 0;
+            }
+
+            &:nth-child(2){
+                border: 2px solid white;
+                // // border: 1px solid rgba(255, 255, 255, 0.489);
+                border-radius: 10px;
+                position: sticky;
+                position: -webkit-sticky;
+                width: 35%;
+                top: 3em;
+                margin-top: 25m;
+            }
+        // }
+        // padding: 2em;
+        h2{
+            font-size: 2.5em;
+        }
+
+        &__button{
+            width: 100%;
+            // color: black;
+            background-color: transparent;
+            border: 1px solid #FAFAFA;
+                margin-top: 1em;
+                color: white;
+
+                &:hover{
+                    background-color: rgba(255, 255, 255, 0.241);
+                }
         }
     }
 }

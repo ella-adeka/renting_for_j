@@ -6,7 +6,7 @@
     width: 50px;
     height: 100px;
     content: '';
-    z-index: 2;
+    z-index: 9;
     cursor: pointer;
     // background-color: rgba(255, 228, 196, 0.216);
     
@@ -63,9 +63,9 @@
     // backdrop-filter: blur(20px);
     // background-color: azure;
     
-
     margin: 5em;
     div{
+        position: relative;
         // position: absolute;
         
 
@@ -79,59 +79,157 @@
             // background-color: beige;
         }
 
-        
+        h3{
+            font-size: 2.5em;
+            margin-top: 2em;
+            margin-bottom: 10px;
 
-        .description{
-            // margin-left: 0;
-            margin: 1em 0;
-            width: 80%;
         }
 
+        
+        .des_likes{
+            width: 100%;
+            margin: -1em 0 1em 0;
 
-        .booking_form{
-            position: absolute;
-            right: 5em;
-            width: 20%;
-            z-index: 3;
-            border: 1px solid white;
-            border-radius: 10%;
-            padding: 2em;
-            // background-color: aqua;
+            p{
+                display: inline-block;
+                width: 50%;
+                &:nth-child(2){
+                    text-align: right;
+                    
+                    a{
+                        padding-left: 1em;
+                        text-decoration: none;
+                        color: white;
+                    }
+
+                   
+                }
+            }
+
             
-            &__button{
-                width: 100%;
-                color: black;
+
+         
+        }
+        
+
+        .flexbox-wrapper {
+            display: flex;
+            // overflow: auto;
+            width: 100%;
+            height: auto;
+            margin-bottom: 8em;
+
+            .regular{
+                top: 3em;
+                width: 60%;
+                margin-left: 0;
             }
 
-            .without{
-                background-color: gray;
-                margin-top: 1em;
-                color: white;
-            }
-       
+            .booking_form{
+                // position: relative;
+                position: sticky;
+                // // display: block;
+                top: 3em;
+                right: 0;
+                position: -webkit-sticky;
+                align-self: flex-start;
+                width: 25%;
+                // z-index: 3;
+                border: 2px solid white;
+                border-radius: 10%;
+                padding: 2em;
+                margin-right: 0;
+                margin-top: 2em;
+                // background-color: black;
+
+                .guests{
+                    width: 100%;
+                    margin-top: .5em;
+                    margin-bottom: 1.5em;
+                    user-select: none;
+                    // background-color: aqua;
+
+                    span{
+                        display: inline-block;
+                        width: 33.33%;
+                        // text-align: center;
+                        margin-top: 0.8em;
+                        font-size: 1.3em;
+                        height: 18px;
+
+                        // &:nth-child(1){
+                        //     color: aquamarine;
+                        // }
+                    }
+
+                    &:nth-child(1){
+                        color: black;
+                        border: 1px solid white;
+                        border-radius: 50%;
+                        padding: 5px ;
+                        cursor: pointer;
+                    }
+
+                   
+                }
                 
-            &__div{
+                &__button{
+                    width: 100%;
+                    color: black;
+                }
+    
+                .without{
+                    background-color: transparent;
+                    border: 1px solid white;
+                    margin-top: 1em;
+                    color: white;
+
+                    &:hover{
+                        background-color: rgba(255, 255, 255, 0.241);
+                    }
+                }
+           
+                    
                 &__div{
-                    width: 50%;
-                    display: inline-block;
-        
-                    &__label{
-                        text-align: left;
-                    }
+                    &__div{
+                        width: 50%;
+                        display: inline-block;
             
-                    &__input{
-                        border: none;
-                        text-align: left;
-                        padding: 1em 0; 
-                        width: 95%;
-                        
-                    }
-                } 
+                        &__label{
+                            text-align: left;
+                        }
+                
+                        &__input{
+                            border: none;
+                            text-align: left;
+                            padding: 1em 0; 
+                            width: 100%;
+                            
+                        }
+                    } 
+                }
+                
+            
+                
             }
-            
+            // height: 200px;          /* Not necessary -- for example only */
+          }
+        //   .regular {
+            // background-color: blue; /* Not necessary -- for example only */
+            // height: 600px;          /* Not necessary -- for example only */
+        //   }
+        //   .sticky {
+        //     position: -webkit-sticky; /* for Safari */
+        //     position: sticky;
+        //     top: 3em;
+        //     right: 0;
+        //     align-self: flex-start; /* <-- this is the fix */
+        //   }
+          
+
         
-            
-        }
+       
        
        
         .property_image_div{
@@ -147,6 +245,7 @@
                 height: 500px;
                 object-fit: cover;
                 object-position: center;
+                border-radius: 10px 0 0 10px;
             }
         }
 
@@ -175,12 +274,12 @@
                 
                 display: inline;
                 &__property_image{
-                    // filter: grayscale(50%);
                     display: inline;
                     width: auto;
                     height: 500px;
                     object-fit: cover;
                     object-position: center;
+                   
                 }
             }
         }

@@ -87,7 +87,7 @@
   width: 50px;
   height: 100px;
   content: '';
-  z-index: 2;
+  z-index: 9;
   cursor: pointer;
 }
 
@@ -147,51 +147,127 @@
   margin: 5em;
 }
 
+.property_body div {
+  position: relative;
+}
+
 .property_body div h1 {
   margin-top: 0.4em;
   width: 100%;
 }
 
-.property_body div .description {
-  margin: 1em 0;
-  width: 80%;
+.property_body div h3 {
+  font-size: 2.5em;
+  margin-top: 2em;
+  margin-bottom: 10px;
 }
 
-.property_body div .booking_form {
-  position: absolute;
-  right: 5em;
-  width: 20%;
-  z-index: 3;
-  border: 1px solid white;
+.property_body div .des_likes {
+  width: 100%;
+  margin: -1em 0 1em 0;
+}
+
+.property_body div .des_likes p {
+  display: inline-block;
+  width: 50%;
+}
+
+.property_body div .des_likes p:nth-child(2) {
+  text-align: right;
+}
+
+.property_body div .des_likes p:nth-child(2) a {
+  padding-left: 1em;
+  text-decoration: none;
+  color: white;
+}
+
+.property_body div .flexbox-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin-bottom: 8em;
+}
+
+.property_body div .flexbox-wrapper .regular {
+  top: 3em;
+  width: 60%;
+  margin-left: 0;
+}
+
+.property_body div .flexbox-wrapper .booking_form {
+  position: sticky;
+  top: 3em;
+  right: 0;
+  position: -webkit-sticky;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  width: 25%;
+  border: 2px solid white;
   border-radius: 10%;
   padding: 2em;
+  margin-right: 0;
+  margin-top: 2em;
 }
 
-.property_body div .booking_form__button {
+.property_body div .flexbox-wrapper .booking_form .guests {
+  width: 100%;
+  margin-top: .5em;
+  margin-bottom: 1.5em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.property_body div .flexbox-wrapper .booking_form .guests span {
+  display: inline-block;
+  width: 33.33%;
+  margin-top: 0.8em;
+  font-size: 1.3em;
+  height: 18px;
+}
+
+.property_body div .flexbox-wrapper .booking_form .guests:nth-child(1) {
+  color: black;
+  border: 1px solid white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.property_body div .flexbox-wrapper .booking_form__button {
   width: 100%;
   color: black;
 }
 
-.property_body div .booking_form .without {
-  background-color: gray;
+.property_body div .flexbox-wrapper .booking_form .without {
+  background-color: transparent;
+  border: 1px solid white;
   margin-top: 1em;
   color: white;
 }
 
-.property_body div .booking_form__div__div {
+.property_body div .flexbox-wrapper .booking_form .without:hover {
+  background-color: rgba(255, 255, 255, 0.241);
+}
+
+.property_body div .flexbox-wrapper .booking_form__div__div {
   width: 50%;
   display: inline-block;
 }
 
-.property_body div .booking_form__div__div__label {
+.property_body div .flexbox-wrapper .booking_form__div__div__label {
   text-align: left;
 }
 
-.property_body div .booking_form__div__div__input {
+.property_body div .flexbox-wrapper .booking_form__div__div__input {
   border: none;
   text-align: left;
   padding: 1em 0;
-  width: 95%;
+  width: 100%;
 }
 
 .property_body div .property_image_div {
@@ -208,6 +284,7 @@
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
+  border-radius: 10px 0 0 10px;
 }
 
 .property_body div .theprops_images {
@@ -265,10 +342,12 @@
   color: #ec5d8d;
 }
 
+.share:hover {
+  color: white;
+}
+
 .properties_body {
   width: 85%;
-  overflow-y: scroll;
-  height: 65vh;
 }
 
 .properties_body::-webkit-scrollbar {
@@ -365,7 +444,6 @@ h2, h6 {
   font-family: 'Italiana', serif;
   -webkit-filter: opacity(0.9);
           filter: opacity(0.9);
-  font-size: 2em;
   font-size: 4em;
   overflow-wrap: break-word;
 }
@@ -374,7 +452,7 @@ h3, h4 {
   font-family: 'Italiana', serif;
 }
 
-p, li, input, label, button, a, span {
+p, li, input, label, button, a, span, textarea {
   font-family: 'Gilda Display', serif;
   font-size: smaller;
 }
@@ -409,10 +487,10 @@ img {
   margin-top: -0.5em;
 }
 
-input, button {
+input, button, textarea {
   border-width: 0 0 1px 0;
   border-style: solid;
-  border-color: white;
+  border-color: gray;
   padding: 1em;
   background-color: transparent;
   color: white;
@@ -420,6 +498,17 @@ input, button {
 
 *:focus {
   outline: none;
+  border-color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-transition: background-color 600000s 0s, color 600000s 0s;
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+input[data-autocompleted] {
+  background-color: transparent !important;
 }
 
 ::-webkit-file-upload-button {
@@ -451,7 +540,7 @@ button {
   height: 100%;
   overflow: hidden;
   background-color: black;
-  z-index: 9;
+  z-index: 8;
   text-align: left;
 }
 
@@ -538,8 +627,14 @@ nav ul li a {
 }
 
 .signup_page .signup_form .without {
-  background-color: gray;
+  background-color: transparent;
+  border: 1px solid white;
   margin-top: 1em;
+  color: white;
+}
+
+.signup_page .signup_form .without:hover {
+  background-color: rgba(255, 255, 255, 0.241);
 }
 
 .signup_page .signup_form__input {
@@ -634,6 +729,52 @@ nav ul li a {
 }
 
 .user .user_account__compartments:hover {
+  background-color: rgba(255, 255, 255, 0.241);
+}
+
+.payment {
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  margin-top: 2em;
+}
+
+.payment__div {
+  margin: 2%;
+  height: 100%;
+  padding: 2em;
+}
+
+.payment__div:nth-child(1) {
+  width: 65%;
+  margin-top: 0;
+}
+
+.payment__div:nth-child(2) {
+  border: 2px solid white;
+  border-radius: 10px;
+  position: sticky;
+  position: -webkit-sticky;
+  width: 35%;
+  top: 3em;
+  margin-top: 25m;
+}
+
+.payment__div h2 {
+  font-size: 2.5em;
+}
+
+.payment__div__button {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #FAFAFA;
+  margin-top: 1em;
+  color: white;
+}
+
+.payment__div__button:hover {
   background-color: rgba(255, 255, 255, 0.241);
 }
 /*# sourceMappingURL=main.css.map */
