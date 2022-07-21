@@ -59,7 +59,7 @@ class City extends Component{
                             <div key={property.id}>
                                 <Link to={{ pathname: `/properties/${property.slug}/${property.id}`}}>
                                     <img src={property.image} alt={property.title}></img>
-                                    <Link to={{ pathname: '/wishlist' }}><FontAwesomeIcon className="heart" icon={faHeart}  style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1}} /></Link>
+                                    <Link to={{ pathname: '/wishlist' }}><FontAwesomeIcon className="heart" icon={faHeart} size="lg"  style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1}} /></Link>
                                     <h3>{property.title}</h3>
                                     <p>{property.type}</p>
                                     <br></br>
