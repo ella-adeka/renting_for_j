@@ -1,8 +1,9 @@
 import React from "react";
 
 
-const MenuBtn = () => {
-    <h1>Reservation</h1>
+const Reserve = (props) => {
+
+    <h1>Reservation {props.data}</h1>
 }
 
-export default MenuBtn;
+export default Reserve;
