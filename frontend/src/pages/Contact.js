@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import MainNavigation from "../components/MainNavigation";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faTwitter,
+    faInstagram,
+    faFacebook
+  } from "@fortawesome/free-brands-svg-icons";
 
 export default class Contact extends Component{
     constructor(props){
@@ -47,46 +53,62 @@ export default class Contact extends Component{
         return(
             <main>
                 <MainNavigation />
-                <div>
-                    <h3>We'd love to hear from you</h3>
+                <div className="contact">
                     {/* <h1>Say Hi!</h1> */}
                     {/* <h1>Say Hi!</h1> */}
 
-                    <form className="signup_form">
-                        <h4>Contact Us</h4>
-                        <div className="signup_form__div">
-                            <div className="signup_form__div__div">
-                                <label htmlFor="first_name" className="signup_form__div__div__label">First Name</label><br></br>
-                                <input className="signup_form__div__div__input" type="text" value={first_name} onChange={this.handleChange} name="first_name" placeholder="enter your first name" required></input>
+                    <div className="contact_page">
+                        <div className="contact_page__div">
+                            <h3>Love to hear from you, get in touch!</h3>
+                            {/* <h3>We'd love to hear from you</h3> */}
+                        </div>
+
+                        <div className="contact_page__div">
+                            <form className="contact_page__div__form">
+                                <h4>Contact Us</h4>
+                                <div className="contact_page__div__form__div">
+                                    <div className="contact_page__div__form__div__div">
+                                        <label htmlFor="first_name" className="contact_page__div__form__div__div__label">First Name</label><br></br>
+                                        <input className="contact_page__div__form__div__div__input" type="text" value={first_name} onChange={this.handleChange} name="first_name" placeholder="enter your first name" required></input>
+                                    </div>
+                                    
+                                    <div className="contact_page__div__form__div__div">
+                                        <label htmlFor="last_name" className="contact_page__div__form__div__div__label">Last Name</label><br></br>
+                                        <input className="contact_page__div__form__div__div__input" type="text" value={last_name} onChange={this.handleChange} name="last_name" placeholder="enter your last name" required></input>   
+                                    </div>  
+                                </div>                 
+                                <div className="contact_page__div__form__div">
+                                    <div className="contact_page__div__form__div__div">
+                                        <label htmlFor="first_name" className="contact_page__div__form__div__div__label">Email</label><br></br>
+                                        <input className="contact_page__div__form__div__div__input" type="text" value={email} onChange={this.handleChange} name="email" placeholder="enter your email" required></input>
+                                    </div>
+                                    
+                                    <div className="contact_page__div__form__div__div">
+                                        <label htmlFor="last_name" className="contact_page__div__form__div__div__label">Phone Number</label><br></br>
+                                        <input className="contact_page__div__form__div__div__input" type="text" value={phone_number} onChange={this.handleChange} name="phone_number" placeholder="enter your phone number" required></input>   
+                                    </div>  
+                                </div>   
+
+                                <label htmlFor="email"  className="contact_page__div__form__label">Message</label><br></br>
+                                <textarea rows={3} placeholder="enter your message here"></textarea>     
+                                <br></br>
+
+                                <button type="submit" className="contact_page__div__form__button">Send Message </button>       
+                            </form>
+
+                            <div className="contact_page__div__reachable">
+                                <p>EMAIL US </p>    
+                                <a href="mailto:abc123@gmail.com?subject=Enquiry">abc123@gmail.com</a>
+
+                                <p>CALL US</p>
+                                <a href="tel:+2349012345678">+234-901-234-5678</a>
                             </div>
-                            
-                            <div className="signup_form__div__div">
-                                <label htmlFor="last_name" className="signup_form__div__div__label">Last Name</label><br></br>
-                                <input className="signup_form__div__div__input" type="text" value={last_name} onChange={this.handleChange} name="last_name" placeholder="enter your last name" required></input>   
-                            </div>  
-                        </div>                 
-                        <div className="signup_form__div">
-                            <div className="signup_form__div__div">
-                                <label htmlFor="first_name" className="signup_form__div__div__label">Email</label><br></br>
-                                <input className="signup_form__div__div__input" type="text" value={email} onChange={this.handleChange} name="email" placeholder="enter your email" required></input>
-                            </div>
-                            
-                            <div className="signup_form__div__div">
-                                <label htmlFor="last_name" className="signup_form__div__div__label">Phone Number</label><br></br>
-                                <input className="signup_form__div__div__input" type="text" value={phone_number} onChange={this.handleChange} name="phone_number" placeholder="enter your phone number" required></input>   
-                            </div>  
-                        </div>   
+                        </div>
+                    </div>
 
-                          <label htmlFor="email"  className="signup_form__label">Message</label><br></br>
-                            <textarea rows={5}></textarea>            
-                    </form>
-
-                    <h4>EMAIL US </h4>    
-                    <a href="mailto:abc123@gmail.com?subject=Enquiry">abc123@gmail.com</a>
-                    <h4>CALL US</h4>
-                        <a href="tel:+2349012345678">+234-901-234-5678</a>
-
-                    <h3>Socials</h3>
+                    <div className="others">
+                        <h3><FontAwesomeIcon className="heart social_icons" size="1x" icon={faFacebook} />  <FontAwesomeIcon className="heart social_icons" size="1x" icon={faInstagram} />  <FontAwesomeIcon className="heart social_icons" size="1x" icon={faTwitter} /></h3>
+                    </div>
                 </div>
             </main>
         )
