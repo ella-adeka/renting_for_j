@@ -10,6 +10,13 @@
   src: url("../../Flenja-Regular.otf") format("otf");
 }
 
+@font-face {
+  font-family: 'Ivy Mode';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../../../src/assets/fonts/IvyMode-Regular.woff2") format("woff2"), url("../../../src/assets/fonts/IvyMode-Regular.woff") format("woff");
+}
+
 .city_body div div {
   margin: 2em;
 }
@@ -157,9 +164,10 @@
 }
 
 .property_body div h3 {
-  font-size: 2.5em;
+  font-size: 2em;
   margin-top: 2em;
   margin-bottom: 10px;
+  text-transform: capitalize;
 }
 
 .property_body div .des_likes {
@@ -189,31 +197,90 @@
   width: 100%;
   height: auto;
   margin-bottom: 8em;
+  top: 3em;
 }
 
 .property_body div .flexbox-wrapper .regular {
-  top: 3em;
-  width: 60%;
+  width: 65%;
   margin-left: 0;
+}
+
+.property_body div .flexbox-wrapper .regular .highlights {
+  width: 100%;
+}
+
+.property_body div .flexbox-wrapper .regular .highlights__highlight {
+  border: 1px solid rgba(255, 255, 255, 0.117);
+  display: inline-block;
+  width: 17%;
+  height: 120px;
+  padding: 1em;
+  vertical-align: top;
+}
+
+.property_body div .flexbox-wrapper .regular .highlights__highlight p {
+  margin-bottom: 1.5em;
+  opacity: 0.3;
+  font-size: x-small;
+}
+
+.property_body div .flexbox-wrapper .regular .highlights__highlight div {
+  font-size: 1.7em;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.929);
+  font-family: 'Gilda Display', serif;
+}
+
+.property_body div .flexbox-wrapper .regular .highlights__highlight:nth-child(1) {
+  margin-left: 0;
+  width: 30%;
+  border-left: none;
+}
+
+.property_body div .flexbox-wrapper .regular .highlights__highlight:nth-child(5) {
+  border-right: none;
+}
+
+.property_body div .flexbox-wrapper .regular .key_info {
+  width: 100%;
+}
+
+.property_body div .flexbox-wrapper .regular .key_info__div {
+  display: inline-block;
+  width: 50%;
+}
+
+.property_body div .flexbox-wrapper .regular .key_info__div p {
+  display: inline-block;
+  width: 50%;
+  margin-bottom: .5em;
+}
+
+.property_body div .flexbox-wrapper .regular .key_info__div p:nth-child(1) {
+  opacity: 0.3;
+  text-transform: uppercase;
+  width: 30%;
+  font-size: 0.7em;
 }
 
 .property_body div .flexbox-wrapper .booking_form {
   position: sticky;
-  top: 3em;
+  top: 2em;
   right: 0;
   position: -webkit-sticky;
   -ms-flex-item-align: start;
       align-self: flex-start;
   width: 25%;
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.535);
+  background-color: #202020;
   border-radius: 10%;
   padding: 2em;
   margin-right: 0;
-  margin-top: 2em;
+  margin-top: 0;
 }
 
 .property_body div .flexbox-wrapper .booking_form .guests {
-  width: 100%;
+  width: 98%;
   margin-top: .5em;
   margin-bottom: 1.5em;
   -webkit-user-select: none;
@@ -225,7 +292,7 @@
 .property_body div .flexbox-wrapper .booking_form .guests span {
   display: inline-block;
   width: 33.33%;
-  margin-top: 0.8em;
+  margin-top: 0.3em;
   font-size: 1.3em;
   height: 18px;
 }
@@ -236,6 +303,26 @@
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
+}
+
+.property_body div .flexbox-wrapper .booking_form .sub-total {
+  width: 100%;
+  margin-bottom: 0.2em;
+}
+
+.property_body div .flexbox-wrapper .booking_form .sub-total span {
+  display: inline-block;
+}
+
+.property_body div .flexbox-wrapper .booking_form .sub-total span:nth-child(1) {
+  width: 50%;
+  font-size: 0.9em;
+}
+
+.property_body div .flexbox-wrapper .booking_form .sub-total span:nth-child(2) {
+  margin-right: 0;
+  width: 48%;
+  text-align: right;
 }
 
 .property_body div .flexbox-wrapper .booking_form__button {
@@ -259,58 +346,73 @@
   display: inline-block;
 }
 
-.property_body div .flexbox-wrapper .booking_form__div__div__label {
-  text-align: left;
+.property_body div .flexbox-wrapper .booking_form__div__div label {
+  font-weight: bolder;
 }
 
 .property_body div .flexbox-wrapper .booking_form__div__div__input {
   border: none;
-  text-align: left;
-  padding: 1em 0;
+  padding: 0.5em 0;
   width: 100%;
 }
 
-.property_body div .property_image_div {
-  display: block;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+.property_body div .flexbox-wrapper .booking_form__div__div:nth-child(2) {
+  text-align: right;
 }
 
-.property_body div .property_image_div__property_image {
-  width: 100%;
-  height: 500px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
-  border-radius: 10px 0 0 10px;
+.property_body div .flexbox-wrapper .booking_form__div__div:nth-child(2) input {
+  text-align: right;
 }
 
 .property_body div .theprops_images {
   position: relative;
-  display: block;
   width: 100%;
+  height: 550px;
   white-space: nowrap;
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 10px;
 }
 
 .property_body div .theprops_images::-webkit-scrollbar {
-  width: 1px;
+  display: none;
+}
+
+.property_body div .theprops_images .property_image_div__property_image {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 
 .property_body div .theprops_images .property_images_div {
-  display: block;
-  width: auto;
-  margin-left: 1em;
-  margin-right: auto;
+  width: 100%;
+  margin: 0 auto 0 1em;
   display: inline;
 }
 
 .property_body div .theprops_images .property_images_div__property_image {
-  display: inline;
   width: auto;
-  height: 500px;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.property_body div .inside_images_div {
+  width: 48%;
+  margin: 0 1em 1em 0;
+  display: inline-block;
+}
+
+.property_body div .inside_images_div__inside_image {
+  border-radius: 10px;
+  width: 100%;
+  height: 200px;
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: center;
@@ -324,8 +426,9 @@
   display: flex;
 }
 
-.the_head h1 {
+.the_head h2 {
   margin-left: 0;
+  font-size: 7em;
 }
 
 .the_head input {
@@ -376,7 +479,7 @@
 
 .properties_body div div a {
   text-decoration: none;
-  color: white;
+  color: #f2eeee;
 }
 
 .properties_body div div a img {
@@ -424,14 +527,158 @@
   font-family: 'Italiana', serif;
 }
 
+.contact .contact_page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.contact .contact_page__div {
+  display: inline-block;
+  height: 100vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 7%;
+  vertical-align: middle;
+}
+
+.contact .contact_page__div h3 {
+  font-size: 4em;
+  margin-left: 0;
+  text-align: left;
+}
+
+.contact .contact_page__div h4 {
+  font-size: 2.5em;
+  margin-bottom: 0.8em;
+}
+
+.contact .contact_page__div:nth-child(1) {
+  width: 45%;
+  padding-left: 5%;
+}
+
+.contact .contact_page__div:nth-child(2) {
+  width: 55%;
+  padding-left: 0;
+}
+
+.contact .contact_page__div__form {
+  clear: both;
+}
+
+.contact .contact_page__div__form__button {
+  float: right;
+  width: 23%;
+  margin: 1em 0 1em 0;
+  z-index: 2;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  text-align: left;
+}
+
+.contact .contact_page__div__form__button:hover {
+  background-color: white;
+  color: black;
+}
+
+.contact .contact_page__div__form__button::after {
+  position: absolute;
+  content: '';
+  margin-top: 7px;
+  margin-left: 7px;
+  margin-right: 7px;
+  width: 25px;
+  height: 1px;
+  background-color: aliceblue;
+}
+
+.contact .contact_page__div__form textarea {
+  width: 100%;
+  padding-left: 0;
+}
+
+.contact .contact_page__div__form__input {
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 0;
+}
+
+.contact .contact_page__div__form__div {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.contact .contact_page__div__form__div__div {
+  width: 48%;
+  display: inline-block;
+}
+
+.contact .contact_page__div__form__div__div:nth-child(1) {
+  margin-right: 2%;
+}
+
+.contact .contact_page__div__form__div__div:nth-child(2) {
+  margin-left: 2%;
+}
+
+.contact .contact_page__div__form__div__div__input {
+  width: 100%;
+  padding-left: 0;
+}
+
+.contact .contact_page__div__reachable {
+  width: 50%;
+  margin: 4em 0 0 0;
+}
+
+.contact .contact_page__div__reachable p {
+  opacity: 0.4;
+  margin-top: 2em;
+}
+
+.contact .contact_page__div__reachable a {
+  color: white;
+  text-decoration: none;
+}
+
+.contact .contact_page__div .sth_else {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.contact .contact_page__div .sth_else a {
+  color: pink;
+}
+
+.contact .others {
+  position: absolute;
+  bottom: 2em;
+  right: 2em;
+}
+
+.contact .others .social_icons {
+  padding-left: 1em;
+}
+
+.contact .others .social_icons:hover {
+  color: white;
+  cursor: pointer;
+}
+
 html, body {
   margin: 0;
   padding: 0;
 }
 
 body {
-  background-color: black;
-  color: #FAFAFA;
+  background-color: #121212;
+  color: #f2eeee;
 }
 
 h1 {
@@ -529,7 +776,14 @@ button {
   width: 100px;
   height: 50px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid white;
+  color: black;
+  text-align: center;
+}
+
+button:hover {
+  background-color: white;
+  color: black;
 }
 
 .mainNavigation {
@@ -539,20 +793,21 @@ button {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: black;
   z-index: 8;
   text-align: left;
+  background-color: #121212;
+  color: #f2eeee;
 }
 
 .mainNavigation a {
-  color: white;
+  color: #7c7c7c;
   text-decoration: none;
   font-family: 'Fahkwang', sans-serif;
   font-weight: bolder;
 }
 
 .mainNavigation a:hover {
-  color: pink;
+  color: white;
 }
 
 .mainNavigation h2 {
@@ -606,14 +861,12 @@ nav ul li a {
 .signup_page {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 40%;
   -webkit-transform: translate(0%, -50%);
           transform: translate(0%, -50%);
   height: 80%;
-  width: 50%;
+  width: 55%;
   padding: 2em;
-  margin-left: 2em;
-  background-color: rgba(169, 169, 169, 0.217);
   border-radius: 10px;
 }
 
@@ -623,7 +876,6 @@ nav ul li a {
 
 .signup_page .signup_form__button {
   width: 100%;
-  color: black;
 }
 
 .signup_page .signup_form .without {
@@ -684,10 +936,11 @@ nav ul li a {
 .signup_page .sth_else {
   margin-top: 2em;
   text-align: center;
+  color: #919191;
 }
 
 .signup_page .sth_else a {
-  color: pink;
+  color: #f1f1f1;
 }
 
 .user {

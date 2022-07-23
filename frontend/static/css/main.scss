@@ -6,6 +6,7 @@
 @import './pages/properties/Properties';
 @import './pages/Home';
 @import './pages/About';
+@import './pages/Contact';
 
 html, body{
     margin: 0;
@@ -18,14 +19,18 @@ html, body{
 }
 
 body{
-    // background-color:  #121212;
-    background-color:  black;
-    color: #FAFAFA;
+    background-color:  #121212;
+    color: #f2eeee;
+    // background-color:  #dbd9d9;
+    // color: #000000;
+
+    // color: #919191;
 }
 
 h1{
     // font-family: $headerFont;
     font-family: 'Italiana', serif;
+    // font-family: 'Ivy Mode';
     // font-family: $ThatFont;
     font-size: 9em;
     overflow-wrap: break-word;
@@ -102,14 +107,6 @@ input, button, textarea{
     padding: 1em;
     background-color: transparent;
     color: white;
-    // border-radius: 5px;
-    // transition: all .2s ease-in-out;
-
-    // &:hover{
-    //     font-size: 0.9em;
-    //     transition: all .2s ease-in-out;
-    //     // color:white;
-    // }
 }
 
 *:focus {
@@ -117,9 +114,6 @@ input, button, textarea{
     border-color: white;
 }
 
-// input:autofill {
-//     background-color: transparent;
-// }
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -128,12 +122,6 @@ input:-webkit-autofill:focus {
 input[data-autocompleted] {
     background-color: transparent !important;
 }
-
-
-// input:valid {
-//     background: transparent;
-//   }
-
 
 
 ::-webkit-file-upload-button {
@@ -154,9 +142,15 @@ button{
     width: 100px;
     height: 50px;
     border-radius: 5px;
-    border: none;
-    // position: absolute;
-    // right: 0;
+    border: 1px solid white;
+    color: black;
+    text-align: center;
+
+    &:hover{
+        // background-color: rgba(255, 255, 255, 0.241);
+        background-color: white;
+        color: black;
+    }
 }
 
 // div.react-datepicker-wrapper{
@@ -177,78 +171,77 @@ button{
 
     
 
-    .mainNavigation{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-color: black;
-        z-index: 8;
-        text-align: left;
-        
-        
-        
-        a{
-            color: white;
-            text-decoration: none;
-            font-family: 'Fahkwang', sans-serif;
-            font-weight: bolder;
+.mainNavigation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 8;
+    text-align: left;
+    background-color:  #121212;
+    color: #f2eeee;
+    // background-color:  #dbd9d9;
+    // color: #000000;
+    
+    
+    
+    a{
+        // color: #f1f1f1;
+        color: #7c7c7c;
+        text-decoration: none;
+        font-family: 'Fahkwang', sans-serif;
+        font-weight: bolder;
 
-            &:hover{
-                color: pink;
-            }
-        }
-        
-        
-        h2{
-            text-transform: uppercase;
-            font-size: 5em;
-            line-height: 1em;
-            a{
-                font-family: $headerFont;
-            }
-        }
-    
-    
-    
-        .groupA{
-            position: absolute;
-            top: 2em;
+        &:hover{
+            // color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
             
         }
-        .groupB{
-            position: absolute;
-            top: 50%;
-            // left: 0;
-            transform: translateY( -50%);
-            // bottom: auto;
-        }
-        .groupC{
-            position: absolute;
-            bottom: 2em;
-   
-        }
+    }
     
+    
+    h2{
+        text-transform: uppercase;
+        font-size: 5em;
+        line-height: 1em;
+        a{
+            font-family: $headerFont;
+        }
     }
 
 
+
+    .groupA{
+        position: absolute;
+        top: 2em;
+        
+    }
+    .groupB{
+        position: absolute;
+        top: 50%;
+        // left: 0;
+        transform: translateY( -50%);
+        // bottom: auto;
+    }
+    .groupC{
+        position: absolute;
+        bottom: 2em;
+
+    }
+
+}
+
+
 nav{
-    // 
-    // background-color: aquamarine;
-    // height: 100%;
+
     ul{
-        // padding: 2em 0;
 
         li{
-            // width: 50%;
             list-style: none;
             display: inline;
             padding-right: 2em;
-            
-            // margin-right: 5em;
-            
 
             a{
                 text-decoration: none;
@@ -256,11 +249,7 @@ nav{
                 font-family: $headerFont;
                 // font-family: Roslindale Display Condensed,Georgia,Times New Roman,serif;
                 font-weight: 400;
-                
             }
-
-          
-
         }
     }
 }
@@ -275,25 +264,19 @@ nav{
 
 .signup_page{
     position: absolute;
-    // left: 2%;
     top: 50%;
-    left:0;
+    left:40%;
     transform: translate(0%, -50%);
     height: 80%;
-    width:50%;
+    width:55%;
     padding: 2em;
-    margin-left: 2em;
-    background-color: rgba(169, 169, 169, 0.217);
     border-radius: 10px;
-    // text-align: center;
 
     .signup_form{
         margin-top: 2em;
-
     
         &__button{
             width: 100%;
-            color: black;
         }
 
         .without{
@@ -315,8 +298,6 @@ nav{
         &__div{
             width: 100%;
             margin-bottom: 1em;
-            // display: inline-block;
-            // background-color: azure;
     
             &__div{
                 width: 48%;
@@ -328,10 +309,6 @@ nav{
                 &:nth-child(2){
                     margin-left: 2%;
                 }
-    
-                // &__label{
-                //     color: coral;
-                // }
         
                 &__input{
                     width: 100%;
@@ -351,7 +328,6 @@ nav{
         text-align: center;
         
         a{
-            // display: inline-block;
             margin: 2em;
             padding: 1em;
             text-decoration: none;
@@ -362,9 +338,10 @@ nav{
     .sth_else{
         margin-top: 2em;
         text-align: center;
+        color: #919191;
 
         a{
-            color: pink;
+            color: #f1f1f1;
         }
     }
 }
@@ -376,11 +353,8 @@ nav{
     transform: translate(-50%, -50%);
     text-align: left;
     width: 100%;
-    // height: 80%;
 
     .user_account{
-       
-        // left: 5%;
         width: 60%;
         height: 400px;
         display: grid;
@@ -392,7 +366,6 @@ nav{
             width: 100%;
             height: 80%;
             background-color: rgba(255, 255, 255, 0.117);
-            // border: 1px solid rgba(255, 255, 255, 0.489);
             border-radius: 5px;
             padding: 2em;
             color: white;
@@ -400,7 +373,6 @@ nav{
     
             h2{
                 font-size: 1.3em;
-                // font-weight: bolder;
             }
             p{
                 margin-top: 1em;
@@ -416,11 +388,8 @@ nav{
 
 .payment{
     width: 80%;
-    // height: 80%;
-    // background-color: rgba(128, 128, 128, 0.264);
 
     display: flex;
-    // width: 100%;
     height: auto;
     margin-top: 2em;
 
@@ -428,43 +397,36 @@ nav{
         margin: 2%;
         height: 100%;
         padding: 2em;
-        // &:nth-child(1){
-            // background-color: rgba(255, 255, 255, 0.117);
-            // // border: 1px solid rgba(255, 255, 255, 0.489);
-            // border-radius: 5px;
             
-            &:nth-child(1){
-                width: 65%;
-                margin-top: 0;
-            }
+        &:nth-child(1){
+            width: 65%;
+            margin-top: 0;
+        }
 
-            &:nth-child(2){
-                border: 2px solid white;
-                // // border: 1px solid rgba(255, 255, 255, 0.489);
-                border-radius: 10px;
-                position: sticky;
-                position: -webkit-sticky;
-                width: 35%;
-                top: 3em;
-                margin-top: 25m;
-            }
-        // }
-        // padding: 2em;
+        &:nth-child(2){
+            border: 2px solid white;
+            border-radius: 10px;
+            position: sticky;
+            position: -webkit-sticky;
+            width: 35%;
+            top: 3em;
+            margin-top: 25m;
+        }
+
         h2{
             font-size: 2.5em;
         }
 
         &__button{
             width: 100%;
-            // color: black;
             background-color: transparent;
             border: 1px solid #FAFAFA;
-                margin-top: 1em;
-                color: white;
+            margin-top: 1em;
+            color: white;
 
-                &:hover{
-                    background-color: rgba(255, 255, 255, 0.241);
-                }
+            &:hover{
+                background-color: rgba(255, 255, 255, 0.241);
+            }
         }
     }
 }

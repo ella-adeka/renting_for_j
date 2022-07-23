@@ -1,0 +1,176 @@
+.contact{
+    
+    .contact_page{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        // background-color: bisque;
+        
+        &__div{
+            // width: 50%;
+            display: inline-block;
+            // width: 50%;
+            height: 100vh;
+            align-items: center;
+            padding: 7%;
+            vertical-align: middle;
+
+            h3{
+                font-size: 4em;
+                // width: 80%;
+                margin-left: 0;
+                text-align: left;
+            }
+
+            h4{
+                font-size: 2.5em;
+                margin-bottom: 0.8em;
+            }
+
+            &:nth-child(1){
+                // padding: 2em;
+                // height: 100vh;
+                width: 45%;
+                padding-left: 5%;
+                // background-color: rgba(240, 255, 255, 0.233);
+            }
+            &:nth-child(2){
+                // height: 100vh;
+                width: 55%;
+                padding-left: 0;
+                // background-color: rgba(41, 111, 111, 0.233);
+            }
+
+          
+            
+    
+            
+                &__form{
+                    // margin-top: 2em;
+                    // width: 100%;
+                    // background-color: pink;
+                    // padding: 2em;
+                    clear: both;
+            
+                
+                    &__button{
+                        float: right;
+                        width: 23%;
+                        // color: black;
+                        margin: 1em 0 1em 0;
+                        z-index: 2;
+                        // margin-right: 0;
+
+                        background-color: transparent;
+                        border: 1px solid white;
+                        // margin-top: 1em;
+                        color: white;
+                        text-align: left;
+    
+                        &:hover{
+                            // background-color: rgba(255, 255, 255, 0.241);
+                            background-color: white;
+                            color: black;
+                        }
+
+                        &::after{
+                            position: absolute;
+                            content: '';
+                            margin-top: 7px;
+                            margin-left: 7px;
+                            margin-right: 7px;
+                            width: 25px;
+                            height: 1px;
+                            background-color: aliceblue;
+                        }
+
+                    }
+
+                    textarea{
+                        width: 100%;
+                        padding-left: 0;
+                    }
+        
+                
+                    &__input{
+                        width: 100%;
+                        margin-bottom: 1em;
+                        padding: 0;
+                    }
+                
+                    &__div{
+                        width: 100%;
+                        margin-bottom: 1em;
+                        // display: inline-block;
+                        // background-color: azure;
+                
+                        &__div{
+                            width: 48%;
+                            display: inline-block;
+                
+                            &:nth-child(1){
+                                margin-right: 2%;
+                            }
+                            &:nth-child(2){
+                                margin-left: 2%;
+                            }
+                
+                            // &__label{
+                            //     color: coral;
+                            // }
+                    
+                            &__input{
+                                width: 100%;
+                                padding-left: 0;
+                            }
+                        } 
+                    }
+                }
+
+                &__reachable{
+                    width: 50%;
+                    margin: 4em 0 0 0;
+                    p{
+                        opacity: 0.4;
+                        margin-top: 2em;
+                    }
+
+                    a{
+                        color: white;
+                        text-decoration: none;
+                    }
+                }
+            
+                
+            
+     
+            
+                .sth_else{
+                    margin-top: 2em;
+                    text-align: center;
+            
+                    a{
+                        color: pink;
+                    }
+                }
+            
+        }
+    }
+
+    .others{
+        position: absolute;
+        bottom: 2em;
+        right: 2em;
+
+        .social_icons{
+            padding-left: 1em;
+            &:hover{
+                color: white;
+                cursor: pointer;
+            }
+            
+        }
+    }
+}

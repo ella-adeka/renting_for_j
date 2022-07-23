@@ -4,7 +4,9 @@
     display: flex;
     // align-items: normal;
     // background-color: pink;
-    h1{margin-left: 0;}
+    h2{margin-left: 0;
+        font-size: 7em;
+    }
 
     input{
         // position: absolute;
@@ -68,7 +70,7 @@
             a{
                 text-decoration: none;
                 // text-decoration: inherit;
-                color: white;
+                color: #f2eeee;
                 
                 img{
                     width: 100%;
@@ -83,6 +85,7 @@
             &:hover{
                 border-radius: 5px;
                 background-color: rgba(255, 255, 255, 0.127);
+                // background-color: #c8c7c7;
                 
             }
         }

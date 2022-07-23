@@ -6,4 +6,13 @@ $headerFont : 'Syne', sans-serif;
     
 }
 
+@font-face {
+    font-family: 'Ivy Mode';
+    font-style: normal;
+    font-weight: normal;
+    src:
+      url('../../../src/assets/fonts/IvyMode-Regular.woff2') format('woff2'),
+      url('../../../src/assets/fonts/IvyMode-Regular.woff') format('woff');
+  }
+
 $ThatFont: Flenja-Regular;
