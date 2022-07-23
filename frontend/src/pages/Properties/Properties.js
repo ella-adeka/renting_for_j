@@ -6,6 +6,9 @@ import Reservation  from '../../components/Reservation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faHeart,
+    faBathtub,
+    faBed,
+    faUser,
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -49,10 +52,10 @@ export default class Properties extends Component{
                 <Reservation />
 
                     <div className="the_head">
-                        <h1>Places to stay</h1>
+                        <h2>Places to stay</h2>
                         <input type="text" placeholder="Search..."></input>
                     </div>
-                    <br></br>
+                    {/* <br></br> */}
                     <h2 style={{ textAlign: "center", paddingBottom: "0.3em"}}>Places to stay</h2>
                     {/* <input type="text" placeholder="Search..." style={{ textAlign: "center", paddingBottom: "0.1em"}}></input> */}
                 <div className="properties_body">
@@ -63,21 +66,19 @@ export default class Properties extends Component{
                             <div key={index} className="properties_body__property" style={{ position: "relative"}}>
                                 <Link to={{ pathname: `/properties/${property.slug}/${property.id}` }}>
                                     <img src={property.image} alt={property.title}></img>
-                                    <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart" icon={faHeart} size="lg"  style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} /></Link>                                    
+                                    <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} /></Link>                                    
                                     <h3>{property.title}</h3>
                                     <span style={{ fontSize: "0.9em"}}>{property.type} in <Link to={{ pathname: `/cities/${property.city.toLowerCase()}`}} className="city_link">{property.city}</Link></span>
-                                    <p>{property.max_guests} guests{property.highlights?.map((highlights, index) => (
+                                    <p><FontAwesomeIcon  icon={faUser} />{property.max_guests} guests  <FontAwesomeIcon  icon={faBed} /> <FontAwesomeIcon  icon={faBathtub} />{property.highlights?.map((highlights, index) => (
                                         <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
-                                        ))}</p>
-                                    {/* <p>{property.type}</p> */}
+                                        ))}
+                                    </p>
                                     {/* <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span> */}
                                     <br></br>
                                     <br></br>
-                                    <h3><strong style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.2em"}}> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong> <span style={{ fontSize: "0.8em"}}>per night</span></h3>
+                                    <h3><strong style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.2em"}}> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong><span style={{ fontSize: "0.8em", opacity: "0.5"}}>/night</span></h3>
                                     <br></br>
                                 </Link>
-                                
-                                {/* <hr></hr> */}
                             </div>
                         ))}
                         <br></br>
