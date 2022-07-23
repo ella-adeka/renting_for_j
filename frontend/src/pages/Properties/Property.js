@@ -15,7 +15,10 @@ import {
     faHeart,
     faShare,
     faPlus,
-    faMinus
+    faMinus,
+    faBathtub,
+    faBed,
+    faUser,
 } from '@fortawesome/free-solid-svg-icons';
 
 // import "react-date-range/dist/styles.css";
@@ -232,27 +235,64 @@ class Property extends Component {
 
                         <div className="flexbox-wrapper">
                             <div className="regular">
-                                {/* <p>{property.max_guests} guests{property.highlights?.map((highlights, index) => (
-                                    <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
-                                ))}</p> */}
-                                {/* <br></br> */}
-                                {/* <h2 style={{ fontFamily: "'Gilda Display', serif"}}>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} <span style={{ fontSize: "0.3em"}}>per night</span></h2><br></br> */}
-                                {/* <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span> */}
-
-                                {/* <p><strong>{property.type}</strong> in {property.city}</p> */}
-                                {/* <p>Min: {property.min_days} nights</p><br></br> */}
-                                {/* <h4>Highlights</h4> */}
-                                <p><span style={{ fontFamily: "'Gilda Display', serif", fontSize: "3em"}}>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</span> <span><strike>£20.00</strike></span> {property.max_guests} guests{property.highlights?.map((highlights, index) => (
-                                    <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
-                                ))}</p>
+                                <div className="highlights">
+                                    <div className="highlights__highlight">
+                                        <p>PER NIGHT</p>
+                                        <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "2.5em"}}>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</span><strike style={{fontSize: "0.8em", opacity: "0.4"}}>£20.00</strike>
+                                    </div>
+                                    <div className="highlights__highlight">
+                                        <p>GUESTS</p>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faUser} /> <sup>{property.max_guests}</sup></div>
+                                    </div>
+                                    <div className="highlights__highlight">
+                                        <p>BATH</p>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBathtub} /> <sup>{property.max_guests}</sup></div>
+                                        {/* {property.highlights?.map((highlights, index) => (
+                                            <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
+                                        ))} */}
+                                    </div>
+                                    <div className="highlights__highlight">
+                                        <p>BEDS</p>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBed} /> <sup>{property.max_guests}</sup></div>
+                                        {/* {property.highlights?.map((highlights, index) => (
+                                            <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
+                                        ))} */}
+                                    </div>
+                                    <div className="highlights__highlight">
+                                        <p>BEDROOM</p>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBed} /> <sup>{property.max_guests}</sup></div>
+                                        {/* {property.highlights?.map((highlights, index) => (
+                                            <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
+                                        ))} */}
+                                    </div>
+                                    
+                                    
+                                </div>
                                 <br></br>
 
                                 <h3>key information</h3>
-                                <p>Status: {property.is_available === true ? <span>Available</span> : <span>Unavailable</span> }</p>
-                                <p>Type: {property.type}</p>
-                                <p>City: {property.city}</p>
-                                <p>Minimum: {property.min_days} nights</p>
-                                <p>Pets: Not allowed</p>
+                                <div className="key_info">
+                                    <div className="key_info__div">
+                                        <p>Status:</p>
+                                        {property.is_available ? <p>Available</p> : <p>Unavailable</p> }
+                                    </div>
+                                    <div className="key_info__div">
+                                        <p>Type:</p>
+                                        <p>{property.type}</p>
+                                    </div>
+                                    <div className="key_info__div">
+                                        <p>City:</p>
+                                        <p>{property.city}</p>
+                                    </div>
+                                    <div className="key_info__div">
+                                        <p>Minimum:</p>
+                                        <p>{property.min_days} nights</p>
+                                    </div>
+                                    <div className="key_info__div">
+                                        <p>Pets:</p>
+                                        <p>Not allowed</p>
+                                    </div>
+                                </div>
                                 
                                 <h3>description</h3>
                                 <p className="description">{property.description}</p>
@@ -393,8 +433,11 @@ class Property extends Component {
                                 <br></br>
 
                                 <h3>on the inside</h3>
-                                <p>I'll put highlight pics here</p>
-                                <p>{property.description}</p>
+                                {property.property_images?.map((property_image, index) => (
+                                <div key={index} className="inside_images_div">
+                                    <img  className="inside_images_div__inside_image"  src={property_image.images} alt={property.title} />
+                                </div>
+                            ))}
                                 
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
@@ -464,27 +507,33 @@ class Property extends Component {
                                         
                                     </div>
 
-                                    {
+                                    {/* {
                                         this.noOfDays(this.state) === 0 ? (
                                             ''
-                                        ) : (
+                                        ) : ( */}
                                             <Fragment>
                                                 {/* <h4>Days </h4> */}
-                                                <p>{property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {this.noOfDays(this.state)} nights</p>
+                                                <p className="sub-total"><span>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {
+                                                    !check_out ? (0) : (<Fragment>{this.noOfDays(this.state)}</Fragment>)
+                                                } nights</span>  { !check_out ? (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>) }</p>
+                                                {/* } nights</span>  <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP",  minimumFractionDigits: 0})}</span></p> */}
                                             </Fragment>
-                                        )
-                                    }
+                                        {/* ) */}
+                                    {/* } */}
 
                                     {/* <br></br> */}
 
                                     {/* <h4>Subtotal </h4> */}
                                     {/* <p>{this.totalPrice()}</p> */}
                                     {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
+                                    
+                                    <p className="sub-total"><span style={{ fontSize: "1em" }}>Service charges/Tax</span>  <span style={{ fontSize: "1.5em" }}>{20?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span></p>
 
-                                    <h4>Service fee/Tax </h4>
-                                    <p>£20.00</p>
+                                    <p className="sub-total"><span style={{ fontSize: "1.5em", marginTop: "1.5em" }}>Total</span>  {!check_out ? (<span style={{ fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>)}</p>
 
-                                    <h4 style={{ fontFamily: "'Gilda Display', serif", fontSize: "2em"}}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</h4>
+                            
+
+                                    {/* <h4 style={{ fontFamily: "'Gilda Display', serif", fontSize: "2em"}}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</h4> */}
                                     <br></br>
                                     
                                     
@@ -493,9 +542,11 @@ class Property extends Component {
                                             <Fragment>
                                                 {/* <button type="submit" className="booking_form__button" >Reserve</button> */}
                                                 {!check_out ? (
-                                                    <button type="submit" className="booking_form__button" >Check availability</button>
+                                                    <Fragment>
+                                                        {property.is_available ? (<button type="button" className="booking_form__button" >Check availability</button>): (<button type="button" className="booking_form__button" style={{ background: "gray", color: "white", cursor: "not-allowed"}}>Unavailable</button>)}
+                                                    </Fragment>
                                                     ) : (
-                                                        <button type="submit" className="booking_form__button" >Reserve</button>
+                                                    <button type="submit" className="booking_form__button" >Reserve</button>
                                                 )}
                                                 
                                                 {/* <button type="submit" className="booking_form__button" >Check availability</button> */}
@@ -509,14 +560,13 @@ class Property extends Component {
                                             </Fragment>
                                         ) : (
                                             <Fragment>
-                                                <Link to={{ pathname: `/login` }}><button className="booking_form__button" style={{marginBottom: "2em"}}>Login</button></Link>
-                                                {/* <br></br> */}
+                                                {property.is_available ? (<Link to={{ pathname: `/login` }}><button className="booking_form__button" style={{marginBottom: "2em"}}>Login</button></Link>): (<button type="button" className="booking_form__button" style={{ background: "gray", color: "white", cursor: "not-allowed", marginBottom: "1em"}}>Unavailable</button>)}
                                             </Fragment>
                                         )
                                     }
                                     {/* <br></br> */}
                                     <br></br>
-                                    <span>*Your reservation will not be set in stone till you pay</span>
+                                    <p style={{textAlign: "center", }}>*You won't be charged yet</p>
 
 
                                 
