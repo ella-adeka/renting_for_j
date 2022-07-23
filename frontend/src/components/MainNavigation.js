@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./GlobalStyles";
+import { lightTheme, darkTheme } from "./Theme"
 
 export default class MainNavigation extends Component{
     constructor(props){
@@ -10,7 +13,8 @@ export default class MainNavigation extends Component{
             avatar: '',
             first_name: '',
             last_name: '',
-            hidden: true
+            hidden: true,
+            theme : "light"
         }
     }
 
@@ -20,22 +24,27 @@ export default class MainNavigation extends Component{
                 isAuth: true,
             });
             fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
-            // fetch('http://127.0.0.1:8000/api/users/', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Token ${localStorage.getItem('token')}`
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    avatar: data.avatar,
-                    first_name: data.first_name,
+                // fetch('http://127.0.0.1:8000/api/users/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Token ${localStorage.getItem('token')}`
+                    }
                 })
-            });
-        } 
-    }
+                .then(res => res.json())
+                .then(data => {
+                    this.setState({
+                        avatar: data.avatar,
+                        first_name: data.first_name,
+                    })
+                });
+            } 
+        }
+        
+    // componentDidUpdate(){
+    //     localStorage.setItem('theme', this.state.theme);
+
+    // }
 
     handleLogout = (event) => {
         event.preventDefault();
@@ -59,13 +68,21 @@ export default class MainNavigation extends Component{
     }
 
     render(){
-        const { isAuth, avatar, first_name , hidden} = this.state;
+        const { isAuth, avatar, first_name , hidden, theme} = this.state;
+        const themeToggler = () => {
+            theme === 'light' ? this.setState({theme: "dark"}) : this.setState({theme: "light"})
+        }
+
+        
 
         return(
+            <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+                 {/* <GlobalStyles /> */}
                 <header >
                     <span className="prop_menu" onClick={() => this.setState({hidden : !hidden}) }></span>
                     { hidden === false && (
                         <nav className="mainNavigation">
+                            
                             <ul>
                                 <div className="groupA">
                                     <li><Link to="/">Back Home</Link></li>
@@ -82,6 +99,7 @@ export default class MainNavigation extends Component{
                                             </Fragment>
                                         )}
                                     </li>
+                                    {/* <li><span onClick={themeToggler}>Switch Theme</span></li> */}
                                 </div>
                                 
                                 <div className="groupB">
@@ -137,6 +155,8 @@ export default class MainNavigation extends Component{
                         </nav>
                     )}
                 </header>
+            </ThemeProvider>
+                
             
         )
     }
