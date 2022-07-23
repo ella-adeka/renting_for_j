@@ -111,6 +111,9 @@ class Payment extends Component{
         const { booking, email, first_name, last_name, loading,  user, property } = this.state;
         const options =  { weekday: "short",  year: "numeric", month: "long", day: "numeric" } // others: weekday: "short", year: "numeric", month: "long", day: "numeric"
         
+        const price = booking.filter((booking) => booking.user == user).map((booking) => (booking.get_property_price))
+        console.log(price[0])
+
         const initialOptions = {
             "client-id": "test",
             currency: "GBP",
@@ -200,7 +203,7 @@ class Payment extends Component{
                                                     purchase_units: [
                                                         {
                                                             amount: {
-                                                                value: "10.00"
+                                                                value: price[0]
                                                             }
                                                         }
                                                     ],
