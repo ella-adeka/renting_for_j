@@ -2,7 +2,6 @@ from django.db import models
 import uuid
 # from django.forms import SlugField
 from accounts.models import *
-from amenities.models import *
 
 # TESTING with coverage
 
@@ -20,6 +19,8 @@ from amenities.models import *
     # Infants (Under 2) = number of guests
     # Pets
 
+# bed bedroom bath
+
 # Create choices here
 PROPERTY_TYPE_CHOICES = [
     ('S', 'Studio'),
@@ -27,8 +28,20 @@ PROPERTY_TYPE_CHOICES = [
     ('H', 'House')
 ]
 
+
 # Create models here.
 # --------------------- PROPERTY RELATED -------------------------
+
+class Amenity(models.Model):
+    amenity = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name_plural = 'Amenities'
+
+    def __str__(self):
+        return self.amenity
+
+
 class City(models.Model):
     city = models.CharField(max_length=50)
     slug = models.SlugField(max_length=250,unique=True, null=True)
@@ -84,21 +97,11 @@ class Property(models.Model):
     max_guests = models.IntegerField(default=1)
     date_added = models.DateTimeField(auto_now=False,auto_now_add=True)
     is_available = models.BooleanField(default=True)
-    
-    attractions = models.ManyToManyField(Attractions, blank=True)
-    bathroom = models.ManyToManyField(Bathroom, blank=True)
-    bedroom = models.ManyToManyField(Bedroom, blank=True)
-    cleaning = models.ManyToManyField(Cleaning, blank=True)
-    entertainment = models.ManyToManyField(Entertainment, blank=True)
-    family = models.ManyToManyField(Family, blank=True)
-    facilities = models.ManyToManyField(Facilities, blank=True)
-    heating_and_cooling = models.ManyToManyField(HeatingAndCooling, blank=True)
-    internet_and_office = models.ManyToManyField(InternetAndOffice, blank=True)
-    kitchen_and_dining = models.ManyToManyField(KitchenAndDining, blank=True)
-    outdoors = models.ManyToManyField(Outdoors, blank=True)
-    parking = models.ManyToManyField(Parking, blank=True)
-    safety = models.ManyToManyField(Safety, blank=True)
-    services = models.ManyToManyField(Services, blank=True)
+
+    bed = models.IntegerField(default=1)
+    bedroom = models.IntegerField(default=1)
+    bath = models.IntegerField(default=1)
+    amenity = models.ManyToManyField(Amenity, blank=True)
 
     class Meta:
         # ordering = ('id',)

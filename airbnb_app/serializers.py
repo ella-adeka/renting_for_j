@@ -5,7 +5,6 @@ from django.forms import DateTimeField
 from rest_framework import serializers
 from django.core.exceptions import ObjectDoesNotExist
 from .models import *
-from amenities.models import *
 
 
 # https://www.django-rest-framework.org/api-guide/renderers/
@@ -24,8 +23,8 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields =  '__all__'
 
 class BookingSerializer(serializers.ModelSerializer):
-    check_in = serializers.DateTimeField(format="%Y-%m-%d")
-    check_out = serializers.DateTimeField(format="%Y-%m-%d")
+    # check_in = serializers.DateTimeField(format="%Y-%m-%d")
+    # check_out = serializers.DateTimeField(format="%Y-%m-%d")
     class Meta:
         model = Booking
         # fields = '__all__'
@@ -70,20 +69,20 @@ class PropertySerializer(serializers.ModelSerializer):
     type = serializers.SlugRelatedField(many=False, slug_field='title', queryset=PropertyCategory.objects.all())
     highlights = serializers.SlugRelatedField(many=True, slug_field='highlight', queryset=Highlights.objects.all())
 
-    attractions = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Attractions.objects.all())
-    bathroom = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Bathroom.objects.all())
-    bedroom = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Bedroom.objects.all())
-    cleaning = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Cleaning.objects.all())
-    entertainment = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Entertainment.objects.all())
-    family = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Family.objects.all())
-    facilities = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Facilities.objects.all())
-    heating_and_cooling = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=HeatingAndCooling.objects.all())
-    internet_and_office = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=InternetAndOffice.objects.all())
-    kitchen_and_dining = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=KitchenAndDining.objects.all())
-    outdoors = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Outdoors.objects.all())
-    parking = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Parking.objects.all())
-    safety = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Safety.objects.all())
-    services = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Services.objects.all())
+    amenity = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Amenity.objects.all())
+    # bathroom = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Bathroom.objects.all())
+    # bedroom = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Bedroom.objects.all())
+    # cleaning = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Cleaning.objects.all())
+    # entertainment = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Entertainment.objects.all())
+    # family = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Family.objects.all())
+    # facilities = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Facilities.objects.all())
+    # heating_and_cooling = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=HeatingAndCooling.objects.all())
+    # internet_and_office = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=InternetAndOffice.objects.all())
+    # kitchen_and_dining = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=KitchenAndDining.objects.all())
+    # outdoors = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Outdoors.objects.all())
+    # parking = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Parking.objects.all())
+    # safety = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Safety.objects.all())
+    # services = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Services.objects.all())
     # attractions = serializers.StringRelatedField(many=True)
  
 
@@ -105,20 +104,10 @@ class PropertySerializer(serializers.ModelSerializer):
             'min_days',
             'max_guests',
             'is_available',
-            'attractions',
-            'bathroom',
+            'bed',
+            'bath',
             'bedroom',
-            'cleaning',
-            'entertainment',
-            'family',
-            'facilities',
-            'heating_and_cooling',
-            'internet_and_office',
-            'kitchen_and_dining',
-            'outdoors',
-            'parking',
-            'safety',
-            'services',
+            'amenity',
             'property_images'
         )
     

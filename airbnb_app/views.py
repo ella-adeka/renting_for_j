@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from .serializers import BookingSerializer, CitySerializer,PaymentSerializer, PropertySerializer, PropertyImagesSerializer
 from .models import *
-from amenities.models import *
+# from amenities.models import *
 from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response

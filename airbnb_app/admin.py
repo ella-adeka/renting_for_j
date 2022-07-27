@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
-from amenities.models import *
+# from amenities.models import *
 
 # Register your models here.
 # class CityAdmin(admin.ModelAdmin):
@@ -15,6 +15,7 @@ from amenities.models import *
 
 
 # PROPERTIES-RELATED ADMINS
+
 class CityAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['city']}
 
@@ -48,6 +49,7 @@ class ReviewsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Booking, BookingAdmin)
+admin.site.register(Amenity)
 admin.site.register(City, CityAdmin)
 admin.site.register(Highlights)
 admin.site.register(Payment, PaymentAdmin)
