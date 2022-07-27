@@ -60,9 +60,8 @@ INSTALLED_APPS = [
 
     # apps
     'accounts.apps.AccountsConfig',
-    'core.apps.CoreConfig',
     'airbnb_app.apps.AirbnbAppConfig',
-    'amenities.apps.AmenitiesConfig',
+    'core.apps.CoreConfig',
     'frontend.apps.FrontendConfig',
 ]
 
@@ -299,3 +298,5 @@ LOGOUT_REDIRECT_URL = '/'
 # ]
 
 # google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '951816046297-04phdpp116665uh7ha9je61v2nuge31p.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
