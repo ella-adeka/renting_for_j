@@ -1,24 +1,28 @@
 import React, { Component, Fragment } from "react";
 import {  Link, Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import MainNavigation from "../../components/MainNavigation";
 import { withUrlParams } from "../../utils/urlParams";
 // import {Box, TextField } from '@mui/material';
 // import { DateRangePicker, DateRange } from "@mui/x-date-pickers";
 // import { DateInput } from "semantic-ui-calendar-react";
 // import moment from 'moment';
-import format from "date-fns/format";
+// import format from "date-fns/format";
+import { format,parse, formatDistance, formatRelative, subDays, addDays, parseISO } from 'date-fns'
+import Moment from "moment"
+import {extendMoment} from "moment-range"
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faHeart,
-    faShare,
+    faShareAlt,
     faPlus,
     faMinus,
     faBathtub,
     faBed,
     faUser,
+    faMapMarkerAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 // import "react-date-range/dist/styles.css";
@@ -178,7 +182,7 @@ class Property extends Component {
     }
 
     noOfDays(daysTotal){
-        return (daysTotal.check_out - daysTotal.check_in) / (1000 * 3600 * 24);
+        return Math.ceil((daysTotal.check_out - daysTotal.check_in) / (1000 * 3600 * 24));
     }
 
     totalPrice = () => {
@@ -205,9 +209,33 @@ class Property extends Component {
 
         const bookedAndBusy = localStorage.getItem('booked')
         // console.log(bookedAndBusy)
+
+        // const range = moment.range(moment(booking.check_in), moment(booking.check_out));
+
+        const moment = extendMoment(Moment);
+        let bookedDates = [];
+        bookingList.forEach((booking) => {
+            const start = moment(booking.check_in)._i;
+            const end = moment(booking.check_out)._i;
+            const range = moment.range(start, end);
+
+            // //The Array.from() static method creates a new, shallow-copied Array instance from an array-like or iterable object.
+            let dates = Array.from(range.by("day")).map(m => m.format('MM/DD/YYYY'));
+
+            for (var i of dates) {
+                bookedDates.push(i);
+            }
+        })
+        
+
+        const excludedDates = [];
+            bookedDates.forEach((date) => {
+                excludedDates.push(moment(new Date(date).toDateString())._d);
+        });
+          
         return(
             <main>
-                <MainNavigation/>
+                {/* <MainNavigation/> */}
 
                 {/* <FontAwesomeIcon icon="fa-thin fa-heart" /> */}
                 <Link className="back_to_props" to={{ pathname: `/properties`}}>Back to Properties</Link>
@@ -216,10 +244,10 @@ class Property extends Component {
                         {/* <h1>{property.title}<sup style={{ fontSize: "0.3em", marginTop: "0.5em", position: "absolute" }}><Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart"  icon={faHeart} /></Link></sup></h1> */}
                         <h1>{property.title}</h1>
                         <div className="des_likes"> 
-                            <p className="description">{property.location}, {property.city} </p>
-                            <p>
-                                <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart share" size="2x" icon={faShare} />Share</Link>
-                                <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart" size="2x" icon={faHeart} />like</Link>
+                            <p className="description"><FontAwesomeIcon className="heart share" size="1x" icon={faMapMarkerAlt} style={{color:"rgba(255, 255, 255, 0.19)"}} /> {property.location}, {property.city} </p>
+                            <p  className="share_like">
+                                <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }} /> Save</Link>
+                                <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="icon two" size="1x" icon={faShareAlt} style={{ marginRight: "0.5em"}}  />Share</Link>
                             </p>
                         </div>
                         {/* <p className="description">{property.description}</p> */}
@@ -235,32 +263,32 @@ class Property extends Component {
 
                         <div className="flexbox-wrapper">
                             <div className="regular">
-                                <div className="highlights">
-                                    <div className="highlights__highlight">
-                                        <p>PER NIGHT</p>
+                                <div className="highlights" >
+                                    <div className="highlights__highlight" style={{ paddingLeft: "0"}}>
+                                        <p >PER NIGHT</p>
                                         <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "2.5em"}}>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</span><strike style={{fontSize: "0.8em", opacity: "0.4"}}>£20.00</strike>
                                     </div>
                                     <div className="highlights__highlight">
                                         <p>GUESTS</p>
-                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faUser} /> <sup>{property.max_guests}</sup></div>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faUser} /> {property.max_guests}</div>
                                     </div>
                                     <div className="highlights__highlight">
                                         <p>BATH</p>
-                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBathtub} /> <sup>{property.max_guests}</sup></div>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBathtub} /> <sub>{property.bath}</sub></div>
                                         {/* {property.highlights?.map((highlights, index) => (
                                             <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
                                         ))} */}
                                     </div>
                                     <div className="highlights__highlight">
                                         <p>BEDS</p>
-                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBed} /> <sup>{property.max_guests}</sup></div>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBed} /> <sup>{property.bed}</sup></div>
                                         {/* {property.highlights?.map((highlights, index) => (
                                             <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
                                         ))} */}
                                     </div>
                                     <div className="highlights__highlight">
                                         <p>BEDROOM</p>
-                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBed} /> <sup>{property.max_guests}</sup></div>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBed} /> <sup>{property.bedroom}</sup></div>
                                         {/* {property.highlights?.map((highlights, index) => (
                                             <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
                                         ))} */}
@@ -270,7 +298,7 @@ class Property extends Component {
                                 </div>
                                 <br></br>
 
-                                <h3>key information</h3>
+                                <h3 style={{ marginTop: "0.8em"}}>key information</h3>
                                 <div className="key_info">
                                     <div className="key_info__div">
                                         <p>Status:</p>
@@ -296,141 +324,30 @@ class Property extends Component {
                                 
                                 <h3>description</h3>
                                 <p className="description">{property.description}</p>
-                                <p>Show more</p>
                                 
 
                                 <h3>amenities</h3>
-                                <Fragment>
-                                    {/* ATTRACTIONS */}
-                                    { property.attractions?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Atrractions</h4>  {property.attractions?.map((attractions, index) => (
-                                            <span key={index}>{attractions}</span>
-                                        ))}</div>
-                                    )}
+                                {property.amenity?.map((amenities, index) => (
+                                    <li key={index} style={{ padding: "0.5em", listStyleType: "circle"}}>{amenities}</li>
+                                ))}
 
-                                    {/* BATHROOM */}
-                                    { property.bathroom?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Bathroom</h4>  {property.bathroom?.map((bathroom, index) => (
-                                            <span key={index}>{bathroom}</span>
-                                        ))}</div>
-                                    )}
 
-                                    {/* BEDROOM */}
-                                    { property.bedroom?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Bedroom</h4>  {property.bedroom?.map((bedroom, index) => (
-                                            <span key={index}>{bedroom}</span>
-                                        ))}</div>
-                                    )}
+                                <h3>House Rules</h3>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                     text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                     It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+                                     It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing 
+                                     software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
-                                    {/* CLEANING */}
-                                    { property.cleaning?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Cleaning</h4>  {property.cleaning?.map((cleaning, index) => (
-                                            <span key={index}>{cleaning}</span>
-                                        ))}</div>
-                                    )}
-
-                                    {/* ENTERTAINMENT */}
-                                    { property.entertainment?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Entertainment</h4>  {property.entertainment?.map((entertainment, index) => (
-                                            <li key={index}>{entertainment}</li>
-                                        ))}</div>
-                                    )}
-
-                                    {/* FAMILY */}
-                                    { property.family?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Family</h4>  {property.family?.map((family, index) => (
-                                            <li key={index}>{family}</li>
-                                        ))}</div>
-                                    )}
-
-                                    {/* FACILITIES */}
-                                    { property.facilities?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Facilities</h4>  {property.facilities?.map((facilities, index) => (
-                                            <li key={index}>{facilities}</li>
-                                        ))}</div>
-                                    )}
-
-                                    {/* HEATING AND COOLING */}
-                                    { property.heating_and_cooling?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Heating and Cooling</h4>  {property.heating_and_cooling?.map((heating_and_cooling, index) => (
-                                            <li key={index}>{heating_and_cooling}</li>
-                                        ))}</div>
-                                    )}
-                                        
-                                    {/* INTERNET AND OFFICE */}
-                                    { property.internet_and_office?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Internet And Office</h4>  {property.internet_and_office?.map((internet_and_office, index) => (
-                                            <li key={index}>{internet_and_office}</li>
-                                        ))}</div>
-                                    )}
-                                
-                                    {/* KITCHEN AND DINING */}
-                                    { property.kitchen_and_dining?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Kitchen and Dining</h4>  {property.kitchen_and_dining?.map((kitchen_and_dining, index) => (
-                                            <li key={index}>{kitchen_and_dining}</li>
-                                        ))}</div>
-                                    )}
-
-                                    {/* Outdoors */}
-                                    { property.outdoors?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Outdoors</h4>  {property.outdoors?.map((outdoors, index) => (
-                                            <li key={index}>{outdoors}</li>
-                                        ))}</div>
-                                    )}
-
-                                    {/* PARKING */}
-                                    { property.parking?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Parking</h4>  {property.parking?.map((parking, index) => (
-                                            <li key={index}>{parking}</li>
-                                        ))}</div>
-                                    )}
-
-                                    {/* SAFETY */}
-                                    { property.safety?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Safety</h4>  {property.safety?.map((safety, index) => (
-                                            <li key={index}>{safety}</li>
-                                        ))}</div>
-                                    )}
-
-                                    {/* SERVICES */}
-                                    { property.services?.length == 0 ? (
-                                        ''
-                                    ) : (
-                                        <div><h4>Services</h4>  {property.services?.map((services, index) => (
-                                            <li key={index}>{services}</li>
-                                        ))}</div>
-                                    )}
-                                </Fragment>
-                                
-                                
-                            
-                                <br></br>
+                                {/* <DatePicker
+                                    selected={check_in}
+                                    onChange={(date) => { this.setState({check_in: date}) }}
+                                    //   excludeDates={excludedDates}
+                                    inline
+                                    monthsShown={2}
+                                    selectsStart
+                                    minDate={subDays(new Date(), 0)}
+                                /> */}
 
                                 <h3>on the inside</h3>
                                 {property.property_images?.map((property_image, index) => (
@@ -438,7 +355,11 @@ class Property extends Component {
                                     <img  className="inside_images_div__inside_image"  src={property_image.images} alt={property.title} />
                                 </div>
                             ))}
+
+
+
                                 
+                                {/* <h3>location</h3>
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
                                     width="100%"
@@ -448,12 +369,13 @@ class Property extends Component {
                                     allowFullScreen=""
                                     aria-hidden="false"
                                     tabIndex="0"
-                                    />
+                                    /> */}
                             
                             </div>
                             
                             <Fragment>
                                 <form className="booking_form" onSubmit={this.handleSubmit}>
+                                <h3>Your Reservation</h3>
                                     <div className="booking_form__div">
                                         <div className="booking_form__div__div">
                                             <label htmlFor="checkin">Checkin</label><br></br>
@@ -464,7 +386,8 @@ class Property extends Component {
                                                 selectsStart
                                                 check_in={check_in}
                                                 endDate={check_out}
-                                                minDate={new Date()}
+                                                minDate={subDays(new Date(), 0)}
+                                                excludeDates={excludedDates}
                                                 placeholderText="YYYY-MM-DD"
                                                 type="date"
                                                 value={check_in}
@@ -483,7 +406,15 @@ class Property extends Component {
                                                 selectsEnd
                                                 check_in={check_in}
                                                 check_out={check_out}
+                                                // minDate={addDays(new Date(), 1)}
                                                 minDate={check_in}
+                                                startDate={check_in}
+                                                // maxDate={addDays(check_in, property.min_days)}
+                                                // minDate={new Date(check_in)}
+                                                // minDate={addDays(check_in, property.min_days)}
+
+                                                // shouldCloseOnSelect={false}
+                                                excludeDates={excludedDates}
                                                 placeholderText="YYYY-MM-DD"
                                                 type="date"
                                                 value={check_out}
@@ -544,6 +475,7 @@ class Property extends Component {
                                                 {!check_out ? (
                                                     <Fragment>
                                                         {property.is_available ? (<button type="button" className="booking_form__button" >Check availability</button>): (<button type="button" className="booking_form__button" style={{ background: "gray", color: "white", cursor: "not-allowed"}}>Unavailable</button>)}
+                                                        <br></br>
                                                     </Fragment>
                                                     ) : (
                                                     <button type="submit" className="booking_form__button" >Reserve</button>
@@ -579,16 +511,16 @@ class Property extends Component {
                         {/* <br></br>
                         <br></br> */}
                         <h3>location</h3>
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
-                                    width="100%"
-                                    height="450"
-                                    frameBorder="0"
-                                    style={{ border: 0 }}
-                                    allowFullScreen=""
-                                    aria-hidden="false"
-                                    tabIndex="0"
-                                    />
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
+                                width="100%"
+                                height="450"
+                                frameBorder="0"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                aria-hidden="false"
+                                tabIndex="0"
+                                />
                                      
                         <h3>reviews</h3> 
                     </div>
