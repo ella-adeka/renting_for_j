@@ -1,17 +1,16 @@
-import React, { Component } from "react";
+import React from 'react';
 
-export default class Layout extends Component{
-    constructor(props){
-        super(props);
-    }
-    
-    render(){
-        return(
+import MainNavigation from "../components/MainNavigation";
+
+const Layout = (props) => {
+    return (
+        <main>
+            {location.pathname !== '/' && <MainNavigation />}
             <div>
-                <main>
-                    {this.props.children}
-                </main>
+                {props.children}
             </div>
-        )
-    }
+        </main>
+    );
 }
+
+export default Layout;
