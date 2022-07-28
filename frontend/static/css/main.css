@@ -83,7 +83,6 @@
 }
 
 .cities_main .cities_body div a:hover {
-  color: pink;
   text-decoration: line-through;
 }
 
@@ -185,9 +184,31 @@
 }
 
 .property_body div .des_likes p:nth-child(2) a {
-  padding-left: 1em;
+  font-size: 1em;
+  padding: 0.5em;
   text-decoration: none;
-  color: white;
+}
+
+.property_body div .des_likes p:nth-child(2) a .icon {
+  color: gray;
+}
+
+.property_body div .des_likes p:nth-child(2) a:hover .one {
+  color: #fb4664;
+}
+
+.property_body div .des_likes p:nth-child(2) a:hover .two {
+  color: #32e4f4;
+}
+
+.property_body div .des_likes p:nth-child(2) a:nth-child(1) {
+  padding-right: 2em;
+  border-right: 1px solid rgba(255, 255, 255, 0.19);
+}
+
+.property_body div .des_likes p:nth-child(2) a:nth-child(2) {
+  padding-right: 0;
+  padding-left: 2em;
 }
 
 .property_body div .flexbox-wrapper {
@@ -227,7 +248,6 @@
 .property_body div .flexbox-wrapper .regular .highlights__highlight div {
   font-size: 1.7em;
   text-align: center;
-  color: rgba(255, 255, 255, 0.929);
   font-family: 'Gilda Display', serif;
 }
 
@@ -265,18 +285,24 @@
 
 .property_body div .flexbox-wrapper .booking_form {
   position: sticky;
+  position: -webkit-sticky;
   top: 2em;
   right: 0;
-  position: -webkit-sticky;
   -ms-flex-item-align: start;
       align-self: flex-start;
   width: 25%;
-  border: 1px solid rgba(255, 255, 255, 0.535);
-  background-color: #202020;
-  border-radius: 10%;
+  background-color: rgba(255, 255, 255, 0.067);
   padding: 2em;
   margin-right: 0;
   margin-top: 0;
+}
+
+.property_body div .flexbox-wrapper .booking_form h3 {
+  font-size: 1.3em;
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  text-transform: capitalize;
+  text-align: center;
 }
 
 .property_body div .flexbox-wrapper .booking_form .guests {
@@ -671,6 +697,101 @@
   cursor: pointer;
 }
 
+.error_page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 9;
+  background-color: #121212;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.error_page h1 {
+  margin-top: 5%;
+  font-size: 22em;
+  width: 100%;
+  font-family: 'Syne', sans-serif;
+}
+
+.error_page p {
+  font-size: 2em;
+  color: #c0bebe;
+}
+
+.error_page p a {
+  color: white;
+  font-weight: bolder;
+}
+
+.react-datepicker {
+  font-family: 'Italiana', serif !important;
+  font-size: 1.1em !important;
+  background-color: #121212 !important;
+  border-color: #434343 !important;
+  border-radius: 0 !important;
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name,
+.react-datepicker__current-month {
+  color: #f2eeee !important;
+}
+
+.react-datepicker__day--disabled {
+  color: rgba(128, 128, 128, 0.204) !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.react-datepicker__day--disabled:hover {
+  background-color: rgba(190, 47, 47, 0) !important;
+  pointer-events: none !important;
+}
+
+.react-datepicker__day--excluded {
+  color: gray !important;
+  text-decoration: line-through;
+}
+
+.react-datepicker__day--excluded:hover {
+  background-color: #d21212;
+  pointer-events: none !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: rgba(128, 128, 128, 0.564) !important;
+}
+
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {
+  border-top-color: #fff !important;
+  border-bottom-color: #ffffff81 !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--selecting-range-start,
+.react-datepicker__day--selecting-range-end {
+  background-color: rgba(128, 128, 128, 0.564) !important;
+}
+
+.react-datepicker__header {
+  background-color: #121212 !important;
+  border-bottom: none !important;
+  border-top-left-radius: 10px;
+}
+
+.react-datepicker__day-name {
+  color: #ffffff !important;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -678,6 +799,10 @@ html, body {
 
 body {
   background-color: #121212;
+  color: #f2eeee;
+}
+
+body input, body a {
   color: #f2eeee;
 }
 
@@ -796,7 +921,6 @@ button:hover {
   z-index: 8;
   text-align: left;
   background-color: #121212;
-  color: #f2eeee;
 }
 
 .mainNavigation a {
@@ -892,6 +1016,7 @@ nav ul li a {
 .signup_page .signup_form__input {
   width: 100%;
   margin-bottom: 1em;
+  padding-left: 0;
 }
 
 .signup_page .signup_form__div {
@@ -914,10 +1039,10 @@ nav ul li a {
 
 .signup_page .signup_form__div__div__input {
   width: 100%;
+  padding-left: 0;
 }
 
 .signup_page a {
-  color: white;
   text-decoration: underline;
 }
 
@@ -927,10 +1052,14 @@ nav ul li a {
 }
 
 .signup_page .socials a {
-  margin: 2em;
+  margin: 1em;
   padding: 1em;
   text-decoration: none;
   height: 100px;
+}
+
+.signup_page .socials a:hover {
+  color: #ffffff;
 }
 
 .signup_page .sth_else {
@@ -969,7 +1098,6 @@ nav ul li a {
   background-color: rgba(255, 255, 255, 0.117);
   border-radius: 5px;
   padding: 2em;
-  color: white;
   text-decoration: none;
 }
 
@@ -1006,8 +1134,7 @@ nav ul li a {
 }
 
 .payment__div:nth-child(2) {
-  border: 2px solid white;
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.067);
   position: sticky;
   position: -webkit-sticky;
   width: 35%;

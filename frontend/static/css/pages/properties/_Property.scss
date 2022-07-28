@@ -89,13 +89,40 @@
             p{
                 display: inline-block;
                 width: 50%;
+
                 &:nth-child(2){
                     text-align: right;
                     
                     a{
-                        padding-left: 1em;
+                        font-size: 1em;
+                        padding: 0.5em;
                         text-decoration: none;
-                        color: white;
+                        // color: white;
+
+                         
+                        .icon{
+                            color: gray;
+                        }
+                        
+
+                        &:hover{
+                            .one{
+                               color: rgb(251, 70, 100);
+                            }
+                            .two{
+                               color: rgb(50, 228, 244);
+                            }
+                        }
+
+                        &:nth-child(1){
+                            padding-right: 2em;
+                            border-right:  1px solid rgba(255, 255, 255, 0.19);
+                        }
+                        &:nth-child(2){
+                            padding-right: 0;
+                            padding-left: 2em;
+                            // border-right: 1px solid gray;
+                        }
                     }
                 }
             }
@@ -139,7 +166,7 @@
                             // margin-left: 50%;
                             // margin-top: 20em;
                             text-align: center;
-                            color: rgba(255, 255, 255, 0.929);
+                            // color: rgba(255, 255, 255, 0.929);
                             font-family: 'Gilda Display', serif;
                         }
 
@@ -179,30 +206,25 @@
             }
 
             .booking_form{
-                // position: relative;
                 position: sticky;
-                // // display: block;
+                position: -webkit-sticky;
                 top: 2em;
                 right: 0;
-                position: -webkit-sticky;
                 align-self: flex-start;
                 width: 25%;
-                // z-index: 3;
-                border: 1px solid rgba(255, 255, 255, 0.535);
-                // box-shadow: rgba(115, 119, 122, 0.2) 0px 8px 24px;
-                background-color: #202020;
-                // background-color: #dbd9d98a;
-                // box-shadow:
-                //     /* offset-x | offset-y | blur-radius | spread-radius | color */
-                //     0px 24px 38px 3px rgba(189, 188, 188, 0.14), 
-                //     0px 9px 46px 8px rgba(155, 153, 153, 0.14), 
-                //     0px 11px 15px -7px rgba(168, 165, 165, 0.14);
-                
-                border-radius: 10%;
+                background-color: rgba(255, 255, 255, 0.067);
                 padding: 2em;
                 margin-right: 0;
                 margin-top: 0;
 
+                h3{
+                    font-size: 1.3em;
+                    margin-top: 0;
+                    margin-bottom: 1.5em;
+                    text-transform: capitalize;
+                    text-align: center;
+        
+                }
 
                 .guests{
                     width: 98%;
@@ -307,6 +329,7 @@
         .theprops_images{
             position: relative;
             width: 100%;
+            // margin: 0;
             height: 550px;
             white-space: nowrap;
             overflow-x: auto;

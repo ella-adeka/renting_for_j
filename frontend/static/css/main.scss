@@ -7,6 +7,9 @@
 @import './pages/Home';
 @import './pages/About';
 @import './pages/Contact';
+@import './pages/Error';
+@import './config/forDate';
+
 
 html, body{
     margin: 0;
@@ -21,10 +24,17 @@ html, body{
 body{
     background-color:  #121212;
     color: #f2eeee;
+    // background-color:  #f2eeee;
+    // color: #121212;
     // background-color:  #dbd9d9;
     // color: #000000;
 
     // color: #919191;
+
+    input, a{
+        // color: #000000;
+        color: #f2eeee;
+    }
 }
 
 h1{
@@ -153,18 +163,7 @@ button{
     }
 }
 
-// div.react-datepicker-wrapper{
-//     // display: inline;
-//     width: 50%;
-//     margin: -32px;
-//     // position: relative;
 
-//     .react-datepicker__input-container{
-//         width: 20%;
-        
-        
-//     }
-// }
 
 
 
@@ -181,7 +180,7 @@ button{
     z-index: 8;
     text-align: left;
     background-color:  #121212;
-    color: #f2eeee;
+    // color: #f2eeee;
     // background-color:  #dbd9d9;
     // color: #000000;
     
@@ -293,6 +292,7 @@ nav{
         &__input{
             width: 100%;
             margin-bottom: 1em;
+            padding-left: 0;
         }
     
         &__div{
@@ -312,13 +312,14 @@ nav{
         
                 &__input{
                     width: 100%;
+                    padding-left: 0;
                 }
             } 
         }
     }
 
     a{
-        color: white;
+        // color: white;
         text-decoration: underline;
     }
 
@@ -328,10 +329,15 @@ nav{
         text-align: center;
         
         a{
-            margin: 2em;
+            margin: 1em;
             padding: 1em;
             text-decoration: none;
             height: 100px;
+            // color: rgb(184, 184, 184);
+
+            &:hover{
+                color: #ffffff;
+            }
         }
     }
 
@@ -368,7 +374,7 @@ nav{
             background-color: rgba(255, 255, 255, 0.117);
             border-radius: 5px;
             padding: 2em;
-            color: white;
+            // color: white;
             text-decoration: none;
     
             h2{
@@ -404,8 +410,8 @@ nav{
         }
 
         &:nth-child(2){
-            border: 2px solid white;
-            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.067);
+            // border-radius: 10px;
             position: sticky;
             position: -webkit-sticky;
             width: 35%;
