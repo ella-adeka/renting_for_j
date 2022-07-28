@@ -11,16 +11,7 @@ export default class App extends Component {
 
     render(){
         return (
-            <div>
-                <div>
-                
-                {/* <Layout>
-                            
-                </Layout> */}
-
-                <MyRoutes />
-                </div>
-            </div>
+            <MyRoutes />
         );
     }
 }

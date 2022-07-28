@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import MainNavigation from "../../components/MainNavigation";
 
 export default class DeactivateUserAccount extends Component{
     constructor(props){
@@ -45,7 +44,6 @@ export default class DeactivateUserAccount extends Component{
 
         return(
             <div>
-                <MainNavigation/>
                { loading === false && (
                     <Fragment>
                         {''}

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import MainNavigation from "../components/MainNavigation";
-
 
 export default class About extends Component{
     constructor(props){
@@ -16,7 +14,6 @@ export default class About extends Component{
     render(){
         return(
             <main>
-                <MainNavigation />
                 <div>
                     <h1>About Us</h1>
                     <p>WE ARE JOHN'S AIRBNB</p>

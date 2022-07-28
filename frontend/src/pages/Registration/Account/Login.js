@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import MainNavigation from "../../../components/MainNavigation";
 
 export default class Login extends Component{
     constructor(props){
@@ -71,7 +70,6 @@ export default class Login extends Component{
         const { email, password, loading, errors } = this.state;
         return(
             <main>
-                <MainNavigation/>
                 <div className="signup_page">
                     { loading === false && <h2>Welcome back</h2> }
                     { errors === true && <h4>Invalid email or password</h4> }

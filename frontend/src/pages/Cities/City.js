@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { withUrlParams } from "../../utils/urlParams";
-import MainNavigation from "../../components/MainNavigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faHeart,
@@ -50,7 +49,6 @@ class City extends Component{
 
         return(
             <main>
-                <MainNavigation />
                 <div className="properties_body">
                 {cities.filter((city) => city.slug == slug).map((city) => (
                     <div key={city.id}>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MainNavigation from "../../components/MainNavigation";
 
 export default class Wishlist extends Component{
     constructor(props){
@@ -7,7 +6,6 @@ export default class Wishlist extends Component{
     }
 
     showMenu (){
-       
         console.log("yes")
     }
 
@@ -15,7 +13,6 @@ export default class Wishlist extends Component{
     render(){
         return(
             <main>
-                <MainNavigation />
                 <div>
                     <h1>Wishlist</h1>
                 </div>

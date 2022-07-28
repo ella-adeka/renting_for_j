@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
 import HomeNavigation from "../components/HomeNavigation";
 
 export default class Home extends Component{
@@ -10,13 +9,7 @@ export default class Home extends Component{
     render(){
         return(
             <main className="home">
-                {/* <h1>Home</h1> */}
-              
                 <HomeNavigation/>
-
-                            
-                   
-                {/* <Link  to={{ pathname: '/amenities'}}>Amenities</Link> */}
             </main>
         )
     }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import MainNavigation from "../../components/MainNavigation";
 
 
 export default class Cities extends Component{
@@ -26,7 +25,6 @@ export default class Cities extends Component{
     render(){
         return(
             <main className="cities_main">
-                <MainNavigation />
                 <div className="cities_body">
                     <h1>Cities</h1>
                     {this.state.citiesList.map((cities, index) =>(

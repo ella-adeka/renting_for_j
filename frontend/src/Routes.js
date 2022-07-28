@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {  BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {  useLocation, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import ErrorPage from "./pages/404";
 import Home from "./pages/Home";
@@ -30,18 +30,13 @@ import PaymentConfirmation from "./pages/Reservation/PaymentConfirmation";
 import UserProfile from "./pages/Users/UserProfile";
 import UserPersonalInfo from "./pages/Users/UserPersonalInfo";
 import Wishlist from "./pages/Users/Wishlist";
+import Layout from "./layout/Layout";
 
 
-export default class MyRoutes extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(){
-        return (
-        
-            <Router>
-                
+const myRoutes = () => {
+    return (
+        <Router>
+            <Layout>
                 <Routes>
                     <Route exact path="/loose/admin" element={<Admin />}></Route>
                     
@@ -72,10 +67,11 @@ export default class MyRoutes extends Component {
                     <Route exact path="/" element={<Home />}></Route>
 
                     <Route path="*" element={<ErrorPage />}></Route>
-                    {/* <Navigate to='/404'/> */}
                 </Routes>
-            </Router>
-                
-        );
-    }
+            </Layout>
+        </Router>
+            
+    );
 }
+
+export default myRoutes;

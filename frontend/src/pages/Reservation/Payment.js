@@ -1,11 +1,7 @@
 import React, { Component, Fragment } from "react";
-import {  Link } from "react-router-dom";
 import axios from 'axios';
 import { withUrlParams } from "../../utils/urlParams";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
-import format from "date-fns/format";
-import MainNavigation from "../../components/MainNavigation";
 
 
 
@@ -125,7 +121,6 @@ class Payment extends Component{
             <div>
                 { loading === false && (
                     <Fragment>
-                        <MainNavigation />
                         {booking.id}
                         {/* {booking.property} */}
                         <h1>Reservation</h1>

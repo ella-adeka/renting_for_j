@@ -1,19 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-export default class ErrorPage extends Component{
-    constructor(props){
-        super(props);
-    }
-
-    
-    render(){
-        return(
-            <div>
-                <h1>Oops!</h1>
-                <h4>Page Not found!</h4>
-                <Link to={{ pathname: '/' }}></Link>
-            </div>
-        )
-    }
+const ErrorPage = () => {
+    return(
+        <div className="error_page">
+            <h1>404</h1>
+            <p>Seems you're lost, go back <Link to={{ pathname: '/' }}>home</Link></p>
+        </div>
+    ) 
 }
+
+export default ErrorPage;

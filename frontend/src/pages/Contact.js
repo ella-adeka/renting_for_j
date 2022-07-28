@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MainNavigation from "../components/MainNavigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faTwitter,
@@ -52,7 +51,6 @@ export default class Contact extends Component{
         const  { email, first_name, last_name, phone_number } = this.state;
         return(
             <main>
-                <MainNavigation />
                 <div className="contact">
                     {/* <h1>Say Hi!</h1> */}
                     {/* <h1>Say Hi!</h1> */}

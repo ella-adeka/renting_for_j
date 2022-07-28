@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import MainNavigation from "../../components/MainNavigation";
 
 export default class UserAccount extends Component{
     constructor(props){
@@ -109,7 +108,6 @@ export default class UserAccount extends Component{
         
         return(
             <main>
-                <MainNavigation/>
                 {/* <div> */}
                     { loading === false && (
                         <Fragment>

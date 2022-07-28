@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import MainNavigation from "../../../components/MainNavigation";
 
 export default class Signup extends Component{
     constructor(props){
@@ -89,7 +88,6 @@ export default class Signup extends Component{
 
         return(
             <main>
-                <MainNavigation/>
                 <div className="signup_page">
                     {loading === false && <h2>Create a new account</h2>}
                     {errors === true && <h2>Cannot signup with provided credentials</h2>}

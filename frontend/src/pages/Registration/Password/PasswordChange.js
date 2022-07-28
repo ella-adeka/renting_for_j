@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import MainNavigation from "../../../components/MainNavigation";
 
 export default class PasswordChange extends Component{
     constructor(props){
@@ -98,7 +97,6 @@ export default class PasswordChange extends Component{
 
         return(
             <main>
-                <MainNavigation/>
                 <div className="signup_page">
                     { isAuth === true && (
                         <Fragment>

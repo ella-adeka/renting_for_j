@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { withUrlParams } from "../utils/urlParams";
-import MainNavigation from "../components/MainNavigation";
 
 class Amenities extends Component {
     constructor(props){
@@ -27,7 +26,6 @@ class Amenities extends Component {
 
         return(
             <main>
-                <MainNavigation />
                 <div>
                     <h1>Amenities</h1>
 

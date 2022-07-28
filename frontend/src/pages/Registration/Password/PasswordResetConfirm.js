@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import MainNavigation from "../../../components/MainNavigation";
 
 export default class PasswordResetConfirm extends Component{
     constructor(props){
@@ -27,7 +26,6 @@ export default class PasswordResetConfirm extends Component{
 
         return(
             <main>
-                <MainNavigation/>
                 <div className="signup_page">
                 { isAuth === false && (
                     <Fragment>

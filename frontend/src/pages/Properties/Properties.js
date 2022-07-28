@@ -48,7 +48,7 @@ export default class Properties extends Component{
         return(
             // <main style={{ overflow: "hidden", height: "100vh"}}>
             <main >
-                <MainNavigation />
+                {/* <MainNavigation /> */}
                 <Reservation />
 
                     <div className="the_head">
@@ -69,12 +69,18 @@ export default class Properties extends Component{
                                     <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} /></Link>                                    
                                     <h3>{property.title}</h3>
                                     <span style={{ fontSize: "0.9em"}}>{property.type} in <Link to={{ pathname: `/cities/${property.city.toLowerCase()}`}} className="city_link">{property.city}</Link></span>
-                                    <p><FontAwesomeIcon  icon={faUser} />{property.max_guests} guests  <FontAwesomeIcon  icon={faBed} /> <FontAwesomeIcon  icon={faBathtub} />{property.highlights?.map((highlights, index) => (
+                                    <br></br>
+                                    <br></br>
+                                    {/* <p><FontAwesomeIcon  icon={faUser} />{property.max_guests} guests &#183;  <FontAwesomeIcon  icon={faBathtub} />{property.bath} bath <FontAwesomeIcon  icon={faBed} />{property.bed} bed  <FontAwesomeIcon  icon={faBed} />{property.bedroom} bedroom </p> */}
+                                    {/* <p><FontAwesomeIcon  icon={faUser} /> {property.max_guests}  &#183;   <FontAwesomeIcon  icon={faBathtub} /> {property.bath} &#183;  <FontAwesomeIcon  icon={faBed} /> {property.bed} &#183;   <FontAwesomeIcon  icon={faBed} />{property.bedroom} &#183;  </p> */}
+                                    {/* <p><FontAwesomeIcon  icon={faUser}  /> {property.max_guests}  &#183;   <FontAwesomeIcon  icon={faBathtub} /> {property.bath} &#183;  <FontAwesomeIcon  icon={faBed} /> {property.bed}    </p> */}
+                                    <p>{property.max_guests} guests &#183; {property.bath}bath  &#183; {property.bed}bed &#183; {property.bedroom}bedroom </p>
+                                    {/* <p><FontAwesomeIcon  icon={faUser} />{property.max_guests} guests  <FontAwesomeIcon  icon={faBed} /> <FontAwesomeIcon  icon={faBathtub} />{property.highlights?.map((highlights, index) => (
                                         <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
                                         ))}
-                                    </p>
+                                    </p> */}
                                     {/* <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span> */}
-                                    <br></br>
+                                    {/* <br></br> */}
                                     <br></br>
                                     <h3><strong style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.2em"}}> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong><span style={{ fontSize: "0.8em", opacity: "0.5"}}>/night</span></h3>
                                     <br></br>
