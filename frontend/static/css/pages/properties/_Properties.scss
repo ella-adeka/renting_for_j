@@ -18,13 +18,7 @@
 
 }
 
-.end-text{
-    position: absolute;
-    bottom: 1em;
-    width: 100%;
-    text-align: center;
-    letter-spacing: 10px;
-}
+
 
 .heart{
     color: gray;
@@ -53,6 +47,13 @@
         width: 1px;
       }
 
+      .end-text{
+        position: relative;
+        bottom: 1em;
+        // width: 100%;
+        text-align: center;
+        letter-spacing: 10px;
+    }
     
       
     

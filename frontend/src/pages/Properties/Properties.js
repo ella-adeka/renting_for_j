@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import MainNavigation from "../../components/MainNavigation";
 import Reservation  from '../../components/Reservation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -51,10 +50,11 @@ export default class Properties extends Component{
                 {/* <MainNavigation /> */}
                 <Reservation />
 
-                    <div className="the_head">
-                        <h2>Places to stay</h2>
-                        <input type="text" placeholder="Search..."></input>
-                    </div>
+                    {/* <div className="the_head"> */}
+                        <h1>Places to stay</h1>
+                        {/* <h2>Places to stay</h2> */}
+                        {/* <input type="text" placeholder="Search..."></input>
+                    </div> */}
                     {/* <br></br> */}
                     <h2 style={{ textAlign: "center", paddingBottom: "0.3em"}}>Places to stay</h2>
                     {/* <input type="text" placeholder="Search..." style={{ textAlign: "center", paddingBottom: "0.1em"}}></input> */}
@@ -89,6 +89,7 @@ export default class Properties extends Component{
                         ))}
                         <br></br>
                     </div>
+                    <p className="end-text">--- the end ---</p>
                     <div></div>
                 </div>
             </main>
