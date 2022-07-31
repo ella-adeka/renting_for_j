@@ -1,11 +1,12 @@
 import React from 'react';
+import MainNavigation from "../components/Navigation/MainNavigation";
 
-import MainNavigation from "../components/MainNavigation";
+
 
 const Layout = (props) => {
     return (
         <main>
-            {location.pathname !== '/' && <MainNavigation />}
+            {location.pathname !== '/' && <MainNavigation themeToggler={props.themeToggler} />}
             <div>
                 {props.children}
             </div>

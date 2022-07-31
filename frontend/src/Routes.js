@@ -33,10 +33,10 @@ import Wishlist from "./pages/Users/Wishlist";
 import Layout from "./layout/Layout";
 
 
-const myRoutes = () => {
+const myRoutes = ({themeToggler}) => {
     return (
         <Router>
-            <Layout>
+            <Layout themeToggler={themeToggler}>
                 <Routes>
                     <Route exact path="/loose/admin" element={<Admin />}></Route>
                     
