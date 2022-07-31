@@ -66,13 +66,13 @@
                         background-color: transparent;
                         border: 1px solid white;
                         // margin-top: 1em;
-                        color: white;
+                        // color: white;
                         text-align: left;
     
                         &:hover{
                             // background-color: rgba(255, 255, 255, 0.241);
                             background-color: white;
-                            color: black;
+                            // color: black;
                         }
 
                         &::after{
@@ -87,6 +87,27 @@
                         }
 
                     }
+
+                    &__div{
+                        width: 48%;
+                        display: inline-block;
+            
+                        // &:nth-child(1){
+                        //     margin-right: 2%;
+                        // }
+                        // &:nth-child(2){
+                        //     margin-left: 2%;
+                        // }
+            
+                        // &__label{
+                        //     color: coral;
+                        // }
+                
+                        &__input{
+                            width: 100%;
+                            padding-left: 0;
+                        }
+                    } 
 
                     textarea{
                         width: 100%;
@@ -138,8 +159,11 @@
                     }
 
                     a{
-                        color: white;
-                        text-decoration: none;
+                        // color: white;
+
+                        &:hover{
+                            text-decoration: underline;
+                        }
                     }
                 }
             
@@ -151,9 +175,9 @@
                     margin-top: 2em;
                     text-align: center;
             
-                    a{
-                        color: pink;
-                    }
+                    // a{
+                    //     color: pink;
+                    // }
                 }
             
         }
@@ -167,7 +191,7 @@
         .social_icons{
             padding-left: 1em;
             &:hover{
-                color: white;
+                // color: white;
                 cursor: pointer;
             }
             

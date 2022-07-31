@@ -8,6 +8,7 @@
 @import './pages/About';
 @import './pages/Contact';
 @import './pages/Error';
+// @import './pages/NavBar';
 @import './config/forDate';
 
 
@@ -21,21 +22,21 @@ html, body{
     // font-family: 'Ultra', serif;
 }
 
-body{
-    background-color:  #121212;
-    color: #f2eeee;
-    // background-color:  #f2eeee;
-    // color: #121212;
-    // background-color:  #dbd9d9;
-    // color: #000000;
+// body{
+//     // background-color:  #121212;
+//     // color: #f2eeee;
+//     // background-color:  #f2eeee;
+//     // color: #121212;
+//     background-color:  #dbd9d9;
+//     color: #000000;
 
-    // color: #919191;
+//     // color: #919191;
 
-    input, a{
-        // color: #000000;
-        color: #f2eeee;
-    }
-}
+//     input, a{
+//         // color: #000000;
+//         color: #f2eeee;
+//     }
+// }
 
 h1{
     // font-family: $headerFont;
@@ -67,7 +68,7 @@ h3, h4{
     font-family: 'Italiana', serif;
 }
 
-p, li, input, label, button, a, span, textarea{
+p, li, input, label, button, a, span, textarea, sup{
     // font-family: 'Cormorant Garamond', serif;
     // font-family: 'Fahkwang', sans-serif;
     // font-family: 'Italiana', serif;
@@ -179,7 +180,7 @@ button{
     overflow: hidden;
     z-index: 8;
     text-align: left;
-    background-color:  #121212;
+    // background-color:  #121212;
     // color: #f2eeee;
     // background-color:  #dbd9d9;
     // color: #000000;
@@ -188,16 +189,17 @@ button{
     
     a{
         // color: #f1f1f1;
-        color: #7c7c7c;
+        color: #646464;
         text-decoration: none;
         font-family: 'Fahkwang', sans-serif;
         font-weight: bolder;
 
-        &:hover{
-            // color: rgb(0, 0, 0);
-            color: rgb(255, 255, 255);
+        // &:hover{
+        //     // color: rgb(0, 0, 0);
+        //     // color: rgb(255, 255, 255);
+        //     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
             
-        }
+        // }
     }
     
     
@@ -205,9 +207,23 @@ button{
         text-transform: uppercase;
         font-size: 5em;
         line-height: 1em;
-        a{
+        font-family: $headerFont;
+         a{
             font-family: $headerFont;
+
+            // .sign{
+            //     color: #000000;
+            // }
+
+           
         }
+
+        // div.sign:hover ~ div.up{
+        //     background-color: #000000  !important;
+            
+        // }
+
+        
     }
 
 
@@ -238,13 +254,14 @@ nav{
     ul{
 
         li{
+            
             list-style: none;
             display: inline;
             padding-right: 2em;
 
             a{
                 text-decoration: none;
-                color: black;
+                // color: black;
                 font-family: $headerFont;
                 // font-family: Roslindale Display Condensed,Georgia,Times New Roman,serif;
                 font-weight: 400;
@@ -335,20 +352,24 @@ nav{
             height: 100px;
             // color: rgb(184, 184, 184);
 
-            &:hover{
-                color: #ffffff;
-            }
+            // &:hover{
+            //     color: #ffffff;
+            // }
         }
     }
 
     .sth_else{
         margin-top: 2em;
         text-align: center;
-        color: #919191;
 
-        a{
-            color: #f1f1f1;
+        span{
+            color: #919191;
         }
+        
+
+        // a{
+        //     color: #f1f1f1;
+        // }
     }
 }
 

@@ -7,7 +7,7 @@
     height: 100%;
     text-align: center;
     z-index: 9;
-    background-color: #121212;
+    // background-color: #121212;
     user-select: none;
 
     h1{
@@ -22,10 +22,10 @@
         color: #c0bebe;
         
         a{
-            color: white;
-        // text-decoration: none;
-        // font-family: 'Fahkwang', sans-serif;
-        font-weight: bolder;
+            // color: white;
+            text-decoration: underline;
+            // font-family: 'Fahkwang', sans-serif;
+            font-weight: bolder;
         }
     }
 }

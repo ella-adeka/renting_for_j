@@ -18,6 +18,14 @@
 
 }
 
+.end-text{
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 10px;
+}
+
 .heart{
     color: gray;
     
@@ -70,7 +78,7 @@
             a{
                 text-decoration: none;
                 // text-decoration: inherit;
-                color: #f2eeee;
+                // color: #f2eeee;
                 
                 img{
                     width: 100%;
@@ -89,5 +97,7 @@
                 
             }
         }
+
+     
     }
 }
