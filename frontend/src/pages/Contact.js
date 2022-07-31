@@ -13,7 +13,9 @@ export default class Contact extends Component{
             email: "",
             first_name: "",
             last_name: "",
-            phone_number: ""
+            phone_number: "",
+            subject: "",
+            message: ""
         }
     }
 
@@ -48,7 +50,7 @@ export default class Contact extends Component{
 
     
     render(){
-        const  { email, first_name, last_name, phone_number } = this.state;
+        const  { email, first_name, last_name, phone_number, subject, message } = this.state;
         return(
             <main>
                 <div className="contact">
@@ -85,10 +87,15 @@ export default class Contact extends Component{
                                         <label htmlFor="last_name" className="contact_page__div__form__div__div__label">Phone Number</label><br></br>
                                         <input className="contact_page__div__form__div__div__input" type="text" value={phone_number} onChange={this.handleChange} name="phone_number" placeholder="enter your phone number" required></input>   
                                     </div>  
-                                </div>   
+                                </div>  
+
+                                <div className="contact_page__div__form__div">
+                                    <label htmlFor="subject" className="contact_page__div__form__div__label">Subject</label><br></br>
+                                    <input className="contact_page__div__form__div__input" type="text" value={subject} onChange={this.handleChange} name="subject" placeholder="subject of your message" required></input>   
+                                </div>  
 
                                 <label htmlFor="email"  className="contact_page__div__form__label">Message</label><br></br>
-                                <textarea rows={3} placeholder="enter your message here"></textarea>     
+                                <textarea rows={3} placeholder="enter your message here" value={message}></textarea>     
                                 <br></br>
 
                                 <button type="submit" className="contact_page__div__form__button">Send Message </button>       
@@ -105,7 +112,7 @@ export default class Contact extends Component{
                     </div>
 
                     <div className="others">
-                        <h3><FontAwesomeIcon className="heart social_icons" size="1x" icon={faFacebook} />  <FontAwesomeIcon className="heart social_icons" size="1x" icon={faInstagram} />  <FontAwesomeIcon className="heart social_icons" size="1x" icon={faTwitter} /></h3>
+                        <h3><FontAwesomeIcon className="social_icons" size="1x" icon={faFacebook} />  <FontAwesomeIcon className="social_icons" size="1x" icon={faInstagram} />  <FontAwesomeIcon className="social_icons" size="1x" icon={faTwitter} /></h3>
                     </div>
                 </div>
             </main>
