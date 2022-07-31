@@ -504,14 +504,6 @@ header .menu_bar__div:nth-child(3):hover .prop_menu:after {
   margin-right: 8%;
 }
 
-.end-text {
-  position: absolute;
-  bottom: 1em;
-  width: 100%;
-  text-align: center;
-  letter-spacing: 10px;
-}
-
 .heart {
   color: gray;
 }
@@ -530,6 +522,13 @@ header .menu_bar__div:nth-child(3):hover .prop_menu:after {
 
 .properties_body::-webkit-scrollbar {
   width: 1px;
+}
+
+.properties_body .end-text {
+  position: relative;
+  bottom: 1em;
+  text-align: center;
+  letter-spacing: 10px;
 }
 
 .properties_body div {
