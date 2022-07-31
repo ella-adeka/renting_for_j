@@ -112,7 +112,7 @@ export default class UserAccount extends Component{
                     { loading === false && (
                         <Fragment>
                                 <h1>Hello, {first_name}</h1>
-                                <h4>{this.formatUser(this.state)}, {email}, <Link to="/logout" style={{ fontSize: "1em", color: "pink"}} onClick={this.handleLogout}>logout</Link></h4>
+                                <h4 style={{ color: "#898989" }}>{this.formatUser(this.state)}, {email}, <Link to="/logout" style={{ fontSize: "1em", textDecoration: "underline" }} onClick={this.handleLogout}>logout</Link></h4>
                             <div className="user">
                                 <div className="user_account">
                                     {/* <Link to={{ pathname: `/user/deactivate` }} style={{ position: "absolute", bottom: "6em", textAlign: "center"}}>Deactivate My Account</Link> */}
@@ -149,7 +149,7 @@ export default class UserAccount extends Component{
                                 </div> 
 
                             </div>
-                                <p style={{ position: 'absolute', bottom: "6em", textAlign: "center", width: "100%"}}>I would like to <Link to={{ pathname:"/user/deactivate" }} style={{ color: "pink", fontSize: "1em"}}>deactivate my account</Link></p>  
+                                <p style={{ position: 'absolute', bottom: "6em", textAlign: "center", width: "100%", color: "#898989"}}>I would like to <Link to={{ pathname:"/user/deactivate" }} style={{ fontSize: "1em", textDecoration: "underline" }}>deactivate my account</Link></p>  
 
                             {/* <section style={{ position: 'absolute', right: "0", textAlign: "right"}}>
                                 { formShowing ? (

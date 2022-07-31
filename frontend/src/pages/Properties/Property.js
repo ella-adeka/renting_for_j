@@ -244,7 +244,7 @@ class Property extends Component {
                         {/* <h1>{property.title}<sup style={{ fontSize: "0.3em", marginTop: "0.5em", position: "absolute" }}><Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart"  icon={faHeart} /></Link></sup></h1> */}
                         <h1>{property.title}</h1>
                         <div className="des_likes"> 
-                            <p className="description"><FontAwesomeIcon className="heart share" size="1x" icon={faMapMarkerAlt} style={{color:"rgba(255, 255, 255, 0.19)"}} /> {property.location}, {property.city} </p>
+                            <p className="description"><FontAwesomeIcon className="heart share" size="1x" icon={faMapMarkerAlt} style={{opacity:"0.3"}} /> {property.location}, {property.city} </p>
                             <p  className="share_like">
                                 <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }} /> Save</Link>
                                 <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="icon two" size="1x" icon={faShareAlt} style={{ marginRight: "0.5em"}}  />Share</Link>

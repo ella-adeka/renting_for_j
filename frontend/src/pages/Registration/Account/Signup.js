@@ -141,7 +141,7 @@ export default class Signup extends Component{
                     </div>
 
                     <br></br>
-                    <h4 className="sth_else">Already Have An Account? <Link to={{ pathname: '/login' }} style={{ marginRight: "2em"}}>Log In</Link></h4>
+                    <h4 className="sth_else"><span>Already Have An Account?</span> <Link to={{ pathname: '/login' }} style={{ marginRight: "2em"}}>Log In</Link></h4>
 
                     {this.isLoggedIn}
                 </div>

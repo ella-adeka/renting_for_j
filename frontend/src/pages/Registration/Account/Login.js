@@ -98,7 +98,7 @@ export default class Login extends Component{
                            
                             <br></br>
                             <br></br>
-                            <h4 className="sth_else">Don't have an account? <Link to={{ pathname: '/signup' }} style={{ marginRight: "2em"}}>Sign Up</Link></h4>
+                            <h4 className="sth_else"><span>Don't have an account?</span> <Link to={{ pathname: '/signup' }} style={{ marginRight: "2em"}}>Sign Up</Link></h4>
                             
 
                             
