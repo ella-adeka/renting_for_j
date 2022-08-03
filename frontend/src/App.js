@@ -3,7 +3,8 @@ import  ReactDOM from "react-dom/client";
 import reportWebVitals from './reportWebVitals';
 import MyRoutes from "./Routes";
 // AuthContext
-import AuthContext from "./utils/context/authContext";
+import AuthProvider from "./utils/context/authContext";
+import { WishlistProvider } from "./utils/context/wishlistContext";
 // Themes
 import {ThemeProvider} from "styled-components";
 import { GlobalStyles } from "./components/Mode/GlobalStyles";
@@ -16,12 +17,14 @@ const App = () => {
 
     if (!mountedComponent) return <div /> 
     return (
-        <AuthContext.Provider>
-            <ThemeProvider theme={themeMode}>
-                <GlobalStyles />
-                <MyRoutes themeToggler={themeToggler} ></MyRoutes>
-            </ThemeProvider>
-        </AuthContext.Provider>
+        // <AuthProvider>
+            <WishlistProvider>
+                <ThemeProvider theme={themeMode}>
+                    <GlobalStyles />
+                    <MyRoutes themeToggler={themeToggler} ></MyRoutes>
+                </ThemeProvider>
+            </WishlistProvider>
+        // </AuthProvider>
     );  
 }
 
