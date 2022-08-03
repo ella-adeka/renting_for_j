@@ -182,6 +182,25 @@ header .menu_bar__div:nth-child(3):hover .prop_menu:after {
   width: 45px;
 }
 
+header .part_menu_bar {
+  position: fixed;
+  top: 2.4em;
+  right: 22.8em;
+  height: 70px;
+  z-index: 9;
+}
+
+header .part_menu_bar__li {
+  display: inline-block;
+  height: 70px;
+  width: 75px;
+  padding: 2.2em 0 0 2.2em;
+}
+
+header .part_menu_bar__li__link__icon {
+  font-size: 1.3em;
+}
+
 .back_to_props {
   font-size: 10px;
   position: relative;
@@ -225,29 +244,30 @@ header .menu_bar__div:nth-child(3):hover .prop_menu:after {
   text-align: right;
 }
 
-.property_body div .des_likes p:nth-child(2) a {
+.property_body div .des_likes p:nth-child(2) span {
   font-size: 1em;
   padding: 0.5em;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.property_body div .des_likes p:nth-child(2) a .icon {
+.property_body div .des_likes p:nth-child(2) span .icon {
   color: gray;
 }
 
-.property_body div .des_likes p:nth-child(2) a:hover .one {
+.property_body div .des_likes p:nth-child(2) span:hover .one {
   color: #fb4664;
 }
 
-.property_body div .des_likes p:nth-child(2) a:hover .two {
+.property_body div .des_likes p:nth-child(2) span:hover .two {
   color: #32e4f4;
 }
 
-.property_body div .des_likes p:nth-child(2) a:nth-child(1) {
+.property_body div .des_likes p:nth-child(2) span:nth-child(1) {
   padding-right: 2em;
 }
 
-.property_body div .des_likes p:nth-child(2) a:nth-child(2) {
+.property_body div .des_likes p:nth-child(2) span:nth-child(2) {
   padding-right: 0;
   padding-left: 2em;
 }
@@ -964,6 +984,12 @@ button:hover {
 .mainNavigation .groupA {
   position: absolute;
   top: 2em;
+  right: 80%;
+}
+
+.mainNavigation .groupA i {
+  cursor: pointer;
+  font-size: 1.2em;
 }
 
 .mainNavigation .groupB {

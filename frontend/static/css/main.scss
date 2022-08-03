@@ -231,6 +231,14 @@ button{
     .groupA{
         position: absolute;
         top: 2em;
+        right: 80%;
+
+        i{
+            cursor: pointer;
+            font-size: 1.2em;
+            // color: lighten($color: #000000, $amount: 0);
+        }
+        // text-align: right;
         
     }
     .groupB{

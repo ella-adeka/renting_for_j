@@ -10,6 +10,7 @@ header{
         // background-color:  #121212;
         // background-color:  #dbd9d9;
         // backdrop-filter: blur(50px);
+        
 
       
         &__div{
@@ -126,6 +127,29 @@ header{
             // }
         }
     }
+
+    .part_menu_bar{
+        position: fixed;
+        top: 2.4em;
+        right: 22.8em;
+        // width: 170px;
+        height: 70px;
+        z-index: 9;
+
+        &__li{
+            display: inline-block;
+            height: 70px;
+            width: 75px;
+            padding: 2.2em 0 0 2.2em;
+
+            &__link{
+                
+                &__icon{
+                    font-size: 1.3em;
+                }
+            }
+        }
+    }
 }
 .back_to_props{
     font-size: 10px;
@@ -172,10 +196,11 @@ header{
                 &:nth-child(2){
                     text-align: right;
                     
-                    a{
+                    span{
                         font-size: 1em;
                         padding: 0.5em;
                         text-decoration: none;
+                        cursor: pointer;
                         // color: white;
 
                          
