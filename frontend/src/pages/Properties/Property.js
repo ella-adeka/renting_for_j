@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useContext } from "react";
 import {  Link, Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { withUrlParams } from "../../utils/urlParams";
@@ -24,11 +24,16 @@ import {
     faUser,
     faMapMarkerAlt
 } from '@fortawesome/free-solid-svg-icons';
+import WishlistContext from "../../utils/context/wishlistContext";
+
+
 
 // import "react-date-range/dist/styles.css";
 // import "react-date-range/dist/theme/default.css";
 
 class Property extends Component {
+    static contextType = WishlistContext;
+
     constructor(props){
         super(props);
         this.state = {
@@ -42,11 +47,13 @@ class Property extends Component {
             guests: 0,
             booked: false,
             bookingList: [],
+            saved: true
         }
         
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showReservationForm = this.showReservationForm.bind(this);
+        // this.savedOrNot = this.savedOrNot.bind(this);
     }
 
     componentDidMount(){
@@ -198,16 +205,39 @@ class Property extends Component {
             formShowing: !prevState.formShowing
         }));
     }
+
+    savedOrNot = () => {
+        this.setState(prevState => ({
+            saved: !prevState.saved
+        }));
+    }
+
+
         
     render(){
         {/* USE SPREAD OPERATOR TO FILTER BY AMENITIES AVAILABLE */}
-        const {  user,bookingList, booked, check_in,check_out, formShowing, guests, property, propertyImagesList, isAuth } = this.state;
-        
+        const {  saved, user,bookingList, booked, check_in,check_out, formShowing, guests, property, propertyImagesList, isAuth } = this.state;
+        const {items, addToWishlist} = this.context;
+
         var theBooking = bookingList.filter((booking) => booking.user == user)
         // var theBooking = bookingList.filter((booking) => booking.user == user).map((booking) => (booking.reserved));
         // console.log(theBooking[0])
 
         const bookedAndBusy = localStorage.getItem('booked')
+
+        const id = property.id;
+        const bath = property.bath;
+        const bed = property.bed;
+        const bedroom = property.bedroom;
+        const city = property.city;
+        const image = property.image;
+        const max_guests = property.max_guests;
+        const title = property.title;
+        const type = property.type;
+        const price = property.price;
+        const slug = property.slug;
+        // id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug
+        // console.log(title, price)
         // console.log(bookedAndBusy)
 
         // const range = moment.range(moment(booking.check_in), moment(booking.check_out));
@@ -232,6 +262,17 @@ class Property extends Component {
             bookedDates.forEach((date) => {
                 excludedDates.push(moment(new Date(date).toDateString())._d);
         });
+
+        const propertyInWishlist = items.some(element => {
+            if (element.id === property.id) {
+              return true;
+            }
+          
+        
+            return false;
+        });
+
+
           
         return(
             <main>
@@ -246,8 +287,9 @@ class Property extends Component {
                         <div className="des_likes"> 
                             <p className="description"><FontAwesomeIcon className="heart share" size="1x" icon={faMapMarkerAlt} style={{opacity:"0.3"}} /> {property.location}, {property.city} </p>
                             <p  className="share_like">
-                                <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }} /> Save</Link>
-                                <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="icon two" size="1x" icon={faShareAlt} style={{ marginRight: "0.5em"}}  />Share</Link>
+                                {/* { propertyInWishlist && saved ? <span><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved!</span> : <span onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }}  />Save</span> } */}
+                                <span onClick={() => {addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={propertyInWishlist ? { marginRight: "0.5em", color: "rgb(251, 70, 100)" } : { marginRight: "0.5em",  }}  />{!propertyInWishlist ? "Save" : "Saved!"}</span>
+                                <span><FontAwesomeIcon className="icon two" size="1x" icon={faShareAlt} style={{ marginRight: "0.5em"}}  />Share</span>
                             </p>
                         </div>
                         {/* <p className="description">{property.description}</p> */}
@@ -402,6 +444,9 @@ class Property extends Component {
                                             <DatePicker
                                                 selected={check_out}
                                                 onChange={(date) => this.setState({check_out: date})}
+                                                onMouseOver={(date) => {this.setState({check_out: date})
+                                                 console.log(date)
+                                                 }}
                                                 dateFormat="yyyy-MM-dd"
                                                 selectsEnd
                                                 check_in={check_in}
