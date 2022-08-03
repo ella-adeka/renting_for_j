@@ -1,14 +1,19 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
-    faHeart,
+    // faHeart,
     faSun,
     faUser,
 } from '@fortawesome/free-regular-svg-icons';
+import WishlistContext from "../../utils/context/wishlistContext";
+import { faHeart, faSignOut } from "@fortawesome/free-solid-svg-icons";
+
 
 
 export default class MainNavigation extends Component{
+    static contextType = WishlistContext;
+
     constructor(props){
         super(props);
         this.state = {
@@ -21,6 +26,7 @@ export default class MainNavigation extends Component{
     }
 
     componentDidMount(){
+      
         if (localStorage.getItem('token') !== null) {
             this.setState({
                 isAuth: true,
@@ -66,6 +72,12 @@ export default class MainNavigation extends Component{
 
     render(){
         const { isAuth, hidden } = this.state;
+        // const { items } = useContext(WishlistContext);
+        // console.log(items.length)
+
+        const {items} = this.context;
+
+        // console.log(items.length);
         
         return(
             <header>
@@ -93,14 +105,16 @@ export default class MainNavigation extends Component{
                             <div className="groupA">
                                 <li><Link to="/">Back Home</Link></li>
 
-                                <li>
+                                <li className="part_menu_bar">
                                     {isAuth === true && (
                                         <Fragment>
-                                            <li>
-                                                <Link to="/wishlist" style={{ fontSize: "1em"}}>Wishlist</Link>
+                                            <li className="part_menu_bar__li">
+                                                <Link to="/logout" onClick={this.handleLogout} className='part_menu_bar__li__link__icon' ><FontAwesomeIcon  className='part_menu_bar__li__link__icon' icon={faSignOut} /></Link>
+                                                {/* <Link to="/logout" style={{ fontSize: "1em"}} onClick={this.handleLogout}>Logout</Link> */}
                                             </li>
-                                            <li>
-                                                <Link to="/logout" style={{ fontSize: "1em"}} onClick={this.handleLogout}>Logout</Link>
+                                            <li className="part_menu_bar__li">
+                                                <Link to="/wishlist" className='part_menu_bar__li__link__icon'><FontAwesomeIcon className='part_menu_bar__li__link__icon' icon={faHeart} /> <sup>{items.length}</sup></Link>
+                                                {/* <Link to="/wishlist" style={{ fontSize: "1em"}}>Wishlist <sup>{items.length}</sup></Link> */}
                                             </li>
                                         </Fragment>
                                     )}
