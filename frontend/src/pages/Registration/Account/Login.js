@@ -52,7 +52,7 @@ export default class Login extends Component{
             .then(data => {
                 // this.setState({ propertiesList: res.data })
                 if (data.key) {
-                    localStorage.clear();
+                    localStorage.removeItem("token");
                     localStorage.setItem('token', data.key);
                     window.location.replace('http://127.0.0.1:8000/user/account');
                 } else {
@@ -61,7 +61,7 @@ export default class Login extends Component{
                         password:'',
                         errors: true
                     })
-                    localStorage.clear();
+                    // localStorage.clear();
                 }
             });
     }

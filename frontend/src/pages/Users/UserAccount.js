@@ -76,7 +76,8 @@ export default class UserAccount extends Component{
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                localStorage.clear();
+                // localStorage.clear();
+                localStorage.removeItem("token");
                 window.location.replace('http://127.0.0.1:8000/login');
             });
     }
