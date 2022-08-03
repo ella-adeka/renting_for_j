@@ -7,23 +7,27 @@ export const GlobalStyles = createGlobalStyle`
   }
   input, a, button, textarea{
     color:${({theme}) => theme.link};
-    text-decoration: none;
-
-    
+    text-decoration: none; 
   }
-  .menu_bar{
+
+  .menu_bar,
+  .part_menu_bar{
     background: ${({ theme }) => theme.body};
   }
 
-  .menu_bar__div{
+  .menu_bar__div,
+  .part_menu_bar__li{
     border: 0.7px solid ${({ theme }) => theme.mainNavLink};
     background: ${({ theme }) => theme.body};
-    
   }
   
   .menu_bar__div__icon{
     color: ${({ theme }) => theme.link};
     opacity: 0.8;
+  }
+  .part_menu_bar__li__link__icon, 
+  .part_menu_bar__li__link__icon sup{
+    color: ${({ theme }) => theme.link};
   }
   .menu_bar__div__icon:hover{
     color: ${({theme}) => theme.hoverLink};
@@ -71,7 +75,7 @@ export const GlobalStyles = createGlobalStyle`
   .highlights__highlight{
     border: 0.1px solid ${({ theme }) => theme.highlightBorder};
   }
-  .share_like a:nth-child(1){
+  .share_like span:nth-child(1){
     border-right: 0.7px solid ${({ theme }) => theme.mainNavLink};
   }
   `
