@@ -10,10 +10,24 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none; 
   }
 
-  .menu_bar,
-  .part_menu_bar{
-    background: ${({ theme }) => theme.body};
+  *:focus {
+    border-color:  ${({ theme }) => theme.link};
+    border-width: 0 0 1px 0;
   }
+
+  
+  .cls-1,
+  path{
+    stroke: ${({theme}) => theme.text};
+  }
+
+  .cls-1:hover{
+    color: ${({theme}) => theme.hoverLink};
+
+    transition: all 0.2s linear;
+  }
+
+ 
 
   .menu_bar__div,
   .part_menu_bar__li{
@@ -79,3 +93,9 @@ export const GlobalStyles = createGlobalStyle`
     border-right: 0.7px solid ${({ theme }) => theme.mainNavLink};
   }
   `
+
+
+  // .menu_bar,
+  // .part_menu_bar{
+  //   background: ${({ theme }) => theme.body};
+  // }
