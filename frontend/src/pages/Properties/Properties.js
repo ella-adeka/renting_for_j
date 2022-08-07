@@ -46,21 +46,21 @@ export default class Properties extends Component{
     
     render(){
         const { propertiesList } = this.state;
-        const {items, addToWishlist} = this.context;
+        const {items, addToWishlist, removeFromWishlist } = this.context;
 
-        const property = propertiesList.filter((property) => property.id == property.id).map((property, index) => (property.id, property.bath));
+        const property = propertiesList.filter((property) => property.id == items.id);
 
-        // const id = property[0].id;
-        // const bath = property[0].bath;
-        // const bed = property[0].bed;
-        // const bedroom = property[0].bedroom;
-        // const city = property[0].city;
-        // const image = property[0].image;
-        // const max_guests = property[0].max_guests;
-        // const title = property[0].title;
-        // const type = property[0].type;
-        // const price = property[0].price;
-        // const slug = property[0].slug;
+        const id = property.id;
+        const bath = property.bath;
+        const bed = property.bed;
+        const bedroom = property.bedroom;
+        const city = property.city;
+        const image = property.image;
+        const max_guests = property.max_guests;
+        const title = property.title;
+        const type = property.type;
+        const price = property.price;
+        const slug = property.slug;
 
         const propertyInWishlist = items.some(element => {
             if (element.id === property.id) {
@@ -93,6 +93,7 @@ export default class Properties extends Component{
                                 <Link to={{ pathname: `/properties/${property.slug}/${property.id}` }}>
                                     <img src={property.image} alt={property.title}></img>
                                     {/* { propertyInWishlist ? <span><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved</span> : <span><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }} onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)} />Save</span> } */}
+                                    {/* <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={propertyInWishlist ? { position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1, color: "rgb(251, 70, 100)" } : { position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} /></span>  */}
                                     { propertyInWishlist ? <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1, color: "rgb(251, 70, 100)" }} /></span> : <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)} /></span> }
                                     {/* <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} /></Link>                                     */}
                                     <h3>{property.title}</h3>

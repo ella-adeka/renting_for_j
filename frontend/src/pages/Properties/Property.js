@@ -217,7 +217,7 @@ class Property extends Component {
     render(){
         {/* USE SPREAD OPERATOR TO FILTER BY AMENITIES AVAILABLE */}
         const {  saved, user,bookingList, booked, check_in,check_out, formShowing, guests, property, propertyImagesList, isAuth } = this.state;
-        const {items, addToWishlist} = this.context;
+        const {items, addToWishlist, removeFromWishlist} = this.context;
 
         var theBooking = bookingList.filter((booking) => booking.user == user)
         // var theBooking = bookingList.filter((booking) => booking.user == user).map((booking) => (booking.reserved));
@@ -279,7 +279,9 @@ class Property extends Component {
                 {/* <MainNavigation/> */}
 
                 {/* <FontAwesomeIcon icon="fa-thin fa-heart" /> */}
-                <Link className="back_to_props" to={{ pathname: `/properties`}}>Back to Properties</Link>
+                <Link className="back_to_props" to={{ pathname: `/properties`}}>
+                    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176.51 43.63" style={{ width: "10em"}}><defs></defs><line style={{fill:"none", strokeMiterLimit:10 }} className="cls-1" x1="0.1" y1="22.19" x2="176.51" y2="22.19"/><path d="M230.15,209.89a28.33,28.33,0,0,0,7.52-3,30.08,30.08,0,0,0,6.39-5,33.41,33.41,0,0,0,8.07-13.8l2.2.89a55.22,55.22,0,0,1-4.42,7.1,43.15,43.15,0,0,1-5.51,6.17,39.21,39.21,0,0,1-6.59,4.89,42.12,42.12,0,0,1-7.46,3.46Z" transform="translate(-230.15 -188.04)"/><path d="M230.3,209.88a34.86,34.86,0,0,1,8.06,2.49,28.15,28.15,0,0,1,7.08,4.55,31.86,31.86,0,0,1,5.54,6.43,43.81,43.81,0,0,1,4,7.63l-2.27.69a28.58,28.58,0,0,0-2.69-7.74,25.46,25.46,0,0,0-4.89-6.64,23.48,23.48,0,0,0-6.85-4.68,25.25,25.25,0,0,0-8.05-2Z" transform="translate(-230.15 -188.04)"/></svg>
+                </Link>
                 <div className="property_body">
                     <div key={property.id}>
                         {/* <h1>{property.title}<sup style={{ fontSize: "0.3em", marginTop: "0.5em", position: "absolute" }}><Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart"  icon={faHeart} /></Link></sup></h1> */}
@@ -287,8 +289,8 @@ class Property extends Component {
                         <div className="des_likes"> 
                             <p className="description"><FontAwesomeIcon className="heart share" size="1x" icon={faMapMarkerAlt} style={{opacity:"0.3"}} /> {property.location}, {property.city} </p>
                             <p  className="share_like">
-                                {/* { propertyInWishlist && saved ? <span><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved!</span> : <span onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }}  />Save</span> } */}
-                                <span onClick={() => {addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={propertyInWishlist ? { marginRight: "0.5em", color: "rgb(251, 70, 100)" } : { marginRight: "0.5em",  }}  />{!propertyInWishlist ? "Save" : "Saved!"}</span>
+                                { propertyInWishlist  ? <span onClick={() => {removeFromWishlist(property.id)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved!</span> : <span onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }}  />Save</span> }
+                                {/* <span  onClick={() => {addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={propertyInWishlist ? { marginRight: "0.5em", color: "rgb(251, 70, 100)" } : { marginRight: "0.5em",  }}  />{!propertyInWishlist ? "Save" : "Saved!"}</span> */}
                                 <span><FontAwesomeIcon className="icon two" size="1x" icon={faShareAlt} style={{ marginRight: "0.5em"}}  />Share</span>
                             </p>
                         </div>
@@ -308,15 +310,15 @@ class Property extends Component {
                                 <div className="highlights" >
                                     <div className="highlights__highlight" style={{ paddingLeft: "0"}}>
                                         <p >PER NIGHT</p>
-                                        <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "2.5em"}}>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</span><strike style={{fontSize: "0.8em", opacity: "0.4"}}>£20.00</strike>
+                                        <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "2.5em"}}>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</span><strike style={{fontSize: "0.8em", opacity: "0.4"}}>{property.discount?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strike>
                                     </div>
                                     <div className="highlights__highlight">
                                         <p>GUESTS</p>
-                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faUser} /> {property.max_guests}</div>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faUser} /> <sup>{property.max_guests}</sup></div>
                                     </div>
                                     <div className="highlights__highlight">
                                         <p>BATH</p>
-                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBathtub} /> <sub>{property.bath}</sub></div>
+                                        <div><FontAwesomeIcon style={{fontSize: "23px", marginRight: "-5px"}} icon={faBathtub} /> <sup>{property.bath}</sup></div>
                                         {/* {property.highlights?.map((highlights, index) => (
                                             <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
                                         ))} */}
@@ -375,12 +377,9 @@ class Property extends Component {
 
 
                                 <h3>House Rules</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                     text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                     It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                                     It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing 
-                                     software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-
+                                {property.house_rule?.map((house_rules, index) => (
+                                    <li key={index} style={{ listStyleType: "circle"}}>{house_rules}</li>
+                                ))}
                                 {/* <DatePicker
                                     selected={check_in}
                                     onChange={(date) => { this.setState({check_in: date}) }}
@@ -392,9 +391,9 @@ class Property extends Component {
                                 /> */}
 
                                 <h3>on the inside</h3>
-                                {property.property_images?.map((property_image, index) => (
+                                {property.inside_property_images?.map((inside_property, index) => (
                                 <div key={index} className="inside_images_div">
-                                    <img  className="inside_images_div__inside_image"  src={property_image.images} alt={property.title} />
+                                    <img  className="inside_images_div__inside_image"  src={inside_property.inside_images} alt={property.title} />
                                 </div>
                             ))}
 
@@ -491,7 +490,8 @@ class Property extends Component {
                                                 {/* <h4>Days </h4> */}
                                                 <p className="sub-total"><span>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {
                                                     !check_out ? (0) : (<Fragment>{this.noOfDays(this.state)}</Fragment>)
-                                                } nights</span>  { !check_out ? (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>) }</p>
+                                                } nights</span>  <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{! check_out ? "£0.00" : this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" }) }</span> </p>
+                                                {/* } nights</span>  { !check_out ? (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>) }</p> */}
                                                 {/* } nights</span>  <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP",  minimumFractionDigits: 0})}</span></p> */}
                                             </Fragment>
                                         {/* ) */}
@@ -503,7 +503,7 @@ class Property extends Component {
                                     {/* <p>{this.totalPrice()}</p> */}
                                     {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
                                     
-                                    <p className="sub-total"><span style={{ fontSize: "1em" }}>Service charges/Tax</span>  <span style={{ fontSize: "1.5em" }}>{20?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span></p>
+                                    <p className="sub-total"><span style={{ fontSize: "1em" }}>Service charges/Tax</span>  <span style={{ fontSize: "1.5em" }}>{property.service_charge?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span></p>
 
                                     <p className="sub-total"><span style={{ fontSize: "1.5em", marginTop: "1.5em" }}>Total</span>  {!check_out ? (<span style={{ fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>)}</p>
 
