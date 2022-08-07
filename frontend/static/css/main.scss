@@ -112,9 +112,10 @@ img{
 // }
 
 input, button, textarea{
-    border-width: 0 0 1px 0;
+    border-width: 0 0 0.7px 0;
     border-style: solid;
-    border-color: gray;
+    border-color: rgb(148, 147, 147);
+    // border-color: rgb(181, 179, 179);
     padding: 1em;
     background-color: transparent;
     color: white;
@@ -122,7 +123,7 @@ input, button, textarea{
 
 *:focus {
     outline: none;
-    border-color: white;
+    // border-color: white;
 }
 
 
@@ -230,8 +231,8 @@ button{
 
     .groupA{
         position: absolute;
-        top: 2em;
-        right: 80%;
+        top: 2.5em;
+        // right: 80%;
 
         i{
             cursor: pointer;

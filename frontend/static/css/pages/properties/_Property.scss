@@ -4,7 +4,7 @@ header{
         position: fixed;
         top: 2em;
         right: 2em;
-        width: 300px;
+        width: 450px;
         height: 70px;
         z-index: 9;
         // background-color:  #121212;
@@ -25,7 +25,7 @@ header{
 
             &__icon{
                 cursor: pointer;
-                font-size: 1.2em;
+                font-size: 1.1em;
                 // color: lighten($color: #000000, $amount: 0);
             }
             
@@ -33,20 +33,43 @@ header{
             &:nth-child(1){
                 width: 75px;
                 height: 70px;
+                border-right: none;
+                
+                
+                a{
+                    font-size: 1em;
+                    font-weight: lighter;
+                }
+            }
+            &:nth-child(2){
+                // border-left: none;
+                border-right: none;
+                width: 75px;
+            }
+
+            &:nth-child(3){
+                width: 75px;
+                height: 70px;
                 
                 a{
                     font-size: 1em;
                 }
             }
-            &:nth-child(2){
+            &:nth-child(4){
                 border-left: none;
                 border-right: none;
                 width: 75px;
+                // height: 70px;
+
+                a{
+                    font-size: 0.87em;
+                }
+               
             }
 
             
             
-            &:nth-child(3){
+            &:nth-child(5){
                 display: inline-block;
                 width: 150px;
                 height: 70px;
