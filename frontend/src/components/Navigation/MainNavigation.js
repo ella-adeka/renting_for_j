@@ -2,12 +2,14 @@ import React, { Component, Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
-    // faHeart,
+    faHeart as HeartEmpty,
     faSun,
+    faMoon,
     faUser,
 } from '@fortawesome/free-regular-svg-icons';
 import WishlistContext from "../../utils/context/wishlistContext";
-import { faHeart, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import {  faHeart as HeartFilled, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { lightTheme } from "../Mode/Theme";
 
 
 
@@ -22,10 +24,17 @@ export default class MainNavigation extends Component{
             first_name: '',
             last_name: '',
             hidden: true,
+            theme: localStorage.getItem('theme'),
         }
     }
 
     componentDidMount(){
+
+        // if (localStorage.getItem('theme') == 'dark') {
+        //     this.setState({
+        //         theme: localStorage.getItem('theme'),
+        //     });
+        // }
       
         if (localStorage.getItem('token') !== null) {
             this.setState({
@@ -71,7 +80,7 @@ export default class MainNavigation extends Component{
     }
 
     render(){
-        const { isAuth, hidden } = this.state;
+        const { isAuth, hidden, theme } = this.state;
         // const { items } = useContext(WishlistContext);
         // console.log(items.length)
 
@@ -82,20 +91,35 @@ export default class MainNavigation extends Component{
         return(
             <header>
                 <div className="menu_bar">
+                    {/* { hidden === false && ( */}
+                       <Fragment >
+                            {/* <div className='menu_bar__div' style={ hidden ? isAuth ? {visibility: "visible"} : {visibility: "hidden"} : {visibility: "hidden"}}> */}
+                            <div className='menu_bar__div' style={ hidden ? {visibility: "hidden"} : isAuth ? {visibility: "visible"} :  {visibility: "hidden"} }>
+                                <Link to="/logout" onClick={this.handleLogout}>
+                                    <FontAwesomeIcon  className='menu_bar__div__icon' icon={faSignOut} />
+                                </Link>
+                            </div>
+                            <div className='menu_bar__div' onClick={this.props.themeToggler} style={ hidden ? {visibility: "hidden"} : {visibility: "visible"}}><FontAwesomeIcon className='menu_bar__div__icon' icon={theme === "light" ? faMoon : faSun } /></div>
+                       </Fragment>
+                    {/* )} */}
                     <div className='menu_bar__div'>
                         <Link to="/user/account">
                             <FontAwesomeIcon className='menu_bar__div__icon' icon={faUser} />
                         </Link>
                     </div>
+                    <div className='menu_bar__div'>
+                        <Link to="/wishlist">
+                            <FontAwesomeIcon className='menu_bar__div__icon' icon={items.length == 0 ? HeartEmpty : HeartFilled} /> <sup>{items.length}</sup>
+                        </Link>
+                    </div>
                    
                     {/* <div className='menu_bar__div'>
                         {isAuth === true ? (
-                            <Link to="/wishlist"><FontAwesomeIcon className='menu_bar__div__icon' icon={faHeart} /><sup>0</sup></Link>
+                            <Link to="/wishlist"><FontAwesomeIcon className='menu_bar__div__icon' icon={faHeart} /><sup>{items.length}</sup></Link>
                         ) : (
                             <Link to="/login"><FontAwesomeIcon className='menu_bar__div__icon' icon={faHeart} /><sup>0</sup></Link>
                         )}
                     </div> */}
-                    <div className='menu_bar__div' onClick={this.props.themeToggler}><FontAwesomeIcon className='menu_bar__div__icon' icon={faSun} /></div>
                     <div className='menu_bar__div' onClick={() => this.setState({hidden : !hidden}) }><span>menu</span><span className="prop_menu"></span></div>
                 </div>
                 { hidden === false && (
@@ -103,22 +127,29 @@ export default class MainNavigation extends Component{
                         
                         <ul>
                             <div className="groupA">
-                                <li><Link to="/">Back Home</Link></li>
+                                {/* <li><Link to="/">Back Home</Link></li> */}
+                                <li>
+                                    <Link to="/">
+                                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176.51 43.63" style={{ width: "9em"}}><defs></defs><line style={{fill:"none", strokeMiterLimit:10 }} className="cls-1" x1="0.1" y1="22.19" x2="176.51" y2="22.19"/><path d="M230.15,209.89a28.33,28.33,0,0,0,7.52-3,30.08,30.08,0,0,0,6.39-5,33.41,33.41,0,0,0,8.07-13.8l2.2.89a55.22,55.22,0,0,1-4.42,7.1,43.15,43.15,0,0,1-5.51,6.17,39.21,39.21,0,0,1-6.59,4.89,42.12,42.12,0,0,1-7.46,3.46Z" transform="translate(-230.15 -188.04)"/><path d="M230.3,209.88a34.86,34.86,0,0,1,8.06,2.49,28.15,28.15,0,0,1,7.08,4.55,31.86,31.86,0,0,1,5.54,6.43,43.81,43.81,0,0,1,4,7.63l-2.27.69a28.58,28.58,0,0,0-2.69-7.74,25.46,25.46,0,0,0-4.89-6.64,23.48,23.48,0,0,0-6.85-4.68,25.25,25.25,0,0,0-8.05-2Z" transform="translate(-230.15 -188.04)"/></svg>
+                                        {/* <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.85 43.63" style={{ width: "5em"}}><defs></defs><line style={{fill:"none", stroke:"#000", strokeMiterlimit:10 }} className="cls-1" x1="0.1" y1="22.19" x2="89.85" y2="22.19"/><path d="M230.15,209.89a28.33,28.33,0,0,0,7.52-3,30.08,30.08,0,0,0,6.39-5,33.41,33.41,0,0,0,8.07-13.8l2.2.89a55.22,55.22,0,0,1-4.42,7.1,43.15,43.15,0,0,1-5.51,6.17,39.21,39.21,0,0,1-6.59,4.89,42.12,42.12,0,0,1-7.46,3.46Z" transform="translate(-230.15 -188.04)"/><path d="M230.3,209.88a34.86,34.86,0,0,1,8.06,2.49,28.15,28.15,0,0,1,7.08,4.55,31.86,31.86,0,0,1,5.54,6.43,43.81,43.81,0,0,1,4,7.63l-2.27.69a28.58,28.58,0,0,0-2.69-7.74,25.46,25.46,0,0,0-4.89-6.64,23.48,23.48,0,0,0-6.85-4.68,25.25,25.25,0,0,0-8.05-2Z" transform="translate(-230.15 -188.04)"/></svg> */}
+                                        {/* <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.85 43.63"><defs><style>.cls-1{{fill:"none", stroke:"#000", strokeMiterlimit:10}}</style></defs><line class="cls-1" x1="0.1" y1="22.19" x2="89.85" y2="22.19"/><path d="M230.15,209.89a28.33,28.33,0,0,0,7.52-3,30.08,30.08,0,0,0,6.39-5,33.41,33.41,0,0,0,8.07-13.8l2.2.89a55.22,55.22,0,0,1-4.42,7.1,43.15,43.15,0,0,1-5.51,6.17,39.21,39.21,0,0,1-6.59,4.89,42.12,42.12,0,0,1-7.46,3.46Z" transform="translate(-230.15 -188.04)"/><path d="M230.3,209.88a34.86,34.86,0,0,1,8.06,2.49,28.15,28.15,0,0,1,7.08,4.55,31.86,31.86,0,0,1,5.54,6.43,43.81,43.81,0,0,1,4,7.63l-2.27.69a28.58,28.58,0,0,0-2.69-7.74,25.46,25.46,0,0,0-4.89-6.64,23.48,23.48,0,0,0-6.85-4.68,25.25,25.25,0,0,0-8.05-2Z" transform="translate(-230.15 -188.04)"/></svg> */}
+                                    </Link>
+                                </li>
 
-                                <li className="part_menu_bar">
+                                {/* <li className="part_menu_bar">
                                     {isAuth === true && (
                                         <Fragment>
                                             <li className="part_menu_bar__li">
-                                                <Link to="/logout" onClick={this.handleLogout} className='part_menu_bar__li__link__icon' ><FontAwesomeIcon  className='part_menu_bar__li__link__icon' icon={faSignOut} /></Link>
+                                                <Link to="/logout" onClick={this.handleLogout} className='part_menu_bar__li__link__icon' ><FontAwesomeIcon  className='part_menu_bar__li__link__icon' icon={faSignOut} /></Link> */}
                                                 {/* <Link to="/logout" style={{ fontSize: "1em"}} onClick={this.handleLogout}>Logout</Link> */}
-                                            </li>
-                                            <li className="part_menu_bar__li">
-                                                <Link to="/wishlist" className='part_menu_bar__li__link__icon'><FontAwesomeIcon className='part_menu_bar__li__link__icon' icon={faHeart} /> <sup>{items.length}</sup></Link>
+                                            {/* </li>
+                                            <li className="part_menu_bar__li"> */}
+                                                {/* <Link to="/wishlist" className='part_menu_bar__li__link__icon'><FontAwesomeIcon className='part_menu_bar__li__link__icon' icon={faHeart} /> <sup>{items.length}</sup></Link> */}
                                                 {/* <Link to="/wishlist" style={{ fontSize: "1em"}}>Wishlist <sup>{items.length}</sup></Link> */}
-                                            </li>
+                                            {/* </li>
                                         </Fragment>
                                     )}
-                                </li>
+                                </li> */}
                                 {/* <li><span onClick={this.props.themeToggler}>Switch Theme</span></li> */}
                             </div>
                             
@@ -126,7 +157,7 @@ export default class MainNavigation extends Component{
                                 {isAuth === true ? (
                                     <h2><Link to="/user/account" className="nav_profile">Account</Link></h2>
                                 ) : (
-                                    <h2><Link to="/login">Sign in</Link> / <Link to="/signup">up</Link></h2>
+                                    <h2><Link to="/login">Sign in</Link><span>/</span><Link to="/signup">up</Link></h2>
                                 )}
                                 <h2><Link to="/cities">Cities</Link></h2>
                                 <h2><Link to="/properties">Places to stay</Link></h2>
