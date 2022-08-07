@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
-from .serializers import BookingSerializer, CitySerializer,PaymentSerializer, PropertySerializer, PropertyImagesSerializer
+from .serializers import BookingSerializer, CitySerializer,PaymentSerializer, PropertySerializer, InsidePropertyImagesSerializer, PropertyImagesSerializer
 from .models import *
 # from amenities.models import *
 from rest_framework.decorators import api_view
@@ -141,6 +141,10 @@ class CitiesView(viewsets.ModelViewSet):
 class PropertiesView(viewsets.ModelViewSet):
     serializer_class = PropertySerializer
     queryset = Property.objects.all()
+
+class InsidePropertyImagesView(viewsets.ModelViewSet):
+    serializer_class = InsidePropertyImagesSerializer
+    queryset = InsidePropertyImages.objects.all()
 
 class PropertyImagesView(viewsets.ModelViewSet):
     serializer_class = PropertyImagesSerializer

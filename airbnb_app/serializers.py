@@ -63,6 +63,8 @@ class BookingSerializer(serializers.ModelSerializer):
 class PropertySerializer(serializers.ModelSerializer):
 
     price = serializers.FloatField()
+    discount = serializers.FloatField()
+    service_charge = serializers.FloatField()
 
     # city = serializers.StringRelatedField(many=False)
     city = serializers.SlugRelatedField(many=False, slug_field='city', queryset=City.objects.all())
@@ -70,6 +72,7 @@ class PropertySerializer(serializers.ModelSerializer):
     highlights = serializers.SlugRelatedField(many=True, slug_field='highlight', queryset=Highlights.objects.all())
 
     amenity = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Amenity.objects.all())
+    house_rule = serializers.SlugRelatedField(many=True, slug_field='house_rule', queryset=HouseRules.objects.all())
     # bathroom = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Bathroom.objects.all())
     # bedroom = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Bedroom.objects.all())
     # cleaning = serializers.SlugRelatedField(many=True, slug_field='amenity', queryset=Cleaning.objects.all())
@@ -87,6 +90,7 @@ class PropertySerializer(serializers.ModelSerializer):
  
 
     property_images = serializers.SerializerMethodField(allow_null=True)
+    inside_property_images = serializers.SerializerMethodField(allow_null=True)
 
     class Meta:
         model = Property
@@ -101,6 +105,8 @@ class PropertySerializer(serializers.ModelSerializer):
             'location',
             'highlights',
             'price',
+            'discount',
+            'service_charge',
             'min_days',
             'max_guests',
             'is_available',
@@ -108,9 +114,16 @@ class PropertySerializer(serializers.ModelSerializer):
             'bath',
             'bedroom',
             'amenity',
+            'house_rule',
+            'inside_property_images',
             'property_images'
         )
     
+    def get_inside_property_images(self, obj):
+        inside_property_images_query = InsidePropertyImages.objects.filter(property_id=obj.id)
+        serializer = InsidePropertyImagesSerializer(inside_property_images_query, many=True)
+        return serializer.data
+
     def get_property_images(self, obj):
         property_images_query = PropertyImages.objects.filter(property_id=obj.id)
         serializer = PropertyImagesSerializer(property_images_query, many=True)
@@ -128,6 +141,13 @@ class PropertySerializer(serializers.ModelSerializer):
     # def get_bathroom(self, model):
     #     return [bathroom.__str__() for bathroom in model.bathroom.all().order_by('id')]
     
+
+class InsidePropertyImagesSerializer(serializers.ModelSerializer):
+    # property = serializers.StringRelatedField(many=False)
+
+    class Meta:
+        model = InsidePropertyImages
+        fields =  '__all__'   
 
 class PropertyImagesSerializer(serializers.ModelSerializer):
     # property = serializers.StringRelatedField(many=False)

@@ -41,6 +41,15 @@ class Amenity(models.Model):
     def __str__(self):
         return self.amenity
 
+class HouseRules(models.Model):
+    house_rule = models.CharField(max_length=1000)
+
+    class Meta:
+        verbose_name_plural = 'House Rules'
+
+    def __str__(self):
+        return self.house_rule
+
 
 class City(models.Model):
     city = models.CharField(max_length=50)
@@ -93,6 +102,8 @@ class Property(models.Model):
     location = models.TextField()
     highlights = models.ManyToManyField(Highlights, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    discount = models.DecimalField(max_digits=6, decimal_places=2)
+    service_charge = models.DecimalField(max_digits=6, decimal_places=2)
     min_days = models.IntegerField(default=1)
     max_guests = models.IntegerField(default=1)
     date_added = models.DateTimeField(auto_now=False,auto_now_add=True)
@@ -102,6 +113,7 @@ class Property(models.Model):
     bedroom = models.IntegerField(default=1)
     bath = models.IntegerField(default=1)
     amenity = models.ManyToManyField(Amenity, blank=True)
+    house_rule = models.ManyToManyField(HouseRules, blank=True)
 
     class Meta:
         # ordering = ('id',)
@@ -110,6 +122,16 @@ class Property(models.Model):
     def __str__(self):
         return self.title
 
+
+class InsidePropertyImages(models.Model):
+    property = models.ForeignKey(Property,default=None, on_delete=models.CASCADE)
+    inside_images = models.FileField(upload_to="images/properties")
+
+    class Meta:
+        verbose_name_plural = 'Inside Property Images'
+
+    def __str__(self):
+        return self.property.title
 
 class PropertyImages(models.Model):
     property = models.ForeignKey(Property,default=None, on_delete=models.CASCADE)
@@ -129,11 +151,6 @@ class PropertyImages(models.Model):
 
 # ------------------------ BOOKING --------------------------------
 class Booking(models.Model):
-    STATUS_CHOICES = [
-        ('Booked', 'Booked'),
-        ('Confirmed', 'Confirmed'),
-        ('Cancelled', 'Cancelled'),
-    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, default="", null=True)
     property = models.ForeignKey(Property, on_delete=models.CASCADE, default="", null=True)
     check_in = models.DateField()
@@ -142,6 +159,10 @@ class Booking(models.Model):
     # arrival_time = models.TimeField(auto_now_add=True)
     booking_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     reserved = models.BooleanField(default=False)
+    is_checked_in = models.BooleanField(default=False)
+    is_checked_out = models.BooleanField(default=False)
+    is_cancelled = models.BooleanField(default=False)
+    
 
     class Meta:
         verbose_name_plural = 'Bookings'
