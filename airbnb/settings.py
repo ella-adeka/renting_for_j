@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     #django rest framework
     'rest_framework',
     'rest_framework.authtoken',
+
+    'phonenumber_field',
     
     # corsheaders
     'corsheaders',
