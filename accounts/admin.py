@@ -1,16 +1,23 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import User
+from .models import User, UserProfile
 # from .forms import *
 from django.contrib.auth import get_user_model
 
 
 User = get_user_model()
 # Register your models here.
+class UserProfileAdmin(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = "user"
+
 class UserAdmin(BaseUserAdmin):
     """Define admin model for custom User model with no email field."""
     # add_form = UserCreationForm
+
     fieldsets = (
         (None, {'fields' : ('email', 'password', 'last_login', 'created_at', 'updated_at',)}),
         ('Personal Info', {'fields': (
@@ -26,6 +33,7 @@ class UserAdmin(BaseUserAdmin):
             'user_permissions',
         )}),
     )
+    inlines = ( UserProfileAdmin, )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -39,10 +47,15 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ('groups', 'user_permissions',)
     ordering = ('email',)
 
-# 
+class UserProfileAdmin(admin.ModelAdmin):
+    pass
+    # list_display = ('user','get_full_name')
+    # search_fields = ('user',)
+    # ordering = ('user',)
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)
 
 
 

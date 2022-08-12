@@ -1,18 +1,19 @@
-from pickle import NONE
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django.utils import timezone
-from django.dispatch import receiver
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
+from phonenumber_field.modelfields import PhoneNumberField
 from django.db.models.signals import post_save
+from django.dispatch import receiver
+from pickle import NONE
+
 # from PIL import Image
 # from django.contrib.auth import get_user_model
-# User = get_user_model()
+# User = get_user_model()ƒ
 
 # Create choices here
 GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-    ('O', 'Other')
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other')
 )
 
 # Create your models here.
@@ -81,33 +82,38 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 
-# class UserProfile(models.Model):
-#     # gender, dob, address, emergency contact
-#     # add phone number to update profile
-#     # ondelete=models.SET_NULL : Field will be nullable. If a User is deleted, their comments will be kept
-#     # User object contains username, password, email, first_name, last_name
+class UserProfile(models.Model):
+    # gender, dob, address, emergency contact
+    # add phone number to update profile
+    # ondelete=models.SET_NULL : Field will be nullable. If a User is deleted, their comments will be kept
+    # User object contains username, password, email, first_name, last_name
 
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="userprofile")
-#     # user = models.OneToOneField(User, related_name="userprofile", help_text=" ")
-#     # avatar = models.ImageField(default="default.png", upload_to="images/profile_pics")
-#     gender = models.CharField(choices=GENDER_CHOICES, max_length=20)
-#     dob = models.DateField()
-#     address = models.TextField()
-#     # email_verified
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="userprofile")
+    # user = models.OneToOneField(User, related_name="userprofile", help_text=" ")
+    avatar = models.ImageField(default="default.png", upload_to="images/profile_pics")
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=20)
+    date_of_birth = models.DateField(null=True, blank=True)
+    phone_number = PhoneNumberField(null=True, blank=True)
+    emergency_contact = PhoneNumberField(null=True, blank=True)
+    address = models.TextField()
+    # email_verified
 
-#     def __str__(self):
-#         return "{}'s Profile".format(self.user.username)
+    def __str__(self):
+        return "{}'s Profile".format(self.user.email)
 
-#     def save(self):
-#         super().save()
+    def get_full_name(self):
+        return "{} {}".format(self.user.first_name, self.user.last_name)
+
+    def save(self):
+        super().save()
     
 
 
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         UserProfile.objects.create(user=instance)
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
 
-# @receiver(post_save, sender=UserProfile)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
+@receiver(post_save, sender=UserProfile)
+def save_user_profile(sender, instance, **kwargs):
+    instance.user.save()

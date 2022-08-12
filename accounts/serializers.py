@@ -1,5 +1,6 @@
+from dataclasses import field
 from requests import request
-from accounts.models import User
+from accounts.models import User, UserProfile
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
@@ -7,10 +8,37 @@ from dj_rest_auth.serializers import UserDetailsSerializer
 from dj_rest_auth.registration.serializers import RegisterSerializer
 # from django.utils.translation import ugettext_lazy as _
 from rest_framework_simplejwt.settings import api_settings
+from rest_framework.response import Response
+from rest_framework import status
+
+# from john_airbnb.accounts.models import UserProfile
 # from rest_framework.permissions import IsAuthenticated
 # from PIL import Image
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    # property = serializers.StringRelatedField(many=False)
+
+    class Meta:
+        model = UserProfile
+        # fields =  '__all__' 
+        fields = [
+            'avatar',
+            'gender',
+            'date_of_birth',
+            'phone_number',
+            'emergency_contact',
+            'address'
+        ] 
+
+    # def update(self, request, *args, **kwargs):
+    #     serializer = self.serializer_class(request.user, data=request.data, partial=True)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
 class UserSerializer(serializers.ModelSerializer):
+
+    user_profile = UserProfileSerializer()
 
     class Meta:
         model = User
@@ -19,17 +47,43 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'last_name',
-            # 'avatar',
             'is_active',
             'is_staff',
             'created_at',
-            'updated_at'
+            'updated_at',
+            'user_profile',
         ]
         read_only_field = [
             'is_active',
             'created_at',
             'updated_at'
         ]
+
+    # def update(self,request,*args,**kwargs):
+    #     instance = self.get_object()
+    #     instance.sender = self.get_user()
+    #     serializer = self.get_serializer(instance,data = request.data)
+    #     self.perform_update(serializer)
+    #     return Response(serializer.data)
+    # def update(self, instance, validated_data):
+    #     """Override update method because we need to update
+    #     nested serializer for profile
+    #     """
+    #     if validated_data.get('user_profile'):
+    #         user_profile_data = validated_data.get('user_profile')
+    #         user_profile_serializer = UserProfileSerializer(data=user_profile_data)
+
+    #         if user_profile_serializer.is_valid():
+    #             user_profile = user_profile_serializer.update(instance=instance.user_profile)
+    #             validated_data['user_profile'] = user_profile
+
+    #     return super(UserSerializer, self).update(instance, validated_data)
+
+    # def update(self, request, *args, **kwargs):
+    #     serializer = self.serializer_class(request.user, data=request.data, partial=True)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
 
 class UserRegisterSerializer(RegisterSerializer):
     username = None
@@ -65,12 +119,52 @@ class UserRegisterSerializer(RegisterSerializer):
 
 
 class UserDetailsSerializer(UserDetailsSerializer):
+    user_profile = UserProfileSerializer(source='userprofile')
 
     class Meta:
         model = User
-        fields = '__all__'
-        read_only_fields = ('id', 'email', 'first_name', 'last_name', 'avatar')
+        fields = UserDetailsSerializer.Meta.fields + ('user_profile',)
+        # fields = '__all__'
+        # fields = [
+        #     'id',
+        #     'email',
+        #     'first_name',
+        #     'last_name',
+        #     'is_active',
+        #     'is_staff',
+        #     'created_at',
+        #     'updated_at',
+        #     'user_profile',
+        # ]
+        read_only_fields = ('id', 'is_active', 'created_at', 'updated_at' 'email', 'first_name', 'last_name')
         # permission_classes = (IsAuthenticated,)
+    
+    # def update(self,request,*args,**kwargs):
+    #     instance = self.get_object()
+    #     instance.sender = self.get_user()
+    #     serializer = self.get_serializer(instance,data = request.data)
+    #     self.perform_update(serializer)
+    #     return Response(serializer.data)
+
+    # def update(self, instance, validated_data):
+    #     """Override update method because we need to update
+    #     nested serializer for profile
+    #     """
+    #     if validated_data.get('user_profile'):
+    #         user_profile_data = validated_data.get('user_profile')
+    #         user_profile_serializer = UserProfileSerializer(data=user_profile_data)
+
+    #         if user_profile_serializer.is_valid():
+    #             user_profile = user_profile_serializer.update(instance=instance.user_profile)
+    #             validated_data['user_profile'] = user_profile
+
+    #     return super(UserSerializer, self).update(instance, validated_data)
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.UserDetailsSerializer(request.user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
