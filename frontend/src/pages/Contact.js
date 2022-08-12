@@ -13,7 +13,7 @@ export default class Contact extends Component{
             email: "",
             first_name: "",
             last_name: "",
-            phone_number: "",
+            user_profile: {},
             subject: "",
             message: ""
         }
@@ -37,6 +37,7 @@ export default class Contact extends Component{
                         email: data.email,
                         first_name: data.first_name,
                         last_name: data.last_name,
+                        user_profile: data.user_profile
                     })
                 });
         }
@@ -48,9 +49,18 @@ export default class Contact extends Component{
         })
     }
 
+    handleProfileChange = (event) => {
+        this.setState(prevState => ({ 
+            user_profile: {
+                ...prevState.user_profile,
+                [event.target.name]: event.target.value
+            }
+        }))
+    }
+
     
     render(){
-        const  { email, first_name, last_name, phone_number, subject, message } = this.state;
+        const  { email, first_name, last_name, user_profile, subject, message } = this.state;
         return(
             <main>
                 <div className="contact">
@@ -85,7 +95,7 @@ export default class Contact extends Component{
                                     
                                     <div className="contact_page__div__form__div__div">
                                         <label htmlFor="last_name" className="contact_page__div__form__div__div__label">Phone Number</label><br></br>
-                                        <input className="contact_page__div__form__div__div__input" type="text" value={phone_number} onChange={this.handleChange} name="phone_number" placeholder="enter your phone number" required></input>   
+                                        <input className="contact_page__div__form__div__div__input" type="text" value={user_profile?.phone_number} onChange={this.handleProfileChange} name="phone_number" placeholder="enter your phone number" required></input>   
                                     </div>  
                                 </div>  
 
@@ -94,8 +104,8 @@ export default class Contact extends Component{
                                     <input className="contact_page__div__form__div__input" type="text" value={subject} onChange={this.handleChange} name="subject" placeholder="subject of your message" required></input>   
                                 </div>  
 
-                                <label htmlFor="email"  className="contact_page__div__form__label">Message</label><br></br>
-                                <textarea rows={3} placeholder="enter your message here" value={message}></textarea>     
+                                <label htmlFor="message"  className="contact_page__div__form__label">Message</label><br></br>
+                                <textarea rows={3} placeholder="enter your message here" value={message} onChange={this.handleChange}></textarea>     
                                 <br></br>
 
                                 <button type="submit" className="contact_page__div__form__button">Send Message </button>       

@@ -15,6 +15,7 @@ export default class UserAccount extends Component{
             loading: true,
             formShowing: true,
             booking: [],
+            user_profile: {},
 
             newFirstName : '',
             newLastName : '',
@@ -44,6 +45,7 @@ export default class UserAccount extends Component{
                     first_name: data.first_name,
                     last_name: data.last_name,
                     avatar: data.avatar,
+                    user_profile: data.user_profile,
                     loading: false
                 })
             });
@@ -101,7 +103,7 @@ export default class UserAccount extends Component{
 
     
     render(){
-        const { booking, email, first_name, last_name, loading, formShowing, user } = this.state;
+        const { booking, email, first_name, last_name, loading, formShowing, user_profile } = this.state;
         const { newFirstName, newLastName } = this.state;
         // profile, personal info, change password, reservations, payment,  
         // referral credits & coupons
@@ -112,7 +114,9 @@ export default class UserAccount extends Component{
                 {/* <div> */}
                     { loading === false && (
                         <Fragment>
-                                <h1>Hello, {first_name}</h1>
+                                {/* <h1>Hello, {first_name}</h1> */}
+                                <h1 style={{marginTop: "-10px"}}>Hello, {first_name}<sup><img  src={user_profile?.avatar} width="40" height="40" style={{borderRadius: "50%"}}></img></sup></h1>
+                                {/* <h1 style={{marginTop: "-10px"}}>Hello, {first_name}</h1><sup><img  src={user_profile?.avatar} width="40" height="40" style={{borderRadius: "50%"}}></img></sup> */}
                                 <h4 style={{ color: "#898989" }}>{this.formatUser(this.state)}, {email}, <Link to="/logout" style={{ fontSize: "1em", textDecoration: "underline" }} onClick={this.handleLogout}>logout</Link></h4>
                             <div className="user">
                                 <div className="user_account">
