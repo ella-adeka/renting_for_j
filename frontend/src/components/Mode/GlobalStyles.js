@@ -15,6 +15,20 @@ export const GlobalStyles = createGlobalStyle`
     border-width: 0 0 1px 0;
   }
 
+  .profile_photo{
+    border: 0.7px solid ${({ theme }) => theme.mainNavLink} ;
+  }
+  .edit_profile_photo{
+    background:  ${({ theme }) => theme.body};
+    color:${({theme}) => theme.link};
+    border: 0.7px solid ${({ theme }) => theme.mainNavLink} ;
+  }
+
+  .edit_profile_photo:hover{
+    filter: invert(15%)
+  }
+
+
   
   .cls-1,
   path{
@@ -23,7 +37,6 @@ export const GlobalStyles = createGlobalStyle`
 
   .cls-1:hover{
     color: ${({theme}) => theme.hoverLink};
-
     transition: all 0.2s linear;
   }
 
@@ -40,11 +53,11 @@ export const GlobalStyles = createGlobalStyle`
     opacity: 0.8;
   }
   .part_menu_bar__li__link__icon, 
-  .part_menu_bar__li__link__icon sup{
+  .part_menu_bar__li__link sup{
     color: ${({ theme }) => theme.link};
   }
   .menu_bar__div__icon:hover{
-    color: ${({theme}) => theme.hoverLink};
+    filter: invert(100%);
     opacity: 1;
   }
   .menu_bar__div:hover{

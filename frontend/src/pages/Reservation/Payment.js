@@ -4,7 +4,6 @@ import { withUrlParams } from "../../utils/urlParams";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 
-
 class Payment extends Component{
     constructor(props){
         super(props);
