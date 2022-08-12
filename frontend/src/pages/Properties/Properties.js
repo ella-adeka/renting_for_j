@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 
+
 export default class Properties extends Component{
     static contextType = WishlistContext;
 
@@ -48,94 +49,40 @@ export default class Properties extends Component{
         const { propertiesList } = this.state;
         const {items, addToWishlist, removeFromWishlist } = this.context;
 
-        const property = propertiesList.filter((property) => property.id == items.id);
+        let property;
+        // const property = propertiesList.filter((property) => property.id == property.id).map((property) => (property.title))
+        // for(let i = 0; i < propertiesList.length; i++){
+        //     property = propertiesList[i].id;
+        //     console.log(property);
+        // }
 
-        const id = property.id;
-        const bath = property.bath;
-        const bed = property.bed;
-        const bedroom = property.bedroom;
-        const city = property.city;
-        const image = property.image;
-        const max_guests = property.max_guests;
-        const title = property.title;
-        const type = property.type;
-        const price = property.price;
-        const slug = property.slug;
+        const propertyInWishlist = items.some(r=> propertiesList.includes(r))
 
-        const propertyInWishlist = items.some(element => {
-            if (element.id === property.id) {
-              return true;
-            }
-        
-            return false;
-        });
-        // const { propertyImagesList } = this.state;
         return(
-            // <main style={{ overflow: "hidden", height: "100vh"}}>
             <main >
-                {/* <MainNavigation /> */}
-                <Reservation />
+                <h1>Places to stay</h1>
+                <h2 style={{ textAlign: "center", paddingBottom: "0.3em"}}>Places to stay</h2>
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176.51 43.63" onClick={() => {document.documentElement.scrollTop = 0;}} style={{ position: "fixed", bottom: "4em", right: "-1.8em" , width: "6em", transform: "rotate(90deg)", cursor: "pointer" }}><defs></defs><line style={{fill:"none", strokeMiterLimit:10 }} className="cls-1" x1="0.1" y1="22.19" x2="176.51" y2="22.19"/><path d="M230.15,209.89a28.33,28.33,0,0,0,7.52-3,30.08,30.08,0,0,0,6.39-5,33.41,33.41,0,0,0,8.07-13.8l2.2.89a55.22,55.22,0,0,1-4.42,7.1,43.15,43.15,0,0,1-5.51,6.17,39.21,39.21,0,0,1-6.59,4.89,42.12,42.12,0,0,1-7.46,3.46Z" transform="translate(-230.15 -188.04)"/><path d="M230.3,209.88a34.86,34.86,0,0,1,8.06,2.49,28.15,28.15,0,0,1,7.08,4.55,31.86,31.86,0,0,1,5.54,6.43,43.81,43.81,0,0,1,4,7.63l-2.27.69a28.58,28.58,0,0,0-2.69-7.74,25.46,25.46,0,0,0-4.89-6.64,23.48,23.48,0,0,0-6.85-4.68,25.25,25.25,0,0,0-8.05-2Z" transform="translate(-230.15 -188.04)"/></svg>
 
-                    {/* <div className="the_head"> */}
-                        <h1>Places to stay</h1>
-                        {/* <h2>Places to stay</h2> */}
-                        {/* <input type="text" placeholder="Search..."></input>
-                    </div> */}
-                    {/* <br></br> */}
-                    <h2 style={{ textAlign: "center", paddingBottom: "0.3em"}}>Places to stay</h2>
-                    {/* <input type="text" placeholder="Search..." style={{ textAlign: "center", paddingBottom: "0.1em"}}></input> */}
                 <div className="properties_body">
-                    {/* <br></br> */}
                     <div>
                         {propertiesList.map((property, index) => (
-                            
                             <div key={index} className="properties_body__property" style={{ position: "relative"}}>
+                                { propertyInWishlist ? <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1, color: "rgb(251, 70, 100)" }} /></span> : <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "95%",marginTop: "0.5em", zIndex: 1 }} onClick={() => {addToWishlist(property.id, property.bath, property.bed, property.bedroom, property.city, property.image,  property.max_guests, property.title, property.type, property.price, property.slug)}} /></span> }
                                 <Link to={{ pathname: `/properties/${property.slug}/${property.id}` }}>
                                     <img src={property.image} alt={property.title}></img>
-                                    {/* { propertyInWishlist ? <span><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved</span> : <span><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }} onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)} />Save</span> } */}
-                                    {/* <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={propertyInWishlist ? { position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1, color: "rgb(251, 70, 100)" } : { position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} /></span>  */}
-                                    { propertyInWishlist ? <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1, color: "rgb(251, 70, 100)" }} /></span> : <span><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)} /></span> }
-                                    {/* <Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart" icon={faHeart} size="lg" style={{ position: "absolute", marginLeft: "-1.5em",marginTop: "0.5em", zIndex: 1 }} /></Link>                                     */}
-                                    <h3>{property.title}</h3>
+                                    <h2>{property.title}</h2>
                                     <span style={{ fontSize: "0.9em"}}>{property.type} in <Link to={{ pathname: `/cities/${property.city.toLowerCase()}`}} className="city_link">{property.city}</Link></span>
-                                    <br></br>
-                                    <br></br>
-                                    {/* <p><FontAwesomeIcon  icon={faUser} />{property.max_guests} guests &#183;  <FontAwesomeIcon  icon={faBathtub} />{property.bath} bath <FontAwesomeIcon  icon={faBed} />{property.bed} bed  <FontAwesomeIcon  icon={faBed} />{property.bedroom} bedroom </p> */}
-                                    {/* <p><FontAwesomeIcon  icon={faUser} /> {property.max_guests}  &#183;   <FontAwesomeIcon  icon={faBathtub} /> {property.bath} &#183;  <FontAwesomeIcon  icon={faBed} /> {property.bed} &#183;   <FontAwesomeIcon  icon={faBed} />{property.bedroom} &#183;  </p> */}
-                                    {/* <p><FontAwesomeIcon  icon={faUser}  /> {property.max_guests}  &#183;   <FontAwesomeIcon  icon={faBathtub} /> {property.bath} &#183;  <FontAwesomeIcon  icon={faBed} /> {property.bed}    </p> */}
-                                    <p>{property.max_guests} guests &#183; {property.bath}bath  &#183; {property.bed}bed &#183; {property.bedroom}bedroom </p>
-                                    {/* <p><FontAwesomeIcon  icon={faUser} />{property.max_guests} guests  <FontAwesomeIcon  icon={faBed} /> <FontAwesomeIcon  icon={faBathtub} />{property.highlights?.map((highlights, index) => (
-                                        <span key={index} style={{ padding: "0.5em"}}>{highlights}</span>
-                                        ))}
-                                    </p> */}
-                                    {/* <span>{property.is_available === true ? <p>Available</p> : <p>Unavailable</p> }</span> */}
-                                    {/* <br></br> */}
-                                    <br></br>
+                                    <p style={{ fontSize: "0.9em", margin: "0 0 1em" }}>{property.max_guests} guests &#183; {property.bath}bath  &#183; {property.bed}bed &#183; {property.bedroom}bedroom </p>
                                     <h3><strong style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.2em"}}> {property.price.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</strong><span style={{ fontSize: "0.8em", opacity: "0.5"}}>/night</span></h3>
-                                    <br></br>
                                 </Link>
                             </div>
                         ))}
                         <br></br>
+                        <p className="end-text">--- the end ---</p>
                     </div>
-                    <p className="end-text">--- the end ---</p>
-                    <div></div>
                 </div>
             </main>
         )
     }
 }
-
-
-// <h1>Property Images</h1>
-//                     {propertyImagesList.map((propertyImage) => (
-//                         <div key={propertyImage.id}>
-//                             <p>{propertyImage.property}</p>
-//                             <img src={propertyImage.images} alt={propertyImage.property} width="200" />
-//                             {/* {propertyImage.images.map((image) => (
-//                                 <img src={image}  width="200" />   
-//                             ))}; */}
-//                         </div>
-//                     ))}
-
-//                     <br></br>
