@@ -564,21 +564,20 @@ header .part_menu_bar__li__link__icon {
   width: 1px;
 }
 
-.properties_body .end-text {
-  position: relative;
-  bottom: 1em;
-  text-align: center;
-  letter-spacing: 10px;
-}
-
 .properties_body div {
   width: 100%;
   margin-bottom: 1em;
 }
 
+.properties_body div .end-text {
+  bottom: 1em;
+  text-align: center;
+  letter-spacing: 10px;
+}
+
 .properties_body div div {
   display: inline-block;
-  width: 25%;
+  width: 100%;
   height: 100%;
   padding: 1%;
 }
@@ -597,10 +596,12 @@ header .part_menu_bar__li__link__icon {
 
 .properties_body div div a img {
   width: 100%;
-  height: 200px;
+  height: 450px;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 5px;
+  -o-object-position: center;
+     object-position: center;
 }
 
 .properties_body div div:hover {
@@ -865,16 +866,17 @@ header .part_menu_bar__li__link__icon {
 html, body {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 h1 {
-  font-family: 'Italiana', serif;
+  font-family: 'Gilda Display', serif;
   font-size: 9em;
   overflow-wrap: break-word;
 }
 
 h2, h6 {
-  font-family: 'Italiana', serif;
+  font-family: 'Gilda Display', serif;
   -webkit-filter: opacity(0.9);
           filter: opacity(0.9);
   font-size: 4em;
@@ -882,7 +884,7 @@ h2, h6 {
 }
 
 h3, h4 {
-  font-family: 'Italiana', serif;
+  font-family: 'Gilda Display', serif;
 }
 
 p, li, input, label, button, a, span, textarea, sup {
@@ -944,10 +946,9 @@ input[data-autocompleted] {
 }
 
 ::-webkit-file-upload-button {
-  border: 1px solid pink;
-  background: pink;
+  border-width: 0.7px;
   padding: 1em;
-  font-family: 'Fahkwang', sans-serif;
+  font-family: 'Gilda Display', serif;
   cursor: pointer;
 }
 
@@ -957,11 +958,11 @@ input[type="file"] {
 
 button {
   cursor: pointer;
-  background-color: pink;
+  background-color: #b3b3b3;
   width: 100px;
   height: 50px;
   border-radius: 5px;
-  border: 1px solid white;
+  border: 0.7px solid white;
   color: black;
   text-align: center;
 }
@@ -969,6 +970,32 @@ button {
 button:hover {
   background-color: white;
   color: black;
+}
+
+select {
+  cursor: pointer;
+  background-color: #efefef;
+  padding: 1em;
+  width: 100px;
+  height: 50px;
+  border-width: 0.7px;
+  color: black;
+  text-align: left;
+  width: 100%;
+  font-family: 'Gilda Display', serif;
+}
+
+.profile_photo {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+.edit_profile_photo {
+  cursor: pointer;
+  margin-left: -3em;
+  padding: 0.5em;
+  border-radius: 50%;
 }
 
 .mainNavigation {
