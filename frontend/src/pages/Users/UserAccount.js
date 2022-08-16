@@ -40,7 +40,7 @@ export default class UserAccount extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    user: data.id,
+                    user: data.pk,
                     email: data.email,
                     first_name: data.first_name,
                     last_name: data.last_name,

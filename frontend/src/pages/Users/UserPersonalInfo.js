@@ -14,6 +14,9 @@ export default class UserPersonalInfo extends Component{
             user_profile: {},
             loading: true,
         }
+
+        // this.handleChange = this.handleProfileChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
@@ -31,7 +34,7 @@ export default class UserPersonalInfo extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    user: data.id,
+                    user: data.pk,
                     email: data.email,
                     first_name: data.first_name,
                     last_name: data.last_name,
@@ -51,12 +54,18 @@ export default class UserPersonalInfo extends Component{
     }
 
     handleProfileChange = (event) => {
-        this.setState(prevState => ({ 
+        this.setState((prevState) => ({ 
             user_profile: {
                 ...prevState.user_profile,
                 [event.target.name]: event.target.value
             }
-        }))
+        }));
+        // this.setState({
+            // user_profile: {
+                // ...prevState.user_profile,
+                // [event.target.name]: event.target.value
+            // }
+        // });
     }
 
     // handleImageChange = (event) =>{
@@ -109,15 +118,16 @@ export default class UserPersonalInfo extends Component{
             last_name: this.state.last_name,
             // user_profile: this.state.user_profile,
             user_profile: {
-                address : this.state.user_profile.address,
                 gender : this.state.user_profile.gender,
+                address : this.state.user_profile.address,
                 date_of_birth : this.state.user_profile.date_of_birth,
                 phone_number : this.state.user_profile.phone_number,
                 emergency_contact : this.state.user_profile.emergency_contact,
             },
         };
 
-        console.log(personal_user.user_profile.address)
+        console.log(personal_user)
+        // console.log(personal_user.user_profile.address)
 
         // const formData = new FormData();
         // formData.append('avatar', this.state.avatar, this.state.avatar.name);
@@ -174,7 +184,7 @@ export default class UserPersonalInfo extends Component{
                         {/* <form onSubmit={this.handleSubmit} className="signup_form">  */}
                         {/* <div className="signup_page" style={{marginTop: "3em"}}> */}
                         <div className="signup_page">
-                            { loading === false && <h2>Update your personal info</h2> }
+                            { loading === false && <h2>Update your information</h2> }
                             <form className="signup_form" onSubmit={this.handleSubmit}> 
                                 <div className="signup_form__div">
                                     <div className="signup_form__div__div">
@@ -224,9 +234,10 @@ export default class UserPersonalInfo extends Component{
                                 <div className="signup_form__div">
                                     <div className="signup_form__div__div">
                                         <label htmlFor="gender" className="signup_form__div__div__label">Gender</label><br></br>
-                                        <select name="gender" id="gender" >
+                                        <select name="gender" id="gender" required="False">
                                             <option>--- Choose your gender --- </option>
-                                            <option value={user_profile?.gender} onChange={this.handleProfileChange}>{user_profile?.gender}</option>
+                                            <option value={user_profile?.gender} onChange={this.handleProfileChange}>Female</option>
+                                            {/* <option value={user_profile?.gender} onChange={this.handleProfileChange}>{user_profile?.gender}</option> */}
                                         </select>
                                     </div>
                                     

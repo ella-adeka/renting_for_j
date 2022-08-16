@@ -5,6 +5,12 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     transition: all 0.50s linear;
   }
+  #cursor{
+    border: 0.7px solid ${({ theme }) => theme.mainNavLink} ;
+  }
+  #cursor::before{
+    border: 0.7px solid ${({ theme }) => theme.mainNavLink} ;
+  }
   input, a, button, textarea{
     color:${({theme}) => theme.link};
     text-decoration: none; 

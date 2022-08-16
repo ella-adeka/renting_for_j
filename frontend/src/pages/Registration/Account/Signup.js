@@ -93,17 +93,17 @@ export default class Signup extends Component{
                     {errors === true && <h2>Cannot signup with provided credentials</h2>}
                     <form onSubmit={this.handleSubmit} className="signup_form">
                         <label htmlFor="email"  className="signup_form__label">Email</label><br></br>
-                        <input className="signup_form__input" type="email" value={email} onChange={this.handleChange} name="email" required></input>
+                        <input className="signup_form__input" type="email" value={email} onChange={this.handleChange} name="email" placeholder="enter your email" required></input>
                
                         <div className="signup_form__div">
                             <div className="signup_form__div__div">
                                 <label htmlFor="first_name" className="signup_form__div__div__label">First Name</label><br></br>
-                                <input className="signup_form__div__div__input" type="text" value={first_name} onChange={this.handleChange} name="first_name" required></input>
+                                <input className="signup_form__div__div__input" type="text" value={first_name} onChange={this.handleChange} name="first_name" placeholder="enter your first name" required></input>
                             </div>
                             
                             <div className="signup_form__div__div">
                                 <label htmlFor="last_name" className="signup_form__div__div__label">Last Name</label><br></br>
-                                <input className="signup_form__div__div__input" type="text" value={last_name} onChange={this.handleChange} name="last_name" required></input>   
+                                <input className="signup_form__div__div__input" type="text" value={last_name} onChange={this.handleChange} name="last_name" placeholder="enter your last name" required></input>   
                             </div>
                         </div>
                         {/* <br></br> */}
@@ -111,12 +111,12 @@ export default class Signup extends Component{
                         <div className="signup_form__div">
                             <div className="signup_form__div__div">
                                 <label className="signup_form__div__div__label" htmlFor="password1">Password</label><br></br>
-                                <input className="signup_form__div__div__input" type="password" value={password1} onChange={this.handleChange} name="password1"></input>
+                                <input className="signup_form__div__div__input" type="password" value={password1} onChange={this.handleChange} name="password1" placeholder="enter your password"></input>
                             </div>
 
                            <div className="signup_form__div__div">
                                 <label htmlFor="password2" className="signup_form__div__div__label">Confirm Password</label><br></br>
-                                <input className="signup_form__div__div__input" type="password" value={password2} onChange={this.handleChange} name="password2"></input>
+                                <input className="signup_form__div__div__input" type="password" value={password2} onChange={this.handleChange} name="password2" placeholder="confirm your password"></input>
                            </div>
                         </div>
                         {/* <label htmlFor="avatar">Profile Picture</label><br></br>
@@ -133,11 +133,11 @@ export default class Signup extends Component{
                         <h4>- Or signup with -</h4>  
                         <br></br>
                         {/* <a href="http://127.0.0.1:8000/tight/facebook/login/?process=login">Facebook</a> */}
-                        <a href="http://127.0.0.1:8000/dj-rest-auth/facebook/?process=login">Facebook</a>
+                        {/* <a href="http://127.0.0.1:8000/dj-rest-auth/facebook/?process=login">Facebook</a> */}
                         {/* <br></br> */}
                         <a href="http://127.0.0.1:8000/dj-rest-auth/google/?process=login">Google</a>
                         {/* <br></br> */}
-                        <a href="http://127.0.0.1:8000/dj-rest-auth/twitter/?process=login">Twitter</a>
+                        {/* <a href="http://127.0.0.1:8000/dj-rest-auth/twitter/?process=login">Twitter</a> */}
                     </div>
 
                     <br></br>
