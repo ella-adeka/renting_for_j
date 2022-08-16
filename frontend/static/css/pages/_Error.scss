@@ -18,7 +18,19 @@
     }
 
     p{
-        font-size: 2em;
+        font-size: 1.7em;
+        color: #c0bebe;
+        
+        a{
+            // color: white;
+            text-decoration: underline;
+            // font-family: 'Fahkwang', sans-serif;
+            font-weight: bolder;
+        }
+    }
+
+    span{
+        font-size: 1.5em;
         color: #c0bebe;
         
         a{

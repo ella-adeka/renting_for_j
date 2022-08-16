@@ -11,6 +11,8 @@
 // @import './pages/NavBar';
 @import './config/forDate';
 
+@import './components/MainNavigation';
+@import './components/Preloader';
 
 html, body{
     margin: 0;
@@ -38,6 +40,50 @@ html, body{
 //         color: #f2eeee;
 //     }
 // }
+
+#cursor{
+    position: absolute;
+    z-index: 9;
+    // cursor: none;
+    width: 20px;
+    height: 20px;
+    // background: transparent;
+    // border-width: 0.7px;
+    border-radius: 50%;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+    // animation: cursorAnimation .5s infinite alternate;
+    pointer-events: none;
+    filter: invert(55%);
+    // backdrop-filter: invert(55%);
+
+    &::before{
+        position: absolute;
+        content: "";
+        backdrop-filter: invert(95%);
+        width: 50px;
+        height: 50px;
+        margin-top: -1em;
+        margin-left: -1em;
+        border-radius: 50%;
+   
+    }
+}
+
+.expand{
+    
+    // background-color: white;
+    animation: expandAnimation .5s forwards;
+}
+
+@keyframes cursorAnimation {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.5);
+    }
+}
 
 h1{
     // font-family: $headerFont;
@@ -158,7 +204,7 @@ button{
     background-color: #b3b3b3;
     width: 100px;
     height: 50px;
-    border-radius: 5px;
+    // border-radius: 5px;
     border: 0.7px solid white;
     color: black;
     text-align: center;
@@ -188,6 +234,8 @@ select{
 }
 
 
+
+
 .profile_photo{
     border-radius: 50%;
     width: 150px;
@@ -207,112 +255,7 @@ select{
 
     
 
-.mainNavigation{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 8;
-    text-align: left;
-    // background-color:  #121212;
-    // color: #f2eeee;
-    // background-color:  #dbd9d9;
-    // color: #000000;
-    
-    
-    
-    a{
-        // color: #f1f1f1;
-        color: #646464;
-        text-decoration: none;
-        font-family: 'Fahkwang', sans-serif;
-        font-weight: bolder;
 
-        // &:hover{
-        //     // color: rgb(0, 0, 0);
-        //     // color: rgb(255, 255, 255);
-        //     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-            
-        // }
-    }
-    
-    
-    h2{
-        text-transform: uppercase;
-        font-size: 5em;
-        line-height: 1em;
-        font-family: $headerFont;
-         a{
-            font-family: $headerFont;
-
-            // .sign{
-            //     color: #000000;
-            // }
-
-           
-        }
-
-        // div.sign:hover ~ div.up{
-        //     background-color: #000000  !important;
-            
-        // }
-
-        
-    }
-
-
-
-    .groupA{
-        position: absolute;
-        top: 2.5em;
-        // right: 80%;
-
-        i{
-            cursor: pointer;
-            font-size: 1.2em;
-            // color: lighten($color: #000000, $amount: 0);
-        }
-        // text-align: right;
-        
-    }
-    .groupB{
-        position: absolute;
-        top: 50%;
-        // left: 0;
-        transform: translateY( -50%);
-        // bottom: auto;
-    }
-    .groupC{
-        position: absolute;
-        bottom: 2em;
-
-    }
-
-}
-
-
-nav{
-
-    ul{
-
-        li{
-            
-            list-style: none;
-            display: inline;
-            padding-right: 2em;
-
-            a{
-                text-decoration: none;
-                // color: black;
-                font-family: $headerFont;
-                // font-family: Roslindale Display Condensed,Georgia,Times New Roman,serif;
-                font-weight: 400;
-            }
-        }
-    }
-}
 
 .amenities{
     padding: 1em 0 5em 3em;
