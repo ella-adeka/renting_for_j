@@ -150,6 +150,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend', # existing backend
     'allauth.account.auth_backends.AuthenticationBackend',
 )
@@ -195,6 +196,9 @@ REST_FRAMEWORK = {
     #     'rest_framework.renderers.JSONRenderer',
     # )
 }
+
+# TOKEN_EXPIRED_AFTER_SECONDS = 10
+
 
 # SIMPLE_JWT = {
 #     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

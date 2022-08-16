@@ -1,5 +1,7 @@
+from audioop import reverse
 from cgitb import lookup
-from django.shortcuts import render
+import urllib.parse
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .serializers import *
 from .models import User
@@ -21,7 +23,8 @@ from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from dj_rest_auth.social_serializers import TwitterLoginSerializer
 
 # Google
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.google import views as google_views
+# from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView, RegisterView
 
@@ -69,10 +72,19 @@ class TwitterLogin(SocialLoginView):
 
 
 class GoogleLogin(SocialLoginView): # if you want to use Implicit Grant, use this
-    adapter_class = GoogleOAuth2Adapter
+    adapter_class = google_views.GoogleOAuth2Adapter
+    client_class = OAuth2Client
+
+    @property
+    def callback_url(self):
+        return self.request.build_absolute_uri(reverse('google_callback'))
     
     # url
     # https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=<CALLBACK_URL_YOU_SET_ON_GOOGLE>&prompt=consent&response_type=token&client_id=<YOUR CLIENT ID>&scope=openid%20email%20profile
+
+def google_callback(request):
+    params = urllib.parse.urlencode(request.GET)
+    return redirect(f' http://127.0.0.1:8000/auth/google/callback/')
 
 @api_view(['POST'])
 class RegisterView(RegisterView):

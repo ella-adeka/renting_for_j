@@ -50,6 +50,9 @@ urlpatterns = [
     path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     path('dj-rest-auth/twitter/', TwitterLogin.as_view(), name='twitter_login'),
     path('dj-rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
+    path('auth/google/callback/', google_callback, name='google_callback'),
+    path('auth/google/url/', google_views.oauth2_login),
+
     path('logout', LogoutView.as_view()),
 
 
