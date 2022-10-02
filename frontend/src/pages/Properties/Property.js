@@ -22,9 +22,13 @@ import {
     faBathtub,
     faBed,
     faUser,
-    faMapMarkerAlt
+    faMapMarkerAlt,
+    faTimes,
+    faX
 } from '@fortawesome/free-solid-svg-icons';
 import WishlistContext from "../../utils/context/wishlistContext";
+import MainNavigation from "../../components/Navigation/MainNavigation";
+import { th } from "date-fns/locale";
 
 
 
@@ -41,7 +45,7 @@ class Property extends Component {
             property: [],
             propertyImagesList: [],
             isAuth: false,
-            formShowing: true,
+            formShowing: false,
             check_in: '',
             check_out: '',
             guests: 0,
@@ -67,7 +71,7 @@ class Property extends Component {
             this.setState({
                 isAuth: true,
             });
-            fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            fetch('http://127.0.0.1:8000/api/v1/users/user', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -216,9 +220,13 @@ class Property extends Component {
 
         
     render(){
+        var items = JSON.parse(localStorage.getItem("wishlist") || "[]");
+        
+        window.addEventListener('load', () => { initializeAutocomplete(); });
         {/* USE SPREAD OPERATOR TO FILTER BY AMENITIES AVAILABLE */}
         const {  saved, user,bookingList, booked, check_in,check_out, formShowing, guests, property, propertyImagesList, isAuth } = this.state;
-        const {items, addToWishlist, removeFromWishlist} = this.context;
+        const { addToWishlist, removeFromWishlist} = this.context;
+        // const {items, addToWishlist, removeFromWishlist} = this.context;
 
         var theBooking = bookingList.filter((booking) => booking.user == user)
         // var theBooking = bookingList.filter((booking) => booking.user == user).map((booking) => (booking.reserved));
@@ -277,7 +285,7 @@ class Property extends Component {
           
         return(
             <main>
-                {/* <MainNavigation/> */}
+                <MainNavigation/>
 
                 {/* <FontAwesomeIcon icon="fa-thin fa-heart" /> */}
                 
@@ -287,19 +295,25 @@ class Property extends Component {
                 <div className="property_body">
                     <div key={property.id}>
                         {/* <h1>{property.title}<sup style={{ fontSize: "0.3em", marginTop: "0.5em", position: "absolute" }}><Link to={{ pathname: '/wishlist'}}><FontAwesomeIcon className="heart"  icon={faHeart} /></Link></sup></h1> */}
-                        <h1 className="property_title">{property.title}</h1>
-                        <div className="des_likes"> 
-                            <p className="description"><FontAwesomeIcon className="heart share" size="1x" icon={faMapMarkerAlt} style={{opacity:"0.3"}} /> {property.location}, {property.city} </p>
-                            <p  className="share_like">
-                                { propertyInWishlist  ? <span onClick={() => {removeFromWishlist(property.id)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved!</span> : <span onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }}  />Save</span> }
-                                {/* <span  onClick={() => {addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={propertyInWishlist ? { marginRight: "0.5em", color: "rgb(251, 70, 100)" } : { marginRight: "0.5em",  }}  />{!propertyInWishlist ? "Save" : "Saved!"}</span> */}
-                                <span><FontAwesomeIcon className="icon two" size="1x" icon={faShareAlt} style={{ marginRight: "0.5em"}}  />Share</span>
-                            </p>
+                        <div className="the_head">
+                            <h1 className="property_title">{property.title}</h1>
+                            <div className="des_likes"> 
+                                <p className="description"><FontAwesomeIcon className="heart share" size="1x" icon={faMapMarkerAlt} style={{opacity:"0.3"}} /> {property.location}, {property.city} </p>
+                                <p  className="share_like">
+                                    {/* { propertyInWishlist  ? <span onClick={() => {removeFromWishlist(property.id)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved!</span> : <span onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }}  />Save</span> } */}
+                                    { propertyInWishlist  ? <span onClick={() => {removeFromWishlist(property.id)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved!</span> : <span onClick={() => addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }}  />Save</span> }
+                                    {/* { propertyInWishlist  ? <span onClick={() => {removeFromWishlist(property.id)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em",color: "rgb(251, 70, 100)" }} />Saved!</span> : <span onClick={() => addToWishlist(id)}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={{ marginRight: "0.5em" }}  />Save</span> } */}
+                                    {/* <span  onClick={() => {addToWishlist(id, bath, bed, bedroom, city, image,  max_guests, title, type, price, slug)}}><FontAwesomeIcon className="icon one" size="1x" icon={faHeart} style={propertyInWishlist ? { marginRight: "0.5em", color: "rgb(251, 70, 100)" } : { marginRight: "0.5em",  }}  />{!propertyInWishlist ? "Save" : "Saved!"}</span> */}
+                                    <span><FontAwesomeIcon className="icon two" size="1x" icon={faShareAlt} style={{ marginRight: "0.5em"}}  />Share</span>
+                                </p>
+                            </div>
                         </div>
                         {/* <p className="description">{property.description}</p> */}
 
                         <div className="theprops_images">
-                            <img className="property_image_div__property_image" src={property.image} alt={property.title}></img>
+                            <div className="property_image_div">
+                                <img className="property_image_div__property_image" src={property.image} alt={property.title}></img>
+                            </div>
                             {property.property_images?.map((property_image, index) => (
                                 <div key={index} className="property_images_div">
                                     <img  className="property_images_div__property_image"  src={property_image.images} alt={property.title} />
@@ -416,149 +430,160 @@ class Property extends Component {
                             
                             </div>
                             
-                            <Fragment>
+                            <div className="booking">
+                                
                                 <form className="booking_form" onSubmit={this.handleSubmit}>
-                                <h3>Your Reservation</h3>
-                                    <div className="booking_form__div">
-                                        <div className="booking_form__div__div">
-                                            <label htmlFor="checkin">Checkin</label><br></br>
-                                            <DatePicker
-                                                selected={check_in}
-                                                onChange={(date) => { this.setState({check_in: date}) }}
-                                                dateFormat="yyyy-MM-dd"
-                                                selectsStart
-                                                check_in={check_in}
-                                                endDate={check_out}
-                                                minDate={subDays(new Date(), 0)}
-                                                excludeDates={excludedDates}
-                                                placeholderText="YYYY-MM-DD"
-                                                type="date"
-                                                value={check_in}
-                                                name="check_in"
-                                                autoComplete="off"
-                                                className="booking_form__div__div__input" 
-                                            />
-                                        </div>
-                                        
-                                        <div className="booking_form__div__div">
-                                            <label htmlFor="checkout" >Checkout</label><br></br>
-                                            <DatePicker
-                                                selected={check_out}
-                                                onChange={(date) => this.setState({check_out: date})}
-                                                onMouseOver={(date) => {this.setState({check_out: date})
-                                                 console.log(date)
-                                                 }}
-                                                dateFormat="yyyy-MM-dd"
-                                                selectsEnd
-                                                check_in={check_in}
-                                                check_out={check_out}
-                                                // minDate={addDays(new Date(), 1)}
-                                                minDate={check_in}
-                                                startDate={check_in}
-                                                // maxDate={addDays(check_in, property.min_days)}
-                                                // minDate={new Date(check_in)}
-                                                // minDate={addDays(check_in, property.min_days)}
-
-                                                // shouldCloseOnSelect={false}
-                                                excludeDates={excludedDates}
-                                                placeholderText="YYYY-MM-DD"
-                                                type="date"
-                                                value={check_out}
-                                                name="check_out"
-                                                autoComplete="off"
-                                                className="booking_form__div__div__input" 
-                                            />
-                                        </div>
-                                    </div>
-                                    
-                                    
-
-                                    <div className="guests">
-                                        <p>Guests</p>
-                                        
-                                        {/* <input type="button" onClick={this.subtractGuest}  value="Remove" /> */}
-                                        <span style={{ textAlign: "left", cursor: "pointer"}}><FontAwesomeIcon icon={faMinus} onClick={this.subtractGuest} /></span>
-                                        <span style={{ textAlign: "center"}} onChange={this.handleChange} >{guests}</span>
-                                        <span style={{ textAlign: "right", cursor: "pointer"}}><FontAwesomeIcon icon={faPlus} max={property.max_guests} onClick={this.addGuest} /></span>
-                                        {/* <input type="button" max={property.max_guests}  onClick={this.addGuest} value="Add" /> */}
-                                        
-                                    </div>
-
-                                    {/* {
-                                        this.noOfDays(this.state) === 0 ? (
-                                            ''
-                                        ) : ( */}
-                                            <Fragment>
-                                                {/* <h4>Days </h4> */}
-                                                <p className="sub-total"><span>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {
-                                                    !check_out ? (0) : (<Fragment>{this.noOfDays(this.state)}</Fragment>)
-                                                } nights</span>  <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{! check_out ? "£0.00" : this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" }) }</span> </p>
-                                                {/* } nights</span>  { !check_out ? (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>) }</p> */}
-                                                {/* } nights</span>  <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP",  minimumFractionDigits: 0})}</span></p> */}
-                                            </Fragment>
-                                        {/* ) */}
-                                    {/* } */}
-
-                                    {/* <br></br> */}
-
-                                    {/* <h4>Subtotal </h4> */}
-                                    {/* <p>{this.totalPrice()}</p> */}
-                                    {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
-                                    
-                                    <p className="sub-total"><span style={{ fontSize: "1em" }}>Service charges/Tax</span>  <span style={{ fontSize: "1.5em" }}>{property.service_charge?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span></p>
-
-                                    <p className="sub-total"><span style={{ fontSize: "1.5em", marginTop: "1.5em" }}>Total</span>  {!check_out ? (<span style={{ fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>)}</p>
-
-                            
-
-                                    {/* <h4 style={{ fontFamily: "'Gilda Display', serif", fontSize: "2em"}}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</h4> */}
-                                    <br></br>
-                                    
-                                    
                                     {
-                                        isAuth ?  (
-                                            <Fragment>
-                                                {/* <button type="submit" className="booking_form__button" >Reserve</button> */}
-                                                {!check_out ? (
-                                                    <Fragment>
-                                                        {property.is_available ? (<button type="button" className="booking_form__button" >Check availability</button>): (<button type="button" className="booking_form__button" style={{ background: "gray", color: "white", cursor: "not-allowed"}}>Unavailable</button>)}
-                                                        <br></br>
-                                                    </Fragment>
-                                                    ) : (
-                                                    <button type="submit" className="booking_form__button" >Reserve</button>
-                                                )}
+                                        formShowing === true ? (
+                                            <div style={{padding: "2em"}}>
+                                                <span style={{position: "absolute", right: "2em" }} onClick={() => {this.setState({formShowing: false})}}><FontAwesomeIcon style={{fontSize: "1.1em", cursor: "pointer"}} icon={faX}></FontAwesomeIcon></span>
+                                                <h3>Your Reservation</h3>
+                                                <div className="booking_form__div">
+                                                    <div className="booking_form__div__div">
+                                                        <label htmlFor="checkin">Checkin</label><br></br>
+                                                        <DatePicker
+                                                            selected={check_in}
+                                                            onChange={(date) => { this.setState({check_in: date}) }}
+                                                            dateFormat="yyyy-MM-dd"
+                                                            selectsStart
+                                                            check_in={check_in}
+                                                            endDate={check_out}
+                                                            minDate={subDays(new Date(), 0)}
+                                                            excludeDates={excludedDates}
+                                                            placeholderText="YYYY-MM-DD"
+                                                            type="date"
+                                                            value={check_in}
+                                                            name="check_in"
+                                                            autoComplete="off"
+                                                            className="booking_form__div__div__input" 
+                                                        />
+                                                    </div>
+                                                    
+                                                    <div className="booking_form__div__div">
+                                                        <label htmlFor="checkout" >Checkout</label><br></br>
+                                                        <DatePicker
+                                                            selected={check_out}
+                                                            onChange={(date) => this.setState({check_out: date})}
+                                                            onMouseOver={(date) => {this.setState({check_out: date})
+                                                            console.log(date)
+                                                            }}
+                                                            dateFormat="yyyy-MM-dd"
+                                                            selectsEnd
+                                                            check_in={check_in}
+                                                            check_out={check_out}
+                                                            // minDate={addDays(new Date(), 1)}
+                                                            minDate={check_in}
+                                                            startDate={check_in}
+                                                            // maxDate={addDays(check_in, property.min_days)}
+                                                            // minDate={new Date(check_in)}
+                                                            // minDate={addDays(check_in, property.min_days)}
+
+                                                            // shouldCloseOnSelect={false}
+                                                            excludeDates={excludedDates}
+                                                            placeholderText="YYYY-MM-DD"
+                                                            type="date"
+                                                            value={check_out}
+                                                            name="check_out"
+                                                            autoComplete="off"
+                                                            className="booking_form__div__div__input" 
+                                                        />
+                                                    </div>
+                                                </div>
                                                 
-                                                {/* <button type="submit" className="booking_form__button" >Check availability</button> */}
+                                                
+
+                                                <div className="guests">
+                                                    <p>Guests</p>
+                                                    
+                                                    {/* <input type="button" onClick={this.subtractGuest}  value="Remove" /> */}
+                                                    <span style={{ textAlign: "left", cursor: "pointer"}}><FontAwesomeIcon icon={faMinus} onClick={this.subtractGuest} /></span>
+                                                    <span style={{ textAlign: "center"}} onChange={this.handleChange} >{guests}</span>
+                                                    <span style={{ textAlign: "right", cursor: "pointer"}}><FontAwesomeIcon icon={faPlus} max={property.max_guests} onClick={this.addGuest} /></span>
+                                                    {/* <input type="button" max={property.max_guests}  onClick={this.addGuest} value="Add" /> */}
+                                                    
+                                                </div>
+
+                                                {/* {
+                                                    this.noOfDays(this.state) === 0 ? (
+                                                        ''
+                                                    ) : ( */}
+                                                        <Fragment>
+                                                            {/* <h4>Days </h4> */}
+                                                            <p className="sub-total"><span>{property.price?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})} x {
+                                                                !check_out ? (0) : (<Fragment>{this.noOfDays(this.state)}</Fragment>)
+                                                            } nights</span>  <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{! check_out ? "£0.00" : this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" }) }</span> </p>
+                                                            {/* } nights</span>  { !check_out ? (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>) }</p> */}
+                                                            {/* } nights</span>  <span style={{ fontFamily: "'Gilda Display', serif", fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP",  minimumFractionDigits: 0})}</span></p> */}
+                                                        </Fragment>
+                                                    {/* ) */}
+                                                {/* } */}
+
+                                                {/* <br></br> */}
+
+                                                {/* <h4>Subtotal </h4> */}
+                                                {/* <p>{this.totalPrice()}</p> */}
+                                                {/* <p>{this.totalPrice()?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> */}
+                                                
+                                                <p className="sub-total"><span style={{ fontSize: "1em" }}>Service charges/Tax</span>  <span style={{ fontSize: "1.5em" }}>{property.service_charge?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span></p>
+
+                                                <p className="sub-total"><span style={{ fontSize: "1.5em", marginTop: "1.5em" }}>Total</span>  {!check_out ? (<span style={{ fontSize: "1.5em" }}>£0.00</span>) : (<span style={{ fontSize: "1.5em" }}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP" })}</span>)}</p>
+
+                                        
+
+                                                {/* <h4 style={{ fontFamily: "'Gilda Display', serif", fontSize: "2em"}}>{this.totalPrice()?.toLocaleString("en-GB", {style:"currency", currency:"GBP"})}</h4> */}
+                                                <br></br>
+                                                
+                                                
                                                 {
-                                                    theBooking.length != 0 && (
-                                                        <div>
-                                                            <Link to={{ pathname: `/payment` }}><button className="booking_form__button without">Go to Reservations</button></Link>
-                                                        </div>
-                                                    ) 
+                                                    isAuth ?  (
+                                                        <Fragment>
+                                                            {/* <button type="submit" className="booking_form__button" >Reserve</button> */}
+                                                            {!check_out ? (
+                                                                <Fragment>
+                                                                    {property.is_available ? (<button type="button" className="booking_form__button" >Check availability</button>): (<button type="button" className="booking_form__button" style={{ background: "gray", color: "white", cursor: "not-allowed"}}>Unavailable</button>)}
+                                                                    <br></br>
+                                                                </Fragment>
+                                                                ) : (
+                                                                <button type="submit" className="booking_form__button" >Reserve</button>
+                                                            )}
+                                                            
+                                                            {/* <button type="submit" className="booking_form__button" >Check availability</button> */}
+                                                            {
+                                                                theBooking.length != 0 && (
+                                                                    <div>
+                                                                        <Link to={{ pathname: `/payment` }}><button className="booking_form__button without">Go to Reservations</button></Link>
+                                                                    </div>
+                                                                ) 
+                                                            }
+                                                        </Fragment>
+                                                    ) : (
+                                                        <Fragment>
+                                                            {property.is_available ? (<Link to={{ pathname: `/login` }}><button className="booking_form__button" style={{marginBottom: "2em"}}>Login</button></Link>): (<button type="button" className="booking_form__button" style={{ background: "gray", color: "white", cursor: "not-allowed", marginBottom: "1em"}}>Unavailable</button>)}
+                                                        </Fragment>
+                                                    )
                                                 }
-                                            </Fragment>
+                                                {/* <br></br> */}
+                                                <br></br>
+                                                <p style={{textAlign: "center", }}>*You won't be charged yet</p>
+
+
+                                            
+                                            </div>
                                         ) : (
-                                            <Fragment>
-                                                {property.is_available ? (<Link to={{ pathname: `/login` }}><button className="booking_form__button" style={{marginBottom: "2em"}}>Login</button></Link>): (<button type="button" className="booking_form__button" style={{ background: "gray", color: "white", cursor: "not-allowed", marginBottom: "1em"}}>Unavailable</button>)}
-                                            </Fragment>
+                                            <p className="book_now_btn" onClick={() => {this.setState({formShowing: true})}} style={{ margin: "1em"}}>Book A Stay </p>
                                         )
                                     }
-                                    {/* <br></br> */}
-                                    <br></br>
-                                    <p style={{textAlign: "center", }}>*You won't be charged yet</p>
-
-
-                                
-                        
                                 </form>                   
-                            </Fragment>
+                            </div>
                             
                         </div>
                         
                         {/* <br></br>
                         <br></br> */}
+                        <div className="location">
+
                         <h3>location</h3>
-                            <iframe
+                            {/* <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
                                 width="100%"
                                 height="450"
@@ -567,7 +592,10 @@ class Property extends Component {
                                 allowFullScreen=""
                                 aria-hidden="false"
                                 tabIndex="0"
-                                />
+                                /> */}
+
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37042.04697782714!2d-1.5883676998683476!3d54.53123954708759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487c24202d751389%3A0x86c0f359dfda50ed!2sDarlington%2C%20UK!5e0!3m2!1sen!2sng!4v1660976173933!5m2!1sen!2sng" width="100%" height="450" style={{ border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
                                      
                         {/* <h3>reviews</h3>  */}
 

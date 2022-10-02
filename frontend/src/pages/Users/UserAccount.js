@@ -1,24 +1,29 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import  AuthContext  from "../../utils/context/authContext";
+import defaultImage from "../../../static/default.png";
+import MainNavigation from "../../components/Navigation/MainNavigation";
 
 export default class UserAccount extends Component{
+    static contextType = AuthContext;
+
     constructor(props){
         super(props);
         this.state = {
             isLoggedIn: true,
-            user: '',
-            email: '',
-            first_name: '',
-            last_name: '',
-            avatar: '',
+            // user: '',
+            // email: '',
+            // first_name: '',
+            // last_name: '',
+            // avatar: '',
             loading: true,
             formShowing: true,
             booking: [],
             user_profile: {},
 
-            newFirstName : '',
-            newLastName : '',
+            // newFirstName : '',
+            // newLastName : '',
         }
         // console.log(this.state.formShowing)
 
@@ -28,8 +33,10 @@ export default class UserAccount extends Component{
     componentDidMount(){
         if (localStorage.getItem('token') === null) {
             window.location.replace('http://127.0.0.1:8000/login');
-        } else {
-            fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+        } 
+        else {
+            // fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            fetch('http://127.0.0.1:8000/api/v1/users/user', {
             // fetch('http://127.0.0.1:8000/api/users/', {
                 method: 'GET',
                 headers: {
@@ -40,11 +47,11 @@ export default class UserAccount extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    user: data.pk,
-                    email: data.email,
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    avatar: data.avatar,
+                    // user: data.pk,
+                    // email: data.email,
+                    // first_name: data.first_name,
+                    // last_name: data.last_name,
+                    // avatar: data.avatar,
                     user_profile: data.user_profile,
                     loading: false
                 })
@@ -66,23 +73,6 @@ export default class UserAccount extends Component{
         })
     }
 
-    handleLogout = (event) => {
-        event.preventDefault();
-        fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/logout/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Token ${localStorage.getItem('token')}`
-            }
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                // localStorage.clear();
-                localStorage.removeItem("token");
-                window.location.replace('http://127.0.0.1:8000/login');
-            });
-    }
 
     async showReservations(){
         axios
@@ -91,9 +81,7 @@ export default class UserAccount extends Component{
             .catch((err) => console.log(err));   
     }
 
-    formatUser(user){
-        return user.first_name + ' ' + user.last_name;
-    }
+  
 
     showUpdateForm = () => {
         this.setState(prevState => ({
@@ -103,21 +91,35 @@ export default class UserAccount extends Component{
 
     
     render(){
-        const { booking, email, first_name, last_name, loading, formShowing, user_profile } = this.state;
-        const { newFirstName, newLastName } = this.state;
+        const { logoutUser, user } = this.context;
+        const { loading, user_profile } = this.state;
+
+        const formatUser = (user) => {
+            return user.first_name + ' ' + user.last_name;
+        }
+
+        // const { booking, email, first_name, last_name, loading, formShowing, user_profile } = this.state;
+        // const { newFirstName, newLastName } = this.state;
         // profile, personal info, change password, reservations, payment,  
         // referral credits & coupons
         // deactivate
+
+        // console.log(user)
+        // console.log(auth.first_name)
+        // console.log(auth)
         
         return(
             <main>
+                <MainNavigation/>
                 {/* <div> */}
                     { loading === false && (
                         <Fragment>
                                 {/* <h1>Hello, {first_name}</h1> */}
-                                <h1 style={{marginTop: "-10px"}}>Hello, {first_name}<sup><img  src={user_profile?.avatar} width="40" height="40" style={{borderRadius: "50%"}}></img></sup></h1>
+                            {/* <h1 style={{marginTop: "-10px"}}>Hello, {first_name}<sup><img  src={user_profile?.avatar} width="40" height="40" style={{borderRadius: "50%"}}></img></sup></h1> */}
+                            <h1 style={{marginTop: "-10px"}}>Hello, {user.first_name}<sup><img  src={user_profile?.avatar ? user_profile?.avatar : defaultImage} width="40" height="40" style={{borderRadius: "50%"}}></img></sup></h1>
+                            {/* <h1 style={{marginTop: "-10px"}}>Hello, {first_name}<sup><img  src={user_profile?.avatar ? user_profile?.avatar : "/Users/emmanuellaadeka/Documents/PROJECTS/my_projects/johnAirbnb/john_airbnb/frontend/static/default.png"} width="40" height="40" style={{borderRadius: "50%"}}></img></sup></h1> */}
                                 {/* <h1 style={{marginTop: "-10px"}}>Hello, {first_name}</h1><sup><img  src={user_profile?.avatar} width="40" height="40" style={{borderRadius: "50%"}}></img></sup> */}
-                                <h4 style={{ color: "#898989" }}>{this.formatUser(this.state)}, {email}, <Link to="/logout" style={{ fontSize: "1em", textDecoration: "underline" }} onClick={this.handleLogout}>logout</Link></h4>
+                            <h4><span style={{ color: "#898989", fontSize: "1.1em" }}>{formatUser(user)}, {user.email},</span> <span style={{ fontSize: "1em", textDecoration: "underline", cursor: "pointer" }} onClick={logoutUser}>logout</span></h4>
                             <div className="user">
                                 <div className="user_account">
                                     {/* <Link to={{ pathname: `/user/deactivate` }} style={{ position: "absolute", bottom: "6em", textAlign: "center"}}>Deactivate My Account</Link> */}
@@ -126,7 +128,10 @@ export default class UserAccount extends Component{
                                     {/* <button type="button" onClick={this.showUpdateForm} style={{ position: 'absolute', right: "0"}}>{ formShowing ? 'Edit' : 'Close'}</button> */}
                                     {/* <img src={avatar} alt={first_name} className="profile_pic"></img> */}
                                     {/* <img src="../../static/default.png" alt={first_name} className="profile_pic"></img> */}
-
+                                    {/* <h1>{user.first_name}</h1> */}
+                                    {/* <h1>{user}</h1> */}
+                                    {/* <h1>{auth.email}</h1> */}
+                                    {/* <h1>{auth}</h1> */}
                                     <Link to={{ pathname: '/user/profile'}} className="user_account__compartments">
                                         <h2>Profile</h2>
                                         <p>see your profile</p>

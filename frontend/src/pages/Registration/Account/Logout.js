@@ -23,8 +23,9 @@ export default class Logout extends Component{
         event.preventDefault();
         // url to use: http://127.0.0.1:8000/api/v1/users/dj-rest-auth/logout/
 
-        fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/logout/', {
-            method: 'POST',
+        // fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/logout/', {
+        fetch('http://127.0.0.1:8000/api/v1/users/logout/', {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${localStorage.getItem('token')}`

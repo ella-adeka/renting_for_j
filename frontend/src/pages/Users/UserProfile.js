@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import {  Link } from "react-router-dom";
+import defaultImage from "../../../static/default.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faPencil
 } from '@fortawesome/free-solid-svg-icons';
+import AuthContext from "../../utils/context/authContext";
 
 export default class UserProfile extends Component{
+    static contextType = AuthContext;
+
     constructor(props){
         super(props);
         this.state = {
-            user: '',
+            user_id: '',
             email: '',
             first_name: '',
             last_name: '',
@@ -22,7 +26,8 @@ export default class UserProfile extends Component{
         if (localStorage.getItem('token') === null) {
             window.location.replace('http://127.0.0.1:8000/login');
         } else {
-            fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            // fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            fetch('http://127.0.0.1:8000/api/v1/users/user', {
             // fetch('http://127.0.0.1:8000/api/users/', {
                 method: 'GET',
                 headers: {
@@ -33,7 +38,7 @@ export default class UserProfile extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    user: data.pk,
+                    user_id: data.pk,
                     email: data.email,
                     first_name: data.first_name,
                     last_name: data.last_name,
@@ -58,6 +63,7 @@ export default class UserProfile extends Component{
 
     
     render(){
+        const { user } = this.context
         const {  email, first_name, last_name, loading, user_profile } = this.state;
 
         return(
@@ -72,12 +78,12 @@ export default class UserProfile extends Component{
 
                         <div style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" , width: "60%", height: "60%"}}>
                             <div>
-                                <img className="profile_photo" src={user_profile?.avatar}></img>
+                                <img className="profile_photo" src={user.user_profile?.avatar ? user.user_profile?.avatar : defaultImage}></img>
                                 <input type="file" id="file_upload"  onChange={this.handleImageChange} hidden></input>
                                 <FontAwesomeIcon className="edit_profile_photo" size="1x" icon={faPencil} onClick={() => document.getElementById('file_upload').click()}></FontAwesomeIcon>
                             </div>
                                 
-                                <p style={{ fontSize: "3em"}}>{first_name} {last_name}</p>
+                                <p style={{ fontSize: "3em"}}>{user.first_name} {user.last_name}</p>
                                 <p>{email}</p>
                                 <h4>No. of reservations</h4>
                         </div>

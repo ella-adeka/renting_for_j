@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import {  Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import AuthContext from "../../utils/context/authContext";
 
 export default class UserPersonalInfo extends Component{
+    static contextType = AuthContext;
+
     constructor(props){
         super(props);
         this.state = {
-            user: '',
+            user_id: '',
             email: '',
             first_name: '',
             last_name: '',
@@ -23,7 +26,7 @@ export default class UserPersonalInfo extends Component{
         if (localStorage.getItem('token') === null) {
             window.location.replace('http://127.0.0.1:8000/login');
         } else {
-            fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            fetch('http://127.0.0.1:8000/api/v1/users/user', {
             // fetch('http://127.0.0.1:8000/api/users/', {
                 method: 'GET',
                 headers: {
@@ -34,7 +37,7 @@ export default class UserPersonalInfo extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    user: data.pk,
+                    user_id: data.pk,
                     email: data.email,
                     first_name: data.first_name,
                     last_name: data.last_name,
@@ -141,7 +144,7 @@ export default class UserPersonalInfo extends Component{
         // console.log(formData)
 
         // fetch('http://127.0.0.1:8000/tight/login/', {
-        fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+        fetch('http://127.0.0.1:8000/api/v1/users/user', {
         // fetch('http://127.0.0.1:8000/api/token/', {
             method: 'PUT',
             headers: {
@@ -170,6 +173,7 @@ export default class UserPersonalInfo extends Component{
     }
 
     render(){
+        const { user } = this.context;
         const {  email, first_name, last_name, loading, user_profile } = this.state;
 
         return(
@@ -189,19 +193,19 @@ export default class UserPersonalInfo extends Component{
                                 <div className="signup_form__div">
                                     <div className="signup_form__div__div">
                                         <label htmlFor="first_name" className="signup_form__div__div__label">First Name</label><br></br>
-                                        <input className="signup_form__div__div__input" type="text" value={first_name} onChange={this.handleChange} name="first_name" placeholder="enter your first name"  required></input>
+                                        <input className="signup_form__div__div__input" type="text" value={user.first_name} onChange={this.handleChange} name="first_name" placeholder="enter your first name"  required></input>
                                     </div>
                                     
                                     <div className="signup_form__div__div">
                                         <label htmlFor="last_name" className="signup_form__div__div__label">Last Name</label><br></br>
-                                        <input className="signup_form__div__div__input" type="text" value={last_name} onChange={this.handleChange} name="last_name" placeholder="enter your last name"  required></input>   
+                                        <input className="signup_form__div__div__input" type="text" value={user.last_name} onChange={this.handleChange} name="last_name" placeholder="enter your last name"  required></input>   
                                     </div>
                                 </div>
 
                                 <div className="signup_form__div">
                                     <div className="signup_form__div__div">
                                         <label htmlFor="date_of_birth" className="signup_form__div__div__label">Date of Birth</label><br></br>
-                                        <input className="signup_form__div__div__input" type="date" value={user_profile?.date_of_birth}  onChange={this.handleProfileChange} name="date_of_birth" placeholder="enter your date of birth"></input>
+                                        <input className="signup_form__div__div__input" type="date" value={user.user_profile?.date_of_birth}  onChange={this.handleProfileChange} name="date_of_birth" placeholder="enter your date of birth"></input>
                                         {/* <DatePicker
                                             dateFormat="yyyy-MM-dd"
                                             selected={user_profile.date_of_birth}
@@ -214,7 +218,7 @@ export default class UserPersonalInfo extends Component{
                                     
                                     <div className="signup_form__div__div">
                                         <label htmlFor="email" className="signup_form__div__div__label">Email</label><br></br>
-                                        <input className="signup_form__div__div__input" type="text" value={email} onChange={this.handleChange} name="email" placeholder="enter your email" required></input>
+                                        <input className="signup_form__div__div__input" type="text" value={user.email} onChange={this.handleChange} name="email" placeholder="enter your email" required></input>
                                     </div>
                                     
                                     
@@ -222,12 +226,12 @@ export default class UserPersonalInfo extends Component{
                                 <div className="signup_form__div">
                                     <div className="signup_form__div__div">
                                         <label htmlFor="phone_number" className="signup_form__div__div__label">Phone Number</label><br></br>
-                                        <input className="signup_form__div__div__input" type="text" value={user_profile?.phone_number} onChange={this.handleProfileChange} name="phone_number" placeholder="enter your phone number"></input>   
+                                        <input className="signup_form__div__div__input" type="text" value={user.user_profile?.phone_number} onChange={this.handleProfileChange} name="phone_number" placeholder="enter your phone number"></input>   
                                     </div>
                                     
                                     <div className="signup_form__div__div">
                                         <label htmlFor="emergency_contact" className="signup_form__div__div__label">Emergency Contact</label><br></br>
-                                        <input className="signup_form__div__div__input" type="text" value={user_profile?.emergency_contact} onChange={this.handleProfileChange} name="emergency_contact" placeholder="enter your emergency contact"></input>   
+                                        <input className="signup_form__div__div__input" type="text" value={user.user_profile?.emergency_contact} onChange={this.handleProfileChange} name="emergency_contact" placeholder="enter your emergency contact"></input>   
                                     </div>
                                 </div>
 
@@ -236,7 +240,10 @@ export default class UserPersonalInfo extends Component{
                                         <label htmlFor="gender" className="signup_form__div__div__label">Gender</label><br></br>
                                         <select name="gender" id="gender" required="False">
                                             <option>--- Choose your gender --- </option>
-                                            <option value={user_profile?.gender} onChange={this.handleProfileChange}>Female</option>
+                                            <option value="Female" onChange={this.handleProfileChange}>Female</option>
+                                            <option value="Male" onChange={this.handleProfileChange}>Male</option>
+                                            <option value="Other" onChange={this.handleProfileChange}>Other</option>
+                                            {/* <option value={user.user_profile?.gender} onChange={this.handleProfileChange}>Female</option> */}
                                             {/* <option value={user_profile?.gender} onChange={this.handleProfileChange}>{user_profile?.gender}</option> */}
                                         </select>
                                     </div>
@@ -244,7 +251,7 @@ export default class UserPersonalInfo extends Component{
                                     <div className="signup_form__div__div">
                                         <label htmlFor="avatar" className="signup_form__div__div__label">Address</label><br></br> 
                                         {/* <textarea rows={3} placeholder="enter your message here" value={user_profile} onChange={this.handleChange}></textarea>      */}
-                                        <input className="signup_form__div__div__input"  type="text" value={user_profile?.address} onChange={this.handleProfileChange} name="address" placeholder="enter your address"></input>
+                                        <input className="signup_form__div__div__input"  type="text" value={user.user_profile?.address} onChange={this.handleProfileChange} name="address" placeholder="enter your address"></input>
                                         {/* <input type="file" className="signup_form__div__div__input" title=''  id="avatar" onChange={this.handleImageChange} name="avatar" style={{width:"70%"}}></input>    */}
                                         {/* <img src={user_profile?.avatar} alt="preview image" width="20px" /> */}
                                         {/* <span>{user_profile?.avatar[0].name}</span> */}

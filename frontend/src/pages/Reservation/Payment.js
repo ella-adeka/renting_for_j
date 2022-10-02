@@ -2,16 +2,18 @@ import React, { Component, Fragment } from "react";
 import axios from 'axios';
 import { withUrlParams } from "../../utils/urlParams";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
+import AuthContext from "../../utils/context/authContext";
 
 class Payment extends Component{
+    static contextType = AuthContext;
+
     constructor(props){
         super(props);
         this.state = {
-            user: '',
-            email: '',
-            first_name: '',
-            last_name: '',
+            user_id: '',
+            // email: '',
+            // first_name: '',
+            // last_name: '',
             isAuth: false,
             loading: true,
             property: [],
@@ -25,7 +27,7 @@ class Payment extends Component{
         if (localStorage.getItem('token') === null) {
             window.location.replace('http://127.0.0.1:8000/login');
         } else {
-            fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            fetch('http://127.0.0.1:8000/api/v1/users/user', {
             // fetch('http://127.0.0.1:8000/api/users/', {
                 method: 'GET',
                 headers: {
@@ -36,10 +38,10 @@ class Payment extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    user: data.pk,
-                    email: data.email,
-                    first_name: data.first_name,
-                    last_name: data.last_name,
+                    user_id: data.pk,
+                    // email: data.email,
+                    // first_name: data.first_name,
+                    // last_name: data.last_name,
                     loading: false
                 })
             });
@@ -65,7 +67,7 @@ class Payment extends Component{
 
 
         const [ firstResponse, secondResponse ] = await Promise.all([
-            axios.get('/api/bookings/'+ this.state.user),
+            axios.get('/api/bookings/'+ this.state.user_id),
             axios.get('/api/properties/')
         ])
         this.setState(
@@ -103,18 +105,29 @@ class Payment extends Component{
 
     
     render(){
-        const { booking, email, first_name, last_name, loading,  user, property } = this.state;
+        const { user } = this.context;
+        const { booking, email, first_name, last_name, loading,  property } = this.state;
         const options =  { weekday: "short",  year: "numeric", month: "long", day: "numeric" } // others: weekday: "short", year: "numeric", month: "long", day: "numeric"
         
-        const price = booking.filter((booking) => booking.user == user).map((booking) => (booking.get_property_price))
-        console.log(price[0])
+        const price = booking.filter((booking) => booking.user == user.id).map((booking) => (booking.get_property_price))
+        // console.log(price[0])
+
+        // const propertyInWishlist = items.some(element => {
+        //     if (element.id === property.id) {
+        //       return true;
+        //     }
+          
+        
+        //     return false;
+        // });
 
         const initialOptions = {
             "client-id": "test",
             currency: "GBP",
         };
         
-        console.log(property.title)
+        // console.log(property.title)
+        // console.log(user.pk)
         
         return(
             <div>
@@ -129,14 +142,14 @@ class Payment extends Component{
                                 <div>
                                     <h2>Personal Info </h2>
                                     <h4>Name</h4>
-                                    <p>{first_name} {last_name}</p>
-                                    <p>{email}</p>
+                                    <p>{user.first_name} {user.last_name}</p>
+                                    <p>{user.email}</p>
                                 </div>
 
                                 <div>
                                 <h2>Reservation Details</h2>
                                     {/* <p>You are about to pay for:</p> */}
-                                    {booking.filter((booking) => booking.user == user).map((booking,  index) => (
+                                    {booking.filter((booking) => booking.user === user.id).map((booking,  index) => (
                                         
                                         <div key={index}>
                                             <h1>{booking.property_id}</h1>
