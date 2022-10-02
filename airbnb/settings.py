@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+from decouple import config
 from pathlib import Path
 from datetime import timedelta
 
@@ -41,6 +42,10 @@ INSTALLED_APPS = [
     #django rest framework
     'rest_framework',
     'rest_framework.authtoken',
+    'knox',
+    'social_django',
+    'oauth2_provider',
+    'drf_social_oauth2',
 
     'phonenumber_field',
     
@@ -53,6 +58,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'django.contrib.sites',
+    
     
     # the social providers
     'allauth.socialaccount',
@@ -93,8 +99,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'social_django.context_processors.backends', #add
-                # 'social_django.context_processors.login_redirect', #add
+                'social_django.context_processors.backends', #add
+                'social_django.context_processors.login_redirect', #add
             ],
         },
     },
@@ -152,7 +158,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend', # existing backend
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
+
+
+    # drf-social-oauth2
+    # 'drf_social_oauth2.backends.DjangoOAuth2',
+
+
 )
 
 SITE_ID = 1
@@ -186,8 +198,12 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.AllowAny'
     # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.TokenAuthentication', 
+        'knox.auth.TokenAuthentication', 
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'drf_social_oauth2.authentication.SocialAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication', 
+        # 'rest_framework.authentication.SocialAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
         # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
@@ -198,6 +214,10 @@ REST_FRAMEWORK = {
 }
 
 # TOKEN_EXPIRED_AFTER_SECONDS = 10
+
+REST_KNOX = {
+    'TOKEN_TTL': timedelta(hours=2),  # default time 10h
+}
 
 
 # SIMPLE_JWT = {
@@ -250,7 +270,7 @@ REST_AUTH_SERIALIZERS = {
 }
 
 
-ACCOUNT_FORMS = {'signup': 'accounts.forms.UserRegisterForm'}
+# ACCOUNT_FORMS = {'signup': 'accounts.forms.UserRegisterForm'}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -304,3 +324,12 @@ LOGOUT_REDIRECT_URL = '/'
 # ]
 
 # google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'openid'
+]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
