@@ -6,7 +6,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
-from .serializers import BookingSerializer, CitySerializer,PaymentSerializer, PropertySerializer, InsidePropertyImagesSerializer, PropertyImagesSerializer
+# from .serializers import BookingSerializer, CitySerializer,PaymentSerializer, PropertySerializer, InsidePropertyImagesSerializer, PropertyImagesSerializer
+from .serializers import *
 from .models import *
 # from amenities.models import *
 from rest_framework.decorators import api_view
@@ -159,3 +160,8 @@ class CitiesAPIView(APIView):
         serializer = CitySerializer(cities, many=True)
         return Response(serializer.data)
 
+
+class ContactView(viewsets.ModelViewSet):
+    # permission_classes= [IsAuthenticated]
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer

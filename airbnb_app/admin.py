@@ -22,6 +22,9 @@ class CityAdmin(admin.ModelAdmin):
 class BookingAdmin(admin.ModelAdmin):
     list_display = ('user','property','check_in', 'check_out', 'guests', 'reserved')
 
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('user','subject', 'message')
+
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('user','booking', 'total_amount')
 
@@ -56,6 +59,7 @@ class ReviewsAdmin(admin.ModelAdmin):
 
 admin.site.register(Booking, BookingAdmin)
 admin.site.register(Amenity)
+admin.site.register(Contact, ContactAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.register(Highlights)
 admin.site.register(HouseRules)

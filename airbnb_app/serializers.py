@@ -14,6 +14,11 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields =  '__all__'
 
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields =  '__all__'
+
 class PaymentSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     booking = serializers.StringRelatedField()

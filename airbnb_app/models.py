@@ -1,3 +1,5 @@
+# from email import message
+# from tabnanny import verbose
 from django.db import models
 import uuid
 # from django.forms import SlugField
@@ -61,6 +63,18 @@ class City(models.Model):
 
     def __str__(self):
         return self.city
+
+class Contact(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="", null=True)
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Contact"
+        ordering = ['user']
+    
+    def __str__(self):
+        return self.user.email
 
 
 class Highlights(models.Model):
