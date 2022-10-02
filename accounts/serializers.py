@@ -1,11 +1,18 @@
 from dataclasses import field
 from requests import request
-from accounts.models import User, UserProfile
+from accounts.models import User, UserProfile, GENDER_CHOICES
+# from accounts.models import User, UserProfile, GENDER_CHOICES
 from django.db import transaction
 from rest_framework import serializers
 from dj_rest_auth.serializers import UserDetailsSerializer
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from rest_framework_simplejwt.settings import api_settings
+from rest_framework import  status
+from rest_framework.response import Response
+from django.contrib.auth import authenticate
+
+User._meta.get_field('email')._unique = True
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
@@ -20,6 +27,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'emergency_contact',
             'address'
         ]
+
+    # def get(self, request, format=None):
+
+    #     my_choices = []
+    #     choice_dict = dict(GENDER_CHOICES)
+    #     for key, value in choice_dict.items():
+
+    #         itered_dict = {"key": key, "value": value}
+    #         my_choices.append(itered_dict)
+    #     return Response(my_choices, status=status.HTTP_200_OK)
 
     def update(self, instance, validated_data):
         # We try to get profile data
@@ -42,7 +59,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
 
-    user_profile = UserProfileSerializer()
+    user_profile = UserProfileSerializer(source='userprofile')
 
     class Meta:
         model = User
@@ -63,6 +80,42 @@ class UserSerializer(serializers.ModelSerializer):
             'updated_at'
         ]
 
+    
+
+class RegisterSerializer(serializers.ModelSerializer):
+    username = None
+    email = serializers.EmailField(required=True, write_only=True, max_length=128)
+    first_name = serializers.CharField(required=True)
+    last_name = serializers.CharField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email','first_name', 'last_name', 'password', 'is_active', 'created_at', 'updated_at']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            # validated_data['email'],
+            # validated_data['first_name'],
+            # validated_data['last_name'],
+            # validated_data['password']
+            email=self.validated_data['email'],
+            first_name=self.validated_data['first_name'],
+            last_name=self.validated_data['last_name'],
+            password=self.validated_data['password']
+        )
+        return user
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Incorrect Credentials")
+
 
 class UserRegisterSerializer(RegisterSerializer):
     username = None
@@ -73,7 +126,7 @@ class UserRegisterSerializer(RegisterSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email','first_name', 'last_name', 'password','avatar', 'is_active', 'created_at', 'updated_at']
+        fields = ['id', 'email','first_name', 'last_name', 'password', 'is_active', 'created_at', 'updated_at']
 
 
     @transaction.atomic

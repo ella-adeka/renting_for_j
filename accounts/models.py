@@ -4,6 +4,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from pickle import NONE
+from PIL import Image
+
 
 # from PIL import Image
 # from django.contrib.auth import get_user_model
@@ -104,16 +106,16 @@ class UserProfile(models.Model):
     def get_full_name(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super(UserProfile, self).save(*args, **kwargs)
+
+        img = Image.open(self.avatar.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.avatar.path)
+
     
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-@receiver(post_save, sender=UserProfile)
-def save_user_profile(sender, instance, **kwargs):
-    instance.user.save()

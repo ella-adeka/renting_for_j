@@ -16,6 +16,9 @@ Including another URLconf
 
 from django.urls import path, include, re_path
 from accounts.views import main, current_user, UserList
+from knox.views import LogoutView, LogoutAllView
+from .views import UserAPIView, RegisterAPIView, LoginAPIView
+
 # from dj_rest_auth.registration.views import RegisterView
 # from dj_rest_auth.views import LoginView, LogoutView
 
@@ -27,11 +30,18 @@ urlpatterns = [
     # path('login/', LoginView.as_view()),
     # path('logout/', LogoutView.as_view()),
 
-    path('dj-rest-auth/', include('dj_rest_auth.urls')),
-    path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    # path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    # path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+
+    path('', include('knox.urls')),
+    path('user', UserAPIView.as_view()),
+    path('register', RegisterAPIView.as_view()),
+    path('login', LoginAPIView.as_view()),
+    path('logout', LogoutView.as_view(), name='knox_logout'),
+    path('logoutall', LogoutAllView.as_view(), name='knox_logoutall'),
 
     path('current_user/', current_user),
     path('users/', UserList.as_view()),
 
-    path('accounts', main),
+    # path('accounts', main),
 ]
