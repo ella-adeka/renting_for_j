@@ -8,13 +8,15 @@ import {
     faUser,
 } from '@fortawesome/free-regular-svg-icons';
 import WishlistContext from "../../utils/context/wishlistContext";
+import AuthContext from "../../utils/context/authContext";
 import {  faHeart as HeartFilled, faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { lightTheme } from "../Mode/Theme";
+import SocialsBar from "../SocialsBar";
 
 
 
 export default class MainNavigation extends Component{
-    static contextType = WishlistContext;
+    // static contextType = WishlistContext;
+    static contextType = AuthContext;
 
     constructor(props){
         super(props);
@@ -24,7 +26,8 @@ export default class MainNavigation extends Component{
             first_name: '',
             last_name: '',
             hidden: true,
-            theme: localStorage.getItem('theme'),
+            isLight: true,
+            theme: localStorage.getItem('theme') ? localStorage.getItem('theme') : "light",
         }
     }
 
@@ -40,7 +43,8 @@ export default class MainNavigation extends Component{
             this.setState({
                 isAuth: true,
             });
-            fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            // fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/user/', {
+            fetch('http://127.0.0.1:8000/api/v1/users/user', {
                 // fetch('http://127.0.0.1:8000/api/users/', {
                     method: 'GET',
                     headers: {
@@ -58,33 +62,38 @@ export default class MainNavigation extends Component{
             } 
         }
 
-    handleLogout = (event) => {
-        event.preventDefault();
-        fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/logout/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Token ${localStorage.getItem('token')}`
-            }
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                localStorage.removeItem("token");
-                window.location.replace('http://127.0.0.1:8000/login');
-            });
-    }
+    // handleLogout = (event) => {
+    //     event.preventDefault();
+    //     // fetch('http://127.0.0.1:8000/api/v1/users/dj-rest-auth/logout/', {
+    //     fetch('http://127.0.0.1:8000/api/v1/users/logout/', {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Token ${localStorage.getItem('token')}`
+    //         }
+    //         })
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             console.log(res);
+    //             localStorage.removeItem("token");
+    //             window.location.replace('http://127.0.0.1:8000/login');
+    //         });
+    // }
 
     showSth = () => {
         console.log("yes")
     }
 
     render(){
-        const { isAuth, hidden, theme } = this.state;
+        const { isAuth, hidden, theme, isLight } = this.state;
+        var items = JSON.parse(localStorage.getItem("wishlist") || "[]");
+
+
         // const { items } = useContext(WishlistContext);
         // console.log(items.length)
 
-        const {items} = this.context;
+        // const {items} = this.context;
+        // const { logoutUser} = this.context;
 
         // console.log(items.length);
         
@@ -95,11 +104,18 @@ export default class MainNavigation extends Component{
                        <Fragment >
                             {/* <div className='menu_bar__div' style={ hidden ? isAuth ? {visibility: "visible"} : {visibility: "hidden"} : {visibility: "hidden"}}> */}
                             <div className='menu_bar__div' style={ hidden ? {visibility: "hidden"} : isAuth ? {visibility: "visible"} :  {visibility: "hidden"} }>
-                                <Link to="/logout" onClick={this.handleLogout}>
-                                    <FontAwesomeIcon  className='menu_bar__div__icon' icon={faSignOut} />
-                                </Link>
+                                {/* <Link to="/logout" onClick={this.handleLogout}> */}
+                                <AuthContext.Consumer>
+                                    {({logoutUser}) => (
+                                        <a onClick={logoutUser}>
+                                            <FontAwesomeIcon  className='menu_bar__div__icon' icon={faSignOut} />
+                                        </a>
+
+                                        // <span onClick={logoutUser}><FontAwesomeIcon  className='menu_bar__div__icon' icon={faSignOut}></FontAwesomeIcon></span>
+                                    )}
+                                </AuthContext.Consumer>
                             </div>
-                            <div className='menu_bar__div' onClick={this.props.themeToggler} style={ hidden ? {visibility: "hidden"} : {visibility: "visible"}}><FontAwesomeIcon className='menu_bar__div__icon' icon={theme === "light" ? faMoon : faSun } /></div>
+                            <div className='menu_bar__div' onClick={this.props.themeToggler} style={ hidden ? {visibility: "hidden"} : {visibility: "visible"}}><FontAwesomeIcon className='menu_bar__div__icon' onClick={() => {this.setState({isLight : !isLight})}}  icon={isLight ? faMoon : faSun } /></div>
                        </Fragment>
                     {/* )} */}
                     <div className='menu_bar__div'>
@@ -108,9 +124,13 @@ export default class MainNavigation extends Component{
                         </Link>
                     </div>
                     <div className='menu_bar__div'>
-                        <Link to="/wishlist">
-                            <FontAwesomeIcon className='menu_bar__div__icon' icon={items.length == 0 ? HeartEmpty : HeartFilled} /> <sup>{items.length}</sup>
-                        </Link>
+                        {/* <WishlistContext.Consumer>
+                            {({items}) => ( */}
+                                <Link to="/wishlist">
+                                    <FontAwesomeIcon className='menu_bar__div__icon' icon={items.length == 0 ? HeartEmpty : HeartFilled} /> <sup>{items.length}</sup>
+                                </Link>
+                            {/* )}
+                        </WishlistContext.Consumer> */}
                     </div>
                    
                     {/* <div className='menu_bar__div'>
@@ -160,7 +180,8 @@ export default class MainNavigation extends Component{
                                 ) : (
                                     <h2><Link to="/login">Sign in</Link><span>/</span><Link to="/signup">up</Link></h2>
                                 )}
-                                <h2><Link to="/cities">Cities</Link></h2>
+                                <h2><Link to="/cities">Our Locations</Link></h2>
+                                {/* <h2><Link to="/cities">Cities</Link></h2> */}
                                 <h2><Link to="/properties">Places to stay</Link></h2>
                                 <h2><Link to="/payment">Reservations</Link></h2>
                             </div>
@@ -176,10 +197,12 @@ export default class MainNavigation extends Component{
                                     <Link to="/contact-us">Contact</Link>
                                 </li> 
 
-                                <li>
+                                {/* <li>
                                     <Link to="/loose/admin">Admin</Link>
-                                </li>
+                                </li> */}
+                                <SocialsBar/>
                             </div>
+
 
                             {/* {isAuth === true ? (
                                 <Fragment>
