@@ -7,6 +7,11 @@ header{
         width: 450px;
         height: 70px;
         z-index: 9;
+
+
+
+
+
         // background-color:  #121212;
         // background-color:  #dbd9d9;
         // backdrop-filter: blur(50px);
@@ -196,6 +201,7 @@ header{
         color: #646464;
         text-decoration: none;
         font-family: 'Fahkwang', sans-serif;
+        // font-family: 'Gilda Display', serif;
         font-weight: bolder;
 
         // &:hover{
@@ -211,9 +217,10 @@ header{
         text-transform: uppercase;
         font-size: 5em;
         line-height: 1em;
-        font-family: $headerFont;
+        // font-family: $headerFont;
          a{
             font-family: $headerFont;
+            // font-family: 'Gilda Display', serif;
 
             // .sign{
             //     color: #000000;

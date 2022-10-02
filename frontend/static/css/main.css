@@ -94,21 +94,8 @@
   text-decoration: none;
 }
 
-.property_body {
-  margin: 5em;
-}
-
 .property_body div {
   position: relative;
-}
-
-.property_body div .property_title {
-  margin-top: 0.7em;
-  width: 100%;
-  font-size: 7em;
-  font-weight: 600;
-  line-height: 1.3em;
-  letter-spacing: -0.15rem;
 }
 
 .property_body div h3 {
@@ -118,44 +105,64 @@
   text-transform: capitalize;
 }
 
-.property_body div .des_likes {
-  width: 100%;
-  margin: -1em 0 1em 0;
+.property_body div .location {
+  margin: 5em;
 }
 
-.property_body div .des_likes p {
+.property_body div div.the_head {
+  width: 90%;
+  display: block;
+}
+
+.property_body div div.the_head .property_title {
+  margin-top: 1em;
+  width: 100%;
+  font-size: 7em;
+  font-weight: 600;
+  line-height: 1.3em;
+  letter-spacing: -0.15rem;
+}
+
+.property_body div div.the_head .des_likes {
+  width: 100%;
+  margin: -1.5em 0 1em 0;
+}
+
+.property_body div div.the_head .des_likes p {
   display: inline-block;
   width: 50%;
 }
 
-.property_body div .des_likes p:nth-child(2) {
+.property_body div div.the_head .des_likes p:nth-child(2) {
   text-align: right;
+  right: -3em;
+  position: absolute;
 }
 
-.property_body div .des_likes p:nth-child(2) span {
+.property_body div div.the_head .des_likes p:nth-child(2) span {
   font-size: 1em;
   padding: 0.5em;
   text-decoration: none;
   cursor: pointer;
 }
 
-.property_body div .des_likes p:nth-child(2) span .icon {
+.property_body div div.the_head .des_likes p:nth-child(2) span .icon {
   color: gray;
 }
 
-.property_body div .des_likes p:nth-child(2) span:hover .one {
+.property_body div div.the_head .des_likes p:nth-child(2) span:hover .one {
   color: #fb4664;
 }
 
-.property_body div .des_likes p:nth-child(2) span:hover .two {
+.property_body div div.the_head .des_likes p:nth-child(2) span:hover .two {
   color: #32e4f4;
 }
 
-.property_body div .des_likes p:nth-child(2) span:nth-child(1) {
+.property_body div div.the_head .des_likes p:nth-child(2) span:nth-child(1) {
   padding-right: 2em;
 }
 
-.property_body div .des_likes p:nth-child(2) span:nth-child(2) {
+.property_body div div.the_head .des_likes p:nth-child(2) span:nth-child(2) {
   padding-right: 0;
   padding-left: 2em;
 }
@@ -164,15 +171,13 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   height: auto;
-  margin-bottom: 8em;
   top: 3em;
+  margin: 2em;
 }
 
 .property_body div .flexbox-wrapper .regular {
   width: 65%;
-  margin-left: 0;
 }
 
 .property_body div .flexbox-wrapper .regular .highlights {
@@ -231,7 +236,7 @@
   font-size: 0.7em;
 }
 
-.property_body div .flexbox-wrapper .booking_form {
+.property_body div .flexbox-wrapper .booking {
   position: sticky;
   position: -webkit-sticky;
   top: 8em;
@@ -239,22 +244,38 @@
   -ms-flex-item-align: start;
       align-self: flex-start;
   width: 25%;
-  background-color: rgba(255, 255, 255, 0.067);
-  border: 0.7px solid #7c7c7c;
-  padding: 2em;
-  margin-right: -3em;
+  margin-right: 0;
   margin-top: 0;
 }
 
-.property_body div .flexbox-wrapper .booking_form h3 {
+.property_body div .flexbox-wrapper .booking .book_now_btn {
+  padding: 0.7em;
+  font-size: 1.1em;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Italiana', serif;
+}
+
+.property_body div .flexbox-wrapper .booking .book_now_btn:hover {
+  letter-spacing: normal;
+}
+
+.property_body div .flexbox-wrapper .booking .booking_form {
+  background-color: rgba(255, 255, 255, 0.067);
+  border: 0.7px solid #7c7c7c;
+}
+
+.property_body div .flexbox-wrapper .booking .booking_form h3 {
   font-size: 1.3em;
   margin-top: 0;
   margin-bottom: 1.5em;
   text-transform: capitalize;
-  text-align: center;
+  text-align: left;
 }
 
-.property_body div .flexbox-wrapper .booking_form .guests {
+.property_body div .flexbox-wrapper .booking .booking_form .guests {
   width: 98%;
   margin-top: .5em;
   margin-bottom: 1.5em;
@@ -264,7 +285,7 @@
           user-select: none;
 }
 
-.property_body div .flexbox-wrapper .booking_form .guests span {
+.property_body div .flexbox-wrapper .booking .booking_form .guests span {
   display: inline-block;
   width: 33.33%;
   margin-top: 0.3em;
@@ -272,7 +293,7 @@
   height: 18px;
 }
 
-.property_body div .flexbox-wrapper .booking_form .guests:nth-child(1) {
+.property_body div .flexbox-wrapper .booking .booking_form .guests:nth-child(1) {
   color: black;
   border: 1px solid white;
   border-radius: 50%;
@@ -280,62 +301,62 @@
   cursor: pointer;
 }
 
-.property_body div .flexbox-wrapper .booking_form .sub-total {
+.property_body div .flexbox-wrapper .booking .booking_form .sub-total {
   width: 100%;
   margin-bottom: 0.2em;
 }
 
-.property_body div .flexbox-wrapper .booking_form .sub-total span {
+.property_body div .flexbox-wrapper .booking .booking_form .sub-total span {
   display: inline-block;
 }
 
-.property_body div .flexbox-wrapper .booking_form .sub-total span:nth-child(1) {
+.property_body div .flexbox-wrapper .booking .booking_form .sub-total span:nth-child(1) {
   width: 50%;
   font-size: 0.9em;
 }
 
-.property_body div .flexbox-wrapper .booking_form .sub-total span:nth-child(2) {
+.property_body div .flexbox-wrapper .booking .booking_form .sub-total span:nth-child(2) {
   margin-right: 0;
   width: 48%;
   text-align: right;
 }
 
-.property_body div .flexbox-wrapper .booking_form__button {
+.property_body div .flexbox-wrapper .booking .booking_form__button {
   width: 100%;
   color: black;
 }
 
-.property_body div .flexbox-wrapper .booking_form .without {
+.property_body div .flexbox-wrapper .booking .booking_form .without {
   background-color: transparent;
   border: 1px solid white;
   margin-top: 1em;
   color: white;
 }
 
-.property_body div .flexbox-wrapper .booking_form .without:hover {
+.property_body div .flexbox-wrapper .booking .booking_form .without:hover {
   background-color: rgba(255, 255, 255, 0.241);
 }
 
-.property_body div .flexbox-wrapper .booking_form__div__div {
+.property_body div .flexbox-wrapper .booking .booking_form__div__div {
   width: 50%;
   display: inline-block;
 }
 
-.property_body div .flexbox-wrapper .booking_form__div__div label {
+.property_body div .flexbox-wrapper .booking .booking_form__div__div label {
   font-weight: bolder;
 }
 
-.property_body div .flexbox-wrapper .booking_form__div__div__input {
+.property_body div .flexbox-wrapper .booking .booking_form__div__div__input {
   border: none;
   padding: 0.5em 0;
   width: 100%;
 }
 
-.property_body div .flexbox-wrapper .booking_form__div__div:nth-child(2) {
+.property_body div .flexbox-wrapper .booking .booking_form__div__div:nth-child(2) {
   text-align: right;
 }
 
-.property_body div .flexbox-wrapper .booking_form__div__div:nth-child(2) input {
+.property_body div .flexbox-wrapper .booking .booking_form__div__div:nth-child(2) input {
   text-align: right;
 }
 
@@ -352,14 +373,19 @@
   display: none;
 }
 
+.property_body div .theprops_images .property_image_div {
+  width: auto;
+  display: inline;
+}
+
 .property_body div .theprops_images .property_image_div__property_image {
   width: 100%;
   height: 100%;
   margin: 0 auto;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
+  -o-object-position: top;
+     object-position: top;
 }
 
 .property_body div .theprops_images .property_images_div {
@@ -438,30 +464,31 @@
 
 .properties_body div .end-text {
   bottom: 1em;
+  margin-top: 5em;
   text-align: center;
   letter-spacing: 10px;
 }
 
-.properties_body div div {
+.properties_body div .properties_body__property {
   display: inline-block;
   width: 100%;
   height: 100%;
   padding: 1%;
 }
 
-.properties_body div div .city_link {
+.properties_body div .properties_body__property .city_link {
   font-size: 0.9em;
 }
 
-.properties_body div div .city_link:hover {
+.properties_body div .properties_body__property .city_link:hover {
   text-decoration: underline;
 }
 
-.properties_body div div a {
+.properties_body div .properties_body__property a {
   text-decoration: none;
 }
 
-.properties_body div div a img {
+.properties_body div .properties_body__property a img {
   width: 100%;
   height: 450px;
   -o-object-fit: cover;
@@ -470,7 +497,7 @@
      object-position: center;
 }
 
-.properties_body div div:hover {
+.properties_body div .properties_body__property:hover {
   background-color: rgba(255, 255, 255, 0.127);
 }
 
@@ -498,10 +525,54 @@
   width: 25%;
 }
 
-.home .homeUl li a {
+.home .homeUl li a, .home .homeUl li span {
   text-decoration: none;
   font-size: small;
   font-family: 'Italiana', serif;
+  cursor: pointer;
+}
+
+.about-us__div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+}
+
+.about-us__div__header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: -1;
+  opacity: .04;
+  font-size: 15em;
+  text-transform: lowercase;
+  text-align: center;
+}
+
+.about-us__div__whoweare {
+  position: absolute;
+  font-size: 8.5em;
+  line-height: 0.8em;
+  text-align: left;
+  left: 0;
+  top: 15%;
+}
+
+.about-us__div__para {
+  position: absolute;
+  width: 30%;
+  right: 0;
+  bottom: 20%;
+  text-align: right;
+  font-size: 1.1em;
+  line-height: 1.5em;
 }
 
 .contact .contact_page {
@@ -531,7 +602,7 @@
 
 .contact .contact_page__div h4 {
   font-size: 2.5em;
-  margin-bottom: 0.8em;
+  margin-bottom: 0.1em;
 }
 
 .contact .contact_page__div:nth-child(1) {
@@ -896,7 +967,6 @@ header .part_menu_bar__li__link__icon {
   text-transform: uppercase;
   font-size: 5em;
   line-height: 1em;
-  font-family: "Syne", sans-serif;
 }
 
 .mainNavigation h2 a {
@@ -1144,7 +1214,7 @@ select {
 .signup_page {
   position: absolute;
   top: 50%;
-  left: 40%;
+  left: 3%;
   -webkit-transform: translate(0%, -50%);
           transform: translate(0%, -50%);
   height: 80%;
@@ -1178,6 +1248,10 @@ select {
   padding-left: 0;
 }
 
+.signup_page .signup_form i {
+  -webkit-text-stroke: 0.1px white;
+}
+
 .signup_page .signup_form__div {
   width: 100%;
   margin-bottom: 1em;
@@ -1206,7 +1280,7 @@ select {
 }
 
 .signup_page .socials {
-  margin-top: 2em;
+  margin-top: 1.5em;
   text-align: center;
 }
 
@@ -1310,5 +1384,66 @@ select {
 
 .payment__div__button:hover {
   background-color: rgba(255, 255, 255, 0.241);
+}
+
+.wish_page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.wish_page h2 {
+  margin-top: 5%;
+  font-size: 6em;
+  width: 100%;
+}
+
+.wish_page p {
+  font-size: 1.7em;
+  color: #aaa8a8;
+}
+
+.wish_page p a {
+  text-decoration: underline;
+  font-weight: bolder;
+}
+
+.wish_page span {
+  font-size: 1.5em;
+  color: #c0bebe;
+}
+
+.wish_page span a {
+  text-decoration: underline;
+  font-weight: bolder;
+}
+
+.socials_bar {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+}
+
+.socials_bar__span {
+  height: 70px;
+  width: 75px;
+  display: inline-block;
+  padding: 1.8em 0 0 1.9em;
+}
+
+.socials_bar__span a {
+  font-size: 1.3em;
+}
+
+.socials_bar__span:nth-child(2), .socials_bar__span:nth-child(3) {
+  border-left: none;
 }
 /*# sourceMappingURL=main.css.map */
